@@ -16,7 +16,7 @@
 <meta property="og:description" content="LINUX I/O 简介在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。 ####基本I/O与标准I/O 类uni">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://github.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-04-18T06:15:56.850Z">
+<meta property="og:updated_time" content="2019-04-18T08:38:06.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LINUX I&#x2F;O 简介">
 <meta name="twitter:description" content="LINUX I/O 简介在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。 ####基本I/O与标准I/O 类uni">
@@ -166,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    10 分钟 读完 (大约 1551 个字)
+                    10 分钟 读完 (大约 1552 个字)
                 </span>
                 
                 
@@ -183,6 +183,7 @@
 <p>####基本I/O与标准I/O</p>
 <p>类unix系统中有直接对文件进行的操作函数read()/write()，<br>这些被称为不带缓冲的I/O；标准I/O在基本的I/O函数基础上增加了流和缓冲的概念，常用的函数有fopen/getc()/putc()等，标准I/O使用了缓冲的机制，缓冲又分为全缓冲和行缓冲，引入缓冲机制主要是为了提供文件读写的性能和效率。</p>
 <p>读文件调用getc()时,操作系统底层会使用read()函数，并从用户空间切换到内核空间，执行系统调用。首先将文件页从磁盘拷贝到页缓存中，由于页缓存处在内核空间，不能被用户进程直接寻址，所以还需要将页缓存中数据页再次拷贝到内存对应的用户空间中。这样，经过两次数据拷贝过程，进程才能获取到文件内容。写操作也是一样，用户态写数据时，待发送数据所在的缓冲区处于内核空间，用户态不能直接访问，必须先拷贝至内核空间对应的主存，才能写回磁盘中（延迟写回），因此写入也是需要两次数据拷贝。</p>
+<a id="more"></a>
 <p>####I/O模型</p>
 <ul>
 <li>I/O阻塞模型</li>
