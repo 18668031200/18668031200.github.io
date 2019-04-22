@@ -2,16 +2,15 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>标签 - ygdxd blog!</title>
+<title>标签: spring security - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
     <meta name="description" content="java and go">
-<meta name="keywords" content="spring security,icarus,linux">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ygdxd blog!">
-<meta property="og:url" content="http://github.com/18668031200.github.io/tags/index.html">
+<meta property="og:url" content="http://github.com/18668031200.github.io/tags/spring-security/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
 <meta property="og:description" content="java and go">
 <meta property="og:locale" content="zh-CN">
@@ -107,7 +106,7 @@
                 
                 <a class="navbar-item" href="/categories">Categories</a>
                 
-                <a class="navbar-item is-active" href="/tags">Tags</a>
+                <a class="navbar-item" href="/tags">Tags</a>
                 
                 <a class="navbar-item" href="/about">About</a>
                 
@@ -138,39 +137,89 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card widget">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                标签
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/tags">标签</a></li>
+            <li class="is-active"><a href="#" aria-current="page">spring security</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-04-22T08:00:25.000Z">2019-04-22</time>
                 
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/icarus/">
-                        <span class="tag">icarus</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
                 
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/linux/">
-                        <span class="tag">linux</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 452 个字)
+                </span>
                 
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/spring-security/">
-                        <span class="tag">spring security</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
                 
             </div>
         </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/04/22/ss-config1/">spring security 1 配置类加载</a>
+            
+        </h1>
+        <div class="content">
+            <p>##spring security 配置类加载</p>
+<p>####WebSecurityConfigurerAdapter</p>
+<p>一般我们在使用spring security作为我们安全验证的时候经常会编写配置类继承WebSecurityConfigurerAdapter，通过重写其中的config()类来自定义自己的安全验证流程。而HttpSecurity类则是其中非常重要的一个配置类，通过它你可以集成其他第三方的生态来满足自己的业务需求。</p>
+<p>####HttpSecurity</p>
+<p>在HttpSecurity 中我们可以看到很多配置方法比如</p>
+<figure class="highlight java hljs"><figcaption><span>HttpSecurit.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> OpenIDLoginConfigurer&lt;HttpSecurity&gt; <span class="hljs-title">openidLogin</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">return</span> getOrApply(<span class="hljs-keyword">new</span> OpenIDLoginConfigurer&lt;&gt;());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> HeadersConfigurer&lt;HttpSecurity&gt; <span class="hljs-title">headers</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">return</span> getOrApply(<span class="hljs-keyword">new</span> HeadersConfigurer&lt;&gt;());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>很明显它们都调用了getOrAppley方法</p>
+<figure class="highlight java hljs"><figcaption><span>HttpSecurit.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">private</span> &lt;C extends SecurityConfigurerAdapter&lt;DefaultSecurityFilterChain, HttpSecurity&gt;&gt; <span class="hljs-function">C <span class="hljs-title">getOrApply</span><span class="hljs-params">(</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">			C configurer)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="hljs-comment">//从已加载中的配置类根据class获取</span></span><br><span class="line">		C existingConfig = (C) getConfigurer(configurer.getClass());</span><br><span class="line">		<span class="hljs-comment">//不为空的或就返回已加载类</span></span><br><span class="line">		<span class="hljs-keyword">if</span> (existingConfig != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			<span class="hljs-keyword">return</span> existingConfig;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">return</span> apply(configurer);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>再看apply这个方法</p>
+<figure class="highlight java hljs"><figcaption><span>AbstractConfiguredSecurityBuilder</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> &lt;C extends SecurityConfigurerAdapter&lt;O, B&gt;&gt; <span class="hljs-function">C <span class="hljs-title">apply</span><span class="hljs-params">(C configurer)</span></span></span><br><span class="line"><span class="hljs-function">			<span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="hljs-comment">//添加后置处理器</span></span><br><span class="line">		configurer.addObjectPostProcessor(objectPostProcessor);</span><br><span class="line">		<span class="hljs-comment">//设置builder</span></span><br><span class="line">		configurer.setBuilder((B) <span class="hljs-keyword">this</span>);</span><br><span class="line">		<span class="hljs-comment">//把这个配置类添加到配置类集合中</span></span><br><span class="line">		add(configurer);</span><br><span class="line">		<span class="hljs-keyword">return</span> configurer;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>首先objectPostProcessor 应该是ObjectPostProcessorConfiguration这个配置类中的AutowireBeanFactoryObjectPostProcessor实例，它管理了一系列的SmartInitializingSingleton的afterSingletonsInstantiated方法和DisposableBean的destroy方法，以确保他们被调用。</p>
+<p>configurer.setBuilder((B) this); 则是把builder类的引用放到配置类中（SecurityConfigurerAdapter子类）这样配置类就可以通过getbuilder()方法来实现一系列操作。</p>
+<p>最后configer会被放入一个集合中通过doBuild()方法来进行加载初始化</p>
+<figure class="highlight java hljs"><figcaption><span>AbstractConfiguredSecurityBuilder</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> O <span class="hljs-title">doBuild</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-comment">//加锁</span></span><br><span class="line">		<span class="hljs-keyword">synchronized</span> (configurers) &#123;</span><br><span class="line">			buildState = BuildState.INITIALIZING;</span><br><span class="line"></span><br><span class="line">			beforeInit();</span><br><span class="line">			init();</span><br><span class="line"></span><br><span class="line">			buildState = BuildState.CONFIGURING;</span><br><span class="line"></span><br><span class="line">			beforeConfigure();</span><br><span class="line">			configure();</span><br><span class="line"></span><br><span class="line">			buildState = BuildState.BUILDING;</span><br><span class="line"></span><br><span class="line">			O result = performBuild();</span><br><span class="line"></span><br><span class="line">			buildState = BuildState.BUILT;</span><br><span class="line"></span><br><span class="line">			<span class="hljs-keyword">return</span> result;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>各种配置类有各自的实现，这样ss就可以扩展安全验证的机制了。</p>
+
+        </div>
+        
+        
+        
     </div>
-</div></div>
+</div>
+
+
+
+
+
+
+
+
+
+</div>
                 
 
 
