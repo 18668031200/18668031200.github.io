@@ -16,7 +16,7 @@
 <meta property="og:description" content="##spring security 配置类加载 ####WebSecurityConfigurerAdapter 一般我们在使用spring security作为我们安全验证的时候经常会编写配置类继承WebSecurityConfigurerAdapter，通过重写其中的config()类来自定义自己的安全验证流程。而HttpSecurity类则是其中非常重要的一个配置类，通过它你可以集成其他第三">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://github.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-04-22T08:10:55.396Z">
+<meta property="og:updated_time" content="2019-04-22T08:15:33.658Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring security 1 配置类加载">
 <meta name="twitter:description" content="##spring security 配置类加载 ####WebSecurityConfigurerAdapter 一般我们在使用spring security作为我们安全验证的时候经常会编写配置类继承WebSecurityConfigurerAdapter，通过重写其中的config()类来自定义自己的安全验证流程。而HttpSecurity类则是其中非常重要的一个配置类，通过它你可以集成其他第三">
@@ -168,7 +168,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 452 个字)
+                    3 分钟 读完 (大约 453 个字)
                 </span>
                 
                 
@@ -184,6 +184,7 @@
             <p>##spring security 配置类加载</p>
 <p>####WebSecurityConfigurerAdapter</p>
 <p>一般我们在使用spring security作为我们安全验证的时候经常会编写配置类继承WebSecurityConfigurerAdapter，通过重写其中的config()类来自定义自己的安全验证流程。而HttpSecurity类则是其中非常重要的一个配置类，通过它你可以集成其他第三方的生态来满足自己的业务需求。</p>
+<a id="more"></a>
 <p>####HttpSecurity</p>
 <p>在HttpSecurity 中我们可以看到很多配置方法比如</p>
 <figure class="highlight java hljs"><figcaption><span>HttpSecurit.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> OpenIDLoginConfigurer&lt;HttpSecurity&gt; <span class="hljs-title">openidLogin</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">return</span> getOrApply(<span class="hljs-keyword">new</span> OpenIDLoginConfigurer&lt;&gt;());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> HeadersConfigurer&lt;HttpSecurity&gt; <span class="hljs-title">headers</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">return</span> getOrApply(<span class="hljs-keyword">new</span> HeadersConfigurer&lt;&gt;());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
