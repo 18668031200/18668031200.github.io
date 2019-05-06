@@ -16,7 +16,7 @@
 <meta property="og:description" content="单调栈结构问题给定一个不含有重复值的数组arr,找到每一个i位置左边和右边离i位置最近且值比arr[i]小的位置，返回所有位置相应的信息。时间复杂度 O（N）。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://github.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-05-06T12:51:08.081Z">
+<meta property="og:updated_time" content="2019-05-06T12:53:12.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="monotonous">
 <meta name="twitter:description" content="单调栈结构问题给定一个不含有重复值的数组arr,找到每一个i位置左边和右边离i位置最近且值比arr[i]小的位置，返回所有位置相应的信息。时间复杂度 O（N）。">
@@ -168,7 +168,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 801 个字)
+                    5 分钟 读完 (大约 817 个字)
                 </span>
                 
                 
@@ -197,6 +197,7 @@
 <p>弹出位置6， 栈中它下面的位置是5(2), 所以ans[6] = {5, -1}<br>弹出位置5， 栈中它下面的位置是2(1), 所以ans[6] = {2, -1}<br>最后只剩下2(1)，因为栈中已经没有元素了，所以ans[2] = {-1,-1}<br>至此全部完成，整个流程中，每个位置都进栈一次，出栈一次，所以整个流程的时间复杂度为O（N）</p>
 <h2 id="重复问题"><a href="#重复问题" class="headerlink" title="重复问题"></a>重复问题</h2><p>当数组中的元素允许重复时，元素（位置）入栈时不变，如果值相同则将位置替换。</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java hljs"><figcaption><span>solution.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[][] getNearLessNoRepeat(<span class="hljs-keyword">int</span>[] arr)&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span>[][] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[arr.length][<span class="hljs-number">2</span>];</span><br><span class="line">        Stack&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">while</span> (!stack.empty() &amp;&amp; arr[stack.peek()] &gt; arr[i])&#123;</span><br><span class="line">                <span class="hljs-keyword">int</span> a = stack.pop();</span><br><span class="line">                <span class="hljs-keyword">int</span> left = stack.isEmpty() ? -<span class="hljs-number">1</span> : stack.peek();</span><br><span class="line">                res[a][<span class="hljs-number">0</span>] = left;</span><br><span class="line">                res[a][<span class="hljs-number">1</span>] = i;</span><br><span class="line">            &#125;</span><br><span class="line">            stack.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-comment">//遍历完</span></span><br><span class="line">        <span class="hljs-keyword">while</span> (!stack.isEmpty())&#123;</span><br><span class="line">            <span class="hljs-keyword">int</span> a = stack.pop();</span><br><span class="line">            <span class="hljs-keyword">int</span> left = stack.isEmpty() ? -<span class="hljs-number">1</span> : stack.peek();</span><br><span class="line">            res[a][<span class="hljs-number">0</span>] = left;</span><br><span class="line">            res[a][<span class="hljs-number">1</span>] = -<span class="hljs-number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p>左程云 《程序员算法面试指南》</p>
 
         </div>
         
