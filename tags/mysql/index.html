@@ -194,7 +194,7 @@
 <li>当一张表或者一个库出现问题时不会导致整个应用不能访问db.</li>
 <li>灰度？数据库性能。</li>
 </ol>
-<h2 id="WHERE-语句内使用函数走查询"><a href="#WHERE-语句内使用函数走查询" class="headerlink" title="WHERE 语句内使用函数走查询"></a>WHERE 语句内使用函数走查询</h2><p>select * from x where YEAR(date) = 2021</p>
+<h2 id="WHERE-语句内使用函数走索引"><a href="#WHERE-语句内使用函数走索引" class="headerlink" title="WHERE 语句内使用函数走索引"></a>WHERE 语句内使用函数走索引</h2><p>select * from x where YEAR(date) = 2021</p>
 <h2 id="降序索引"><a href="#降序索引" class="headerlink" title="降序索引 "></a>降序索引 </h2><p>mysql索引以前一直都是顺序，现在可以按降序存储。</p>
 <p>index idx_c1_c2(c1,c2 desc)<br>在索引反向扫描是 explain 语句extra中会显示Backward index scan</p>
 <h2 id="GROUP-BY-语句不在隐式排序"><a href="#GROUP-BY-语句不在隐式排序" class="headerlink" title="GROUP BY 语句不在隐式排序"></a>GROUP BY 语句不在隐式排序</h2><p>现在select group by 语句不会按照group by 字段进行隐式排序<br>mysql 5x 中explain 语句的extra 中有Using filesort</p>
