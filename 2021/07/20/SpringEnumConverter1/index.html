@@ -2,22 +2,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>标签: 算法 - ygdxd blog!</title>
+<title>关于spring boot在请求参数中使用枚举(enums)的几种方式 GET(1) - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="java and go">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ygdxd blog!">
-<meta property="og:url" content="http://github.com/18668031200.github.io/tags/算法/index.html">
+    <meta name="description" content="在日常开发中，我们都会在请求中使用某些枚举类型，这样不仅能够防止恶意客户端输入一些错误值，提高程序的健壮性，还可以提高代码的可读性和可维护性。当时当我们在request 参数中添加枚举后，spring boot并不会帮助我们自动解析成枚举，这就需要我们能够自己配置了。 1.直接使用字符串先定义一个接收输入的枚举类 RequestEnum.java12345678910111213141516171">
+<meta name="keywords" content="spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于spring boot在请求参数中使用枚举(enums)的几种方式 GET(1)">
+<meta property="og:url" content="http://github.com/18668031200.github.io/2021/07/20/SpringEnumConverter1/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
-<meta property="og:description" content="java and go">
+<meta property="og:description" content="在日常开发中，我们都会在请求中使用某些枚举类型，这样不仅能够防止恶意客户端输入一些错误值，提高程序的健壮性，还可以提高代码的可读性和可维护性。当时当我们在request 参数中添加枚举后，spring boot并不会帮助我们自动解析成枚举，这就需要我们能够自己配置了。 1.直接使用字符串先定义一个接收输入的枚举类 RequestEnum.java12345678910111213141516171">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://github.com/images/og_image.png">
+<meta property="og:updated_time" content="2021-07-20T13:59:05.932Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ygdxd blog!">
-<meta name="twitter:description" content="java and go">
+<meta name="twitter:title" content="关于spring boot在请求参数中使用枚举(enums)的几种方式 GET(1)">
+<meta name="twitter:description" content="在日常开发中，我们都会在请求中使用某些枚举类型，这样不仅能够防止恶意客户端输入一些错误值，提高程序的健壮性，还可以提高代码的可读性和可维护性。当时当我们在request 参数中添加枚举后，spring boot并不会帮助我们自动解析成枚举，这就需要我们能够自己配置了。 1.直接使用字符串先定义一个接收输入的枚举类 RequestEnum.java12345678910111213141516171">
 <meta name="twitter:image" content="http://github.com/images/og_image.png">
 
 
@@ -92,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                <img src="/images/logo.svg" alt="关于spring boot在请求参数中使用枚举(enums)的几种方式 GET(1)" height="28">
             
             </a>
         </div>
@@ -138,24 +140,13 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">算法</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
 <!-- 原创转载开始 -->
     
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
     
     <!-- 原创转载结束 -->
     
@@ -166,16 +157,22 @@
     <!-- 作者信息结束 -->
     
     
+        <i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv">*</span>次
+                        
 
            
  <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-05-06T12:49:57.000Z">2019-05-06</time>
+                <time class="level-item has-text-grey" datetime="2021-07-20T13:43:05.000Z">2021-07-20</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/spring/">spring</a>
+                </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 817 个字)
+                    6 分钟 读完 (大约 897 个字)
                 </span>
                 
                 
@@ -184,21 +181,43 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/05/06/monotonous/">monotonous</a>
+                关于spring boot在请求参数中使用枚举(enums)的几种方式 GET(1)
             
         </h1>
         <div class="content">
-            <h1 id="单调栈结构"><a href="#单调栈结构" class="headerlink" title="单调栈结构"></a>单调栈结构</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>给定一个不含有重复值的数组arr,找到每一个i位置左边和右边离i位置最近且值比arr[i]小的位置，返回所有位置相应的信息。<br>时间复杂度 O（N）。<br></p>
+            <p>在日常开发中，我们都会在请求中使用某些枚举类型，这样不仅能够防止恶意客户端输入一些错误值，提高程序的健壮性，还可以提高代码的可读性和可维护性。当时当我们在request 参数中添加枚举后，spring boot并不会帮助我们自动解析成枚举，这就需要我们能够自己配置了。</p>
+<h2 id="1-直接使用字符串"><a href="#1-直接使用字符串" class="headerlink" title="1.直接使用字符串"></a>1.直接使用字符串</h2><p>先定义一个接收输入的枚举类</p>
+<figure class="highlight java hljs"><figcaption><span>RequestEnum.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> RequestEnum &#123;</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * A</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    A(<span class="hljs-string">"A"</span>),</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * B</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    B(<span class="hljs-string">"B"</span>);</span><br><span class="line"></span><br><span class="line">    RequestEnum(String code) &#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> String code;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getCode</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCode</span><span class="hljs-params">(String code)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>接着定义一个接收GET请求的接口</p>
+<figure class="highlight java hljs"><figcaption><span>EnumController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@GetMapping</span></span><br><span class="line">    <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; getEnumRequest(<span class="hljs-meta">@RequestParam</span> RequestEnum A) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> ResponseEntity.ok(A.getCode());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p>这个时候我们启动项目，在浏览器输入<br><a href="http://localhost:8080/**?A=A" target="_blank" rel="noopener">http://localhost:8080/**?A=A</a></p>
+<p>这个时候能够看到浏览器显示一个字母A 说明spring boot 能够把我们的字符串成功转换成枚举RequestEnum。</p>
+<h1 id="2-使用Integer或者其他类型"><a href="#2-使用Integer或者其他类型" class="headerlink" title="2.使用Integer或者其他类型"></a>2.使用Integer或者其他类型</h1><p>我们再定义一个枚举<br><figure class="highlight java hljs"><figcaption><span>IntegerRequestEnum.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> IntegerRequestEnum &#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * A</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    A(<span class="hljs-number">1</span>),</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * B</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    B(<span class="hljs-number">2</span>);</span><br><span class="line"></span><br><span class="line">    IntegerRequestEnum(Integer code) &#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> Integer code;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getCode</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCode</span><span class="hljs-params">(Integer code)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>接着编写接收这个枚举的接口</p>
+<figure class="highlight java hljs"><figcaption><span>EnumController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">"int"</span>)</span><br><span class="line">    <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; getIntegerEnumRequest(<span class="hljs-meta">@RequestParam</span> IntegerRequestEnum A) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> ResponseEntity.ok(A.getCode());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p>这个时候我们在浏览器输入<br><a href="http://localhost:8080/**/int?A=2" target="_blank" rel="noopener">http://localhost:8080/**/int?A=2</a></p>
+<p>发现浏览器返回浏览错误信息</p>
+<p>There was an unexpected error (type=Bad Request, status=400).</p>
+<h1 id="3-解析"><a href="#3-解析" class="headerlink" title="3.解析"></a>3.解析</h1><p>为什么String类型可以直接解析成枚举而字符串不能呢？<br>我们看下他是怎么解析的。<br><figure class="highlight java hljs"><figcaption><span>InvocableHandlerMethod.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">protected</span> Object[] getMethodArgumentValues(NativeWebRequest request, <span class="hljs-meta">@Nullable</span> ModelAndViewContainer mavContainer,</span><br><span class="line">			Object... providedArgs) <span class="hljs-keyword">throws</span> Exception &#123;</span><br><span class="line">			</span><br><span class="line">			<span class="hljs-keyword">if</span> (ObjectUtils.isEmpty(getMethodParameters())) &#123;</span><br><span class="line">			<span class="hljs-keyword">return</span> EMPTY_ARGS;</span><br><span class="line">		&#125;</span><br><span class="line">		MethodParameter[] parameters = getMethodParameters();</span><br><span class="line">		Object[] args = <span class="hljs-keyword">new</span> Object[parameters.length];</span><br><span class="line">		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; parameters.length; i++) &#123;</span><br><span class="line">			MethodParameter parameter = parameters[i];</span><br><span class="line">			<span class="hljs-comment">// 省略部分代码</span></span><br><span class="line">			<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">				args[i] = <span class="hljs-keyword">this</span>.resolvers.resolveArgument(parameter, mavContainer, request, <span class="hljs-keyword">this</span>.dataBinderFactory);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">				<span class="hljs-comment">//错误处理			&#125;</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">return</span> args;</span><br><span class="line">	</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>在InvocableHandlerMethod.java 这个类里spring 通过反射帮我们获取了方法接收的参数的类型，然后通过resolvers去查找处理(里面使用map保存,增加速度).最终调用了RequestParamMethodArgumentResolver的父类AbstractNamedValueMethodArgumentResolver来处理。</p>
+<figure class="highlight java hljs"><figcaption><span>AbstractNamedValueMethodArgumentResolver.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> Object <span class="hljs-title">resolveArgument</span><span class="hljs-params">(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">			NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">			</span><br><span class="line">			<span class="hljs-comment">// 获取值</span></span><br><span class="line">			Object arg = resolveName(resolvedName.toString(), nestedParameter, webRequest);</span><br><span class="line">			<span class="hljs-comment">// @RequestParam 的值处理</span></span><br><span class="line">			<span class="hljs-keyword">if</span> (arg == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (namedValueInfo.defaultValue != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">				arg = resolveStringValue(namedValueInfo.defaultValue);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-comment">// 在这里optional是可以为空的</span></span><br><span class="line">			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (namedValueInfo.required &amp;&amp; !nestedParameter.isOptional()) &#123;</span><br><span class="line">				handleMissingValue(namedValueInfo.name, nestedParameter, webRequest);</span><br><span class="line">			&#125;</span><br><span class="line">			arg = handleNullValue(namedValueInfo.name, arg, nestedParameter.getNestedParameterType());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">""</span>.equals(arg) &amp;&amp; namedValueInfo.defaultValue != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			arg = resolveStringValue(namedValueInfo.defaultValue);</span><br><span class="line">		&#125;</span><br><span class="line">			</span><br><span class="line">		<span class="hljs-comment">// 在这里处理成我们想要的枚举类型</span></span><br><span class="line">		arg = binder.convertIfNecessary(arg, parameter.getParameterType(), parameter);</span><br><span class="line">				</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在binder.convertIfNecessary调用方法中我们最终调用了TypeConverterDelegate这个代理类的convertIfNecessary这个方法.这里面最终执行了如下代码<br><figure class="highlight java hljs"><figcaption><span>TypeConverterDelegate.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> (conversionService.canConvert(sourceTypeDesc, typeDescriptor)) &#123;</span><br><span class="line">				<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">					<span class="hljs-keyword">return</span> (T) conversionService.convert(newValue, sourceTypeDesc, typeDescriptor);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="hljs-keyword">catch</span> (ConversionFailedException ex) &#123;</span><br><span class="line">					<span class="hljs-comment">// fallback to default conversion logic below</span></span><br><span class="line">					conversionAttemptEx = ex;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>在这里最终会产生异常.<br>这里面会调用String-&gt;Enum 这个converter,它是用了enum的构造方法进行转化.但是我们的IntegerRequestEnum的构造方法是Integer.<br>另外我们通过debug还能看到conversionService的converters里一共缓存了124个converter.</p>
+<p><img src="images/converters.png" alt></p>
+<p>所以如果我们需要解析我们的enum就需要在这个conterters里增加我们的自定义的converter.<br><figure class="highlight java hljs"><figcaption><span>WebConfig.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Configuration</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WebConfig</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addFormatters</span><span class="hljs-params">(FormatterRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addConverter(String.class, IntegerRequestEnum.class, <span class="hljs-keyword">new</span> StringToIntegerEnumConverter());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>增加配置当我们再次访问<a href="http://localhost:8080/**/int?A=2之后页面就能正常返回" target="_blank" rel="noopener">http://localhost:8080/**/int?A=2之后页面就能正常返回</a>.</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/05/06/monotonous/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/spring/">spring</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -208,7 +227,19 @@
 
 
 
-
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/07/15/mysql8/">
+                <span class="level-item">mysql8</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 
@@ -925,7 +956,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                    <img src="/images/logo.svg" alt="关于spring boot在请求参数中使用枚举(enums)的几种方式 GET(1)" height="28">
                 
                 </a>
                 <p class="is-size-7">
