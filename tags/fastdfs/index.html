@@ -2,7 +2,7 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>标签: mysql - ygdxd blog!</title>
+<title>标签: fastdfs - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
@@ -10,7 +10,7 @@
     <meta name="description" content="java and go">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ygdxd blog!">
-<meta property="og:url" content="http://github.com/18668031200.github.io/tags/mysql/index.html">
+<meta property="og:url" content="http://github.com/18668031200.github.io/tags/fastdfs/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
 <meta property="og:description" content="java and go">
 <meta property="og:locale" content="zh-CN">
@@ -142,7 +142,7 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
             <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">mysql</a></li>
+            <li class="is-active"><a href="#" aria-current="page">fastdfs</a></li>
         </ul>
         </nav>
     </div>
@@ -169,17 +169,17 @@
 
            
  <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-07-15T14:10:51.000Z">2021-07-15</time>
+                <time class="level-item has-text-grey" datetime="2021-07-29T15:07:10.000Z">2021-07-29</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
+                <a class="has-link-grey -link" href="/categories/fastdfs/">fastdfs</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 480 个字)
+                    8 分钟 读完 (大约 1254 个字)
                 </span>
                 
                 
@@ -188,28 +188,45 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2021/07/15/mysql8/">mysql8</a>
+                <a class="has-link-black-ter" href="/2021/07/29/fastdfs/">fastdfs部署及应用</a>
             
         </h1>
         <div class="content">
-            <h1 id="mysql-8-新特性"><a href="#mysql-8-新特性" class="headerlink" title="mysql 8 新特性"></a>mysql 8 新特性</h1><p>mysql分库分表并不是一定从性能的角度上需求，大部分场景是为了更好的管理数据</p>
-<ol>
-<li>数据量大时需要对数据进行新加字段进行加以归类标记，DDL会锁表导致长时间堵塞。(mysql 8 特性会大幅度缩短这个时间，同时mysql 8增加了备份锁，减少备份的时间)</li>
-<li>当一张表或者一个库出现问题时不会导致整个应用不能访问db.</li>
-<li>灰度？数据库性能。</li>
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>FastDFS是一个开源的轻量级分布式文件系统,为互联网应用量身定做,简单、灵活、高效,采用C语言开发,由阿里巴巴开发并开源.<br>FastDFS对文件进行管理,功能包括：文件存储、文件同步、文件访问(文件上传、文件下载、文件删除)等,解决了大容量文件存储的问题,特别适合以文件为载体的在线服务,如相册网站、文档网站、图片网站、视频网站等等.<br>FastDFS充分考虑了冗余备份、线性扩容等机制,并注重高可用、高性能等指标,使用FastDFS很容易搭建一套高性能的文件服务器集群提供文件上传、下载等服务.</p>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>FastDFS文件系统由两大部分构成,一个是客户端,一个是服务端.<br>客户端通常就是我们的程序,我们可以使用第三方的扩展包去连接fastdfs.</p>
+<p>跟踪器(tracker)主要做调度工作,在内存中记录集群中存储节点storage的状态信息,是前端Client和后端存储节点storage的枢纽.<br>因为相关信息全部在内存中,Tracker server的性能非常高,一个较大的集群(比如上百个group)中有3台就足够了.<br>每个 storage 在启动后会连接 Tracker，告知自己所属 group 等信息，并保持周期性心跳。storage以group为单位,每个group里可以有多个storage单位.</p>
+<p>存储节点(storage)用于存储文件,包括文件和文件属性(meta data)都保存到存储服务器磁盘上,完成文件管理的所有功能:文件存储、文件同步和提供文件访问等.</p>
+<h2 id="1-下载镜像"><a href="#1-下载镜像" class="headerlink" title="1.下载镜像"></a>1.下载镜像</h2><p>执行命令docker search fastdfs</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NAME                           DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED</span><br><span class="line">season/fastdfs                 FastDFS                                         77</span><br><span class="line">ygqygq2/fastdfs-nginx          整合了nginx的fastdfs                                27                                      [OK]</span><br><span class="line">luhuiguo/fastdfs               FastDFS is an open source high performance d…   25                                      [OK]</span><br><span class="line">morunchang/fastdfs             A FastDFS image                                 20</span><br><span class="line">delron/fastdfs                                                                 13</span><br><span class="line">qbanxiaoli/fastdfs             FastDFS+FastDHT(单机+集群版)                         12                                      [OK]</span><br></pre></td></tr></table></figure>
+<p>这里根据star数选取最高的 season/fastdfs,打开docker hub搜索这个镜像<a href="https://hub.docker.com/r/season/fastdfs" target="_blank" rel="noopener">https://hub.docker.com/r/season/fastdfs</a><br>里面有具体使用这个镜像的方法教程,这里点击tag页选取最新的版本1.2.<br>使用docker pull season/fastdfs:1.2等待docker 帮我们自动下载好镜像.</p>
+<ol start="2">
+<li>启动tracker和storage服务</li>
 </ol>
-<h2 id="WHERE-语句内使用函数走索引"><a href="#WHERE-语句内使用函数走索引" class="headerlink" title="WHERE 语句内使用函数走索引"></a>WHERE 语句内使用函数走索引</h2><p>select * from x where YEAR(date) = 2021</p>
-<h2 id="降序索引"><a href="#降序索引" class="headerlink" title="降序索引 "></a>降序索引 </h2><p>mysql索引以前一直都是顺序，现在可以按降序存储。</p>
-<p>index idx_c1_c2(c1,c2 desc)<br>在索引反向扫描是 explain 语句extra中会显示Backward index scan</p>
-<h2 id="GROUP-BY-语句不在隐式排序"><a href="#GROUP-BY-语句不在隐式排序" class="headerlink" title="GROUP BY 语句不在隐式排序"></a>GROUP BY 语句不在隐式排序</h2><p>现在select group by 语句不会按照group by 字段进行隐式排序<br>mysql 5x 中explain 语句的extra 中有Using filesort</p>
-<h2 id="在高并发的情况下性能提升"><a href="#在高并发的情况下性能提升" class="headerlink" title="在高并发的情况下性能提升"></a>在高并发的情况下性能提升</h2><p>在高并发的情况下，只读和更新操作性能提升</p>
-<h2 id="默认字符集为utf8mb4"><a href="#默认字符集为utf8mb4" class="headerlink" title="默认字符集为utf8mb4"></a>默认字符集为utf8mb4</h2><p>修改默认字符集，同时查询性能增加</p>
-<h2 id="增加SKIP-LOCKED-和NOWAIT"><a href="#增加SKIP-LOCKED-和NOWAIT" class="headerlink" title="增加SKIP LOCKED 和NOWAIT"></a>增加SKIP LOCKED 和NOWAIT</h2><p>select <em> from x where id = 1 for update skip locked<br>select </em> from x where id = 1 for update skip nowait</p>
-<p>前者查询加锁的记录被其他线程持有锁时会直接返回空。<br>后者查询加锁的记录被其他线程持有锁时会直接报错。<br>在高并发下比如抢红包等场景下使用。</p>
-<h2 id="文档数据库"><a href="#文档数据库" class="headerlink" title="文档数据库"></a>文档数据库</h2><p>mysql 支持nosql的crud.同时提供了JSON函数</p>
-<h2 id="新增统计函数和GIS"><a href="#新增统计函数和GIS" class="headerlink" title="新增统计函数和GIS"></a>新增统计函数和GIS</h2><p>窗口函数。(不常用)<br>GIS 地理信息(不常用)</p>
-<h2 id="DDL-原子性"><a href="#DDL-原子性" class="headerlink" title="DDL 原子性"></a>DDL 原子性</h2><p>数据字典集中存储，增强crash safe能力。</p>
-<h2 id="MGR-增强"><a href="#MGR-增强" class="headerlink" title="MGR 增强"></a>MGR 增强</h2><p>MGR 集群的健壮和稳定性加强。</p>
+<hr>
+<p>首先创建对应的文件夹<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/fastdfs</span><br></pre></td></tr></table></figure></p>
+<p>启动tracker </p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name tracker \</span><br><span class="line">-p 22122:22122 \</span><br><span class="line">--restart=always --net host \</span><br><span class="line">-v /home/ucmed/fastdfs/tracker/data:/fastdfs/tracker/data \</span><br><span class="line">season/fastdfs:1.2 tracker</span><br></pre></td></tr></table></figure>
+<p>启动storage服务</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name storage \</span><br><span class="line">--restart=always --net host \</span><br><span class="line">-v /home/fastdfs/data/storage:/fastdfs/store_path \</span><br><span class="line">-e TRACKER_SERVER=&quot;192.168.3.134:22122&quot; \</span><br><span class="line">season/fastdfs:1.2 storage</span><br></pre></td></tr></table></figure>
+<p>这里笔者曾使用TRACKER_SERVER=”127.0.0.1” 但是启动服务使用命令docker logs发现程序并为成功启动.<br>提示TRACKER_SERVER不能设置成127.0.0.1.</p>
+<p>搭建完2个容器后进入tracker 进行测试<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it tracker bash</span><br><span class="line">cd /etc/fdfs/</span><br><span class="line">ls</span><br><span class="line">cat client.conf</span><br></pre></td></tr></table></figure></p>
+<p>输出的 client.conf 都是默认配置，我们可以找到其中的 track_server 将默认的地址改成我们设置的storage地址<br>执行命令<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker cp trakcer:/etc/fdfs/client.conf /home/fastdfs/</span><br><span class="line">vim client.conf</span><br><span class="line">docker cp /home/fastdfs/client.conf tracker:/etc/fdfs</span><br></pre></td></tr></table></figure></p>
+<p>修改其中的track_server地址</p>
+<p>执行命令<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it tracker bash</span><br><span class="line">fdfs_monitor /etc/fdfs/client.conf</span><br></pre></td></tr></table></figure></p>
+<p>控制台会输出DEBUG信息<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEBUG - base_path=/fastdfs/client, connect_timeout=30, network_timeout=60, tracker_server_count=1, anti_steal_token=0, anti_steal_secret_key length=0, use_connection_pool=0, g_connection_pool_max_idle_time=3600s, use_storage_id=0, storage server id count: 0</span><br></pre></td></tr></table></figure></p>
+<p>表示storage已经成功的连上了我们的tracker.<br>之后尝试上传文件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#fdfs_upload_file /etc/fdfs/client.conf **.txt</span><br><span class="line">group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt</span><br></pre></td></tr></table></figure></p>
+<p>这样fastdfs就搭建完成了</p>
+<h2 id="3-nginx-服务"><a href="#3-nginx-服务" class="headerlink" title="3.nginx 服务"></a>3.nginx 服务</h2><p>如果想要访问我们上传的文件 就需要启动nginx modual.拷贝出nginx配置文件 修改其中的location节点</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker cp storage:/etc/nginx/conf/nginx.conf /home/fastdfs/nginx/</span><br><span class="line"></span><br><span class="line">docker run -id --name fastdfs_nginx \</span><br><span class="line">--restart=always \</span><br><span class="line">-v /home/fastdfs/data/storage:/fastdfs/store_path \</span><br><span class="line">-v /home/fastdfs/nginx.conf:/etc/nginx/conf/nginx.conf \</span><br><span class="line">-p 80:80 \</span><br><span class="line">-e TRACKER_SERVER=192.168.3.134:22122 \</span><br><span class="line">season/fastdfs:1.2 nginx</span><br></pre></td></tr></table></figure>
+<p>这时候打开浏览器访问<a href="http://192.168.3.134/group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt" target="_blank" rel="noopener">http://192.168.3.134/group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt</a><br>出现刚刚上传的文件信息.</p>
+<h2 id="4-spring-boo-集成"><a href="#4-spring-boo-集成" class="headerlink" title="4.spring boo 集成"></a>4.spring boo 集成</h2><p>增加maven 依赖<br><figure class="highlight hljs"><figcaption><span>pom.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.github.tobato&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;fastdfs-client&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.27.2&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在Maven当中配置依赖以后，SpringBoot项目将会自动导入FastDFS依赖<br>添加config</p>
+<figure class="highlight java hljs"><figcaption><span>ComponetImport.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 导入FastDFS-Client组件</span></span><br><span class="line"><span class="hljs-comment"> * </span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> tobato</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-meta">@Configuration</span></span><br><span class="line"><span class="hljs-meta">@Import</span>(FdfsClientConfig.class)</span><br><span class="line"><span class="hljs-comment">// 解决jmx重复注册bean的问题</span></span><br><span class="line"><span class="hljs-meta">@EnableMBeanExport</span>(registration = RegistrationPolicy.IGNORE_EXISTING)</span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ComponetImport</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// 导入依赖组件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在application.yml当中配置Fdfs相关参数</p>
+<figure class="highlight java hljs"><figcaption><span>application.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fdfs:</span><br><span class="line">  connect-timeout: <span class="hljs-number">500</span></span><br><span class="line">  so-timeout: <span class="hljs-number">5000</span></span><br><span class="line">  thumb-image:</span><br><span class="line">    width: <span class="hljs-number">200</span></span><br><span class="line">    height: <span class="hljs-number">200</span></span><br><span class="line">  tracker-list:</span><br><span class="line">    - <span class="hljs-number">192.168</span>.3.134:<span class="hljs-number">22122</span></span><br><span class="line">  pool:</span><br><span class="line">    max-total: <span class="hljs-number">3</span></span><br><span class="line">    max-total-per-key: <span class="hljs-number">5</span></span><br><span class="line">    max-idle-per-key: <span class="hljs-number">3</span></span><br></pre></td></tr></table></figure>
+<p>编写上传接口</p>
+<figure class="highlight java hljs"><figcaption><span>FastDfsController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/dfs"</span>)</span><br><span class="line"><span class="hljs-meta">@RestController</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FastDfsController</span> </span>&#123;</span><br><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> FastFileStorageClient fastFileStorageClient;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FastDfsController</span><span class="hljs-params">(FastFileStorageClient fastFileStorageClient)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.fastFileStorageClient = fastFileStorageClient;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-meta">@PostMapping</span>(value = <span class="hljs-string">"/upload"</span>,consumes = &#123;MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.IMAGE_PNG_VALUE&#125;)</span><br><span class="line">        <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; upload(MultipartFile multipartFile) <span class="hljs-keyword">throws</span> IOException &#123;</span><br><span class="line">    </span><br><span class="line">            String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());</span><br><span class="line">            FastFile fastFile = <span class="hljs-keyword">new</span> FastFile(multipartFile.getInputStream(), multipartFile.getSize(), extension, <span class="hljs-keyword">new</span> HashSet&lt;&gt;());</span><br><span class="line">            StorePath storePath = fastFileStorageClient.uploadFile(fastFile);</span><br><span class="line">            <span class="hljs-keyword">return</span> ResponseEntity.ok(storePath.getFullPath());</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用我们的接口后便会返回对应的路径.</p>
 
         </div>
         

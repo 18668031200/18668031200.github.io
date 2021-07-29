@@ -159,6 +159,101 @@
 
            
  <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-07-29T15:07:10.000Z">2021-07-29</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/fastdfs/">fastdfs</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    8 分钟 读完 (大约 1254 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/07/29/fastdfs/">fastdfs部署及应用</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>FastDFS是一个开源的轻量级分布式文件系统,为互联网应用量身定做,简单、灵活、高效,采用C语言开发,由阿里巴巴开发并开源.<br>FastDFS对文件进行管理,功能包括：文件存储、文件同步、文件访问(文件上传、文件下载、文件删除)等,解决了大容量文件存储的问题,特别适合以文件为载体的在线服务,如相册网站、文档网站、图片网站、视频网站等等.<br>FastDFS充分考虑了冗余备份、线性扩容等机制,并注重高可用、高性能等指标,使用FastDFS很容易搭建一套高性能的文件服务器集群提供文件上传、下载等服务.</p>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>FastDFS文件系统由两大部分构成,一个是客户端,一个是服务端.<br>客户端通常就是我们的程序,我们可以使用第三方的扩展包去连接fastdfs.</p>
+<p>跟踪器(tracker)主要做调度工作,在内存中记录集群中存储节点storage的状态信息,是前端Client和后端存储节点storage的枢纽.<br>因为相关信息全部在内存中,Tracker server的性能非常高,一个较大的集群(比如上百个group)中有3台就足够了.<br>每个 storage 在启动后会连接 Tracker，告知自己所属 group 等信息，并保持周期性心跳。storage以group为单位,每个group里可以有多个storage单位.</p>
+<p>存储节点(storage)用于存储文件,包括文件和文件属性(meta data)都保存到存储服务器磁盘上,完成文件管理的所有功能:文件存储、文件同步和提供文件访问等.</p>
+<h2 id="1-下载镜像"><a href="#1-下载镜像" class="headerlink" title="1.下载镜像"></a>1.下载镜像</h2><p>执行命令docker search fastdfs</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NAME                           DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED</span><br><span class="line">season/fastdfs                 FastDFS                                         77</span><br><span class="line">ygqygq2/fastdfs-nginx          整合了nginx的fastdfs                                27                                      [OK]</span><br><span class="line">luhuiguo/fastdfs               FastDFS is an open source high performance d…   25                                      [OK]</span><br><span class="line">morunchang/fastdfs             A FastDFS image                                 20</span><br><span class="line">delron/fastdfs                                                                 13</span><br><span class="line">qbanxiaoli/fastdfs             FastDFS+FastDHT(单机+集群版)                         12                                      [OK]</span><br></pre></td></tr></table></figure>
+<p>这里根据star数选取最高的 season/fastdfs,打开docker hub搜索这个镜像<a href="https://hub.docker.com/r/season/fastdfs" target="_blank" rel="noopener">https://hub.docker.com/r/season/fastdfs</a><br>里面有具体使用这个镜像的方法教程,这里点击tag页选取最新的版本1.2.<br>使用docker pull season/fastdfs:1.2等待docker 帮我们自动下载好镜像.</p>
+<ol start="2">
+<li>启动tracker和storage服务</li>
+</ol>
+<hr>
+<p>首先创建对应的文件夹<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/fastdfs</span><br></pre></td></tr></table></figure></p>
+<p>启动tracker </p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name tracker \</span><br><span class="line">-p 22122:22122 \</span><br><span class="line">--restart=always --net host \</span><br><span class="line">-v /home/ucmed/fastdfs/tracker/data:/fastdfs/tracker/data \</span><br><span class="line">season/fastdfs:1.2 tracker</span><br></pre></td></tr></table></figure>
+<p>启动storage服务</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name storage \</span><br><span class="line">--restart=always --net host \</span><br><span class="line">-v /home/fastdfs/data/storage:/fastdfs/store_path \</span><br><span class="line">-e TRACKER_SERVER=&quot;192.168.3.134:22122&quot; \</span><br><span class="line">season/fastdfs:1.2 storage</span><br></pre></td></tr></table></figure>
+<p>这里笔者曾使用TRACKER_SERVER=”127.0.0.1” 但是启动服务使用命令docker logs发现程序并为成功启动.<br>提示TRACKER_SERVER不能设置成127.0.0.1.</p>
+<p>搭建完2个容器后进入tracker 进行测试<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it tracker bash</span><br><span class="line">cd /etc/fdfs/</span><br><span class="line">ls</span><br><span class="line">cat client.conf</span><br></pre></td></tr></table></figure></p>
+<p>输出的 client.conf 都是默认配置，我们可以找到其中的 track_server 将默认的地址改成我们设置的storage地址<br>执行命令<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker cp trakcer:/etc/fdfs/client.conf /home/fastdfs/</span><br><span class="line">vim client.conf</span><br><span class="line">docker cp /home/fastdfs/client.conf tracker:/etc/fdfs</span><br></pre></td></tr></table></figure></p>
+<p>修改其中的track_server地址</p>
+<p>执行命令<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it tracker bash</span><br><span class="line">fdfs_monitor /etc/fdfs/client.conf</span><br></pre></td></tr></table></figure></p>
+<p>控制台会输出DEBUG信息<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEBUG - base_path=/fastdfs/client, connect_timeout=30, network_timeout=60, tracker_server_count=1, anti_steal_token=0, anti_steal_secret_key length=0, use_connection_pool=0, g_connection_pool_max_idle_time=3600s, use_storage_id=0, storage server id count: 0</span><br></pre></td></tr></table></figure></p>
+<p>表示storage已经成功的连上了我们的tracker.<br>之后尝试上传文件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#fdfs_upload_file /etc/fdfs/client.conf **.txt</span><br><span class="line">group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt</span><br></pre></td></tr></table></figure></p>
+<p>这样fastdfs就搭建完成了</p>
+<h2 id="3-nginx-服务"><a href="#3-nginx-服务" class="headerlink" title="3.nginx 服务"></a>3.nginx 服务</h2><p>如果想要访问我们上传的文件 就需要启动nginx modual.拷贝出nginx配置文件 修改其中的location节点</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker cp storage:/etc/nginx/conf/nginx.conf /home/fastdfs/nginx/</span><br><span class="line"></span><br><span class="line">docker run -id --name fastdfs_nginx \</span><br><span class="line">--restart=always \</span><br><span class="line">-v /home/fastdfs/data/storage:/fastdfs/store_path \</span><br><span class="line">-v /home/fastdfs/nginx.conf:/etc/nginx/conf/nginx.conf \</span><br><span class="line">-p 80:80 \</span><br><span class="line">-e TRACKER_SERVER=192.168.3.134:22122 \</span><br><span class="line">season/fastdfs:1.2 nginx</span><br></pre></td></tr></table></figure>
+<p>这时候打开浏览器访问<a href="http://192.168.3.134/group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt" target="_blank" rel="noopener">http://192.168.3.134/group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt</a><br>出现刚刚上传的文件信息.</p>
+<h2 id="4-spring-boo-集成"><a href="#4-spring-boo-集成" class="headerlink" title="4.spring boo 集成"></a>4.spring boo 集成</h2><p>增加maven 依赖<br><figure class="highlight hljs"><figcaption><span>pom.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.github.tobato&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;fastdfs-client&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.27.2&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在Maven当中配置依赖以后，SpringBoot项目将会自动导入FastDFS依赖<br>添加config</p>
+<figure class="highlight java hljs"><figcaption><span>ComponetImport.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 导入FastDFS-Client组件</span></span><br><span class="line"><span class="hljs-comment"> * </span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> tobato</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-meta">@Configuration</span></span><br><span class="line"><span class="hljs-meta">@Import</span>(FdfsClientConfig.class)</span><br><span class="line"><span class="hljs-comment">// 解决jmx重复注册bean的问题</span></span><br><span class="line"><span class="hljs-meta">@EnableMBeanExport</span>(registration = RegistrationPolicy.IGNORE_EXISTING)</span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ComponetImport</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// 导入依赖组件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在application.yml当中配置Fdfs相关参数</p>
+<figure class="highlight java hljs"><figcaption><span>application.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fdfs:</span><br><span class="line">  connect-timeout: <span class="hljs-number">500</span></span><br><span class="line">  so-timeout: <span class="hljs-number">5000</span></span><br><span class="line">  thumb-image:</span><br><span class="line">    width: <span class="hljs-number">200</span></span><br><span class="line">    height: <span class="hljs-number">200</span></span><br><span class="line">  tracker-list:</span><br><span class="line">    - <span class="hljs-number">192.168</span>.3.134:<span class="hljs-number">22122</span></span><br><span class="line">  pool:</span><br><span class="line">    max-total: <span class="hljs-number">3</span></span><br><span class="line">    max-total-per-key: <span class="hljs-number">5</span></span><br><span class="line">    max-idle-per-key: <span class="hljs-number">3</span></span><br></pre></td></tr></table></figure>
+<p>编写上传接口</p>
+<figure class="highlight java hljs"><figcaption><span>FastDfsController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/dfs"</span>)</span><br><span class="line"><span class="hljs-meta">@RestController</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FastDfsController</span> </span>&#123;</span><br><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> FastFileStorageClient fastFileStorageClient;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FastDfsController</span><span class="hljs-params">(FastFileStorageClient fastFileStorageClient)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.fastFileStorageClient = fastFileStorageClient;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-meta">@PostMapping</span>(value = <span class="hljs-string">"/upload"</span>,consumes = &#123;MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.IMAGE_PNG_VALUE&#125;)</span><br><span class="line">        <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; upload(MultipartFile multipartFile) <span class="hljs-keyword">throws</span> IOException &#123;</span><br><span class="line">    </span><br><span class="line">            String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());</span><br><span class="line">            FastFile fastFile = <span class="hljs-keyword">new</span> FastFile(multipartFile.getInputStream(), multipartFile.getSize(), extension, <span class="hljs-keyword">new</span> HashSet&lt;&gt;());</span><br><span class="line">            StorePath storePath = fastFileStorageClient.uploadFile(fastFile);</span><br><span class="line">            <span class="hljs-keyword">return</span> ResponseEntity.ok(storePath.getFullPath());</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用我们的接口后便会返回对应的路径.</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2021-07-23T11:14:20.000Z">2021-07-23</time>
                 
                 <div class="level-item">
@@ -784,72 +879,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-22T08:00:25.000Z">2019-04-22</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 453 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/04/22/ss-config1/">spring security 1 配置类加载</a>
-            
-        </h1>
-        <div class="content">
-            <p>##spring security 配置类加载</p>
-<p>####WebSecurityConfigurerAdapter</p>
-<p>一般我们在使用spring security作为我们安全验证的时候经常会编写配置类继承WebSecurityConfigurerAdapter，通过重写其中的config()类来自定义自己的安全验证流程。而HttpSecurity类则是其中非常重要的一个配置类，通过它你可以集成其他第三方的生态来满足自己的业务需求。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/22/ss-config1/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -912,7 +941,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        12
+                        13
                     </p>
                 </div>
             </div>
@@ -922,7 +951,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        3
+                        4
                     </p>
                 </div>
             </div>
@@ -932,7 +961,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        8
+                        9
                     </p>
                 </div>
             </div>
@@ -1030,6 +1059,14 @@
             </h3>
             <ul class="menu-list">
             <li>
+        <a class="level is-marginless" href="/categories/fastdfs/">
+            <span class="level-start">
+                <span class="level-item">fastdfs</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/mysql/">
             <span class="level-start">
                 <span class="level-item">mysql</span>
@@ -1065,7 +1102,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -1079,6 +1116,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2021/07/29/fastdfs/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="fastdfs部署及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-29T15:07:10.000Z">2021-07-29</time></div>
+                    <a href="/2021/07/29/fastdfs/" class="has-link-black-ter is-size-6">fastdfs部署及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/fastdfs/">fastdfs</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1156,25 +1212,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/05/14/ContextStartedEvent/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="monotonous">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-05-14T15:43:57.000Z">2021-05-14</time></div>
-                    <a href="/2021/05/14/ContextStartedEvent/" class="has-link-black-ter is-size-6">monotonous</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1193,7 +1230,7 @@
                     <span class="level-item">七月 2021</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1254,6 +1291,13 @@
                 标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/fastdfs/">
+                        <span class="tag">fastdfs</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/icarus/">
@@ -1336,6 +1380,25 @@
         
         <article class="media">
             
+            <a href="/2021/07/29/fastdfs/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="fastdfs部署及应用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-29T15:07:10.000Z">2021-07-29</time></div>
+                    <a href="/2021/07/29/fastdfs/" class="has-link-black-ter is-size-6">fastdfs部署及应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/fastdfs/">fastdfs</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2021/07/23/SpringBean/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="SpringBean">
@@ -1410,25 +1473,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/05/14/ContextStartedEvent/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="monotonous">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-05-14T15:43:57.000Z">2021-05-14</time></div>
-                    <a href="/2021/05/14/ContextStartedEvent/" class="has-link-black-ter is-size-6">monotonous</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1447,7 +1491,7 @@
                     <span class="level-item">七月 2021</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1508,6 +1552,13 @@
                 标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/fastdfs/">
+                        <span class="tag">fastdfs</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/icarus/">
