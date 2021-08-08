@@ -159,6 +159,71 @@
 
            
  <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-04-28T07:09:41.000Z">2019-04-28</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    8 分钟 读完 (大约 1131 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/04/28/DirectByteBuffer/">DirectByteBuffer</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="堆外内存DirectByteBuffer"><a href="#堆外内存DirectByteBuffer" class="headerlink" title="堆外内存DirectByteBuffer"></a>堆外内存DirectByteBuffer</h3><p>DirectByteBuffer是jdk提供的访问对外内存的一种实现，堆外内存的优势在于，1.使用socket网络传输时，它能够节省堆内存到堆外内存的复制消耗。2.对于磁盘io,可以使用内存映射，提高效率。3.不需要考虑gc问题。它并不受jvm内存管理,所有当对外内存不足时，系统会显式地调用一次System.gc()，如果还是不能申请到足够内存，系统就会报出</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: Direct buffer memory</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/04/28/DirectByteBuffer/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-04-22T08:00:25.000Z">2019-04-22</time>
                 
                 
@@ -403,7 +468,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        13
+                        14
                     </p>
                 </div>
             </div>
@@ -534,7 +599,7 @@
                 <span class="level-item">mysql</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">1</span>
+                <span class="level-item tag">2</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/rocketmq/">
@@ -564,7 +629,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -578,6 +643,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2021/08/08/sql-group-by/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="GROUP BY分组查询与SQL执行顺序">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-08T13:42:09.000Z">2021-08-08</time></div>
+                    <a href="/2021/08/08/sql-group-by/" class="has-link-black-ter is-size-6">GROUP BY分组查询与SQL执行顺序</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -655,25 +739,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/07/15/mysql8/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mysql8">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-15T14:10:51.000Z">2021-07-15</time></div>
-                    <a href="/2021/07/15/mysql8/" class="has-link-black-ter is-size-6">mysql8</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -685,6 +750,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2021/07/">
@@ -778,7 +854,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/mysql/">
                         <span class="tag">mysql</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
@@ -842,6 +918,25 @@
         
         <article class="media">
             
+            <a href="/2021/08/08/sql-group-by/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="GROUP BY分组查询与SQL执行顺序">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-08T13:42:09.000Z">2021-08-08</time></div>
+                    <a href="/2021/08/08/sql-group-by/" class="has-link-black-ter is-size-6">GROUP BY分组查询与SQL执行顺序</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2021/07/29/fastdfs/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="fastdfs部署及应用">
@@ -916,25 +1011,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/07/15/mysql8/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="mysql8">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-15T14:10:51.000Z">2021-07-15</time></div>
-                    <a href="/2021/07/15/mysql8/" class="has-link-black-ter is-size-6">mysql8</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -946,6 +1022,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2021/07/">
@@ -1039,7 +1126,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/mysql/">
                         <span class="tag">mysql</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
