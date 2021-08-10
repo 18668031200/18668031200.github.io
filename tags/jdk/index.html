@@ -2,24 +2,22 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>LINUX I/O 简介 - ygdxd blog!</title>
+<title>标签: jdk - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="LINUX I/O 简介在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。 ####基本I/O与标准I/O 类uni">
-<meta name="keywords" content="linux">
-<meta property="og:type" content="article">
-<meta property="og:title" content="LINUX I&#x2F;O 简介">
-<meta property="og:url" content="http://github.com/18668031200.github.io/2019/04/18/year-month-day-LinuxIO-md/index.html">
+    <meta name="description" content="java and go">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ygdxd blog!">
+<meta property="og:url" content="http://github.com/18668031200.github.io/tags/jdk/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
-<meta property="og:description" content="LINUX I/O 简介在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。 ####基本I/O与标准I/O 类uni">
+<meta property="og:description" content="java and go">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://github.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-04-18T08:53:45.598Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LINUX I&#x2F;O 简介">
-<meta name="twitter:description" content="LINUX I/O 简介在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。 ####基本I/O与标准I/O 类uni">
+<meta name="twitter:title" content="ygdxd blog!">
+<meta name="twitter:description" content="java and go">
 <meta name="twitter:image" content="http://github.com/images/og_image.png">
 
 
@@ -94,7 +92,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="LINUX I/O 简介" height="28">
+                <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
             
             </a>
         </div>
@@ -140,6 +138,17 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/tags">标签</a></li>
+            <li class="is-active"><a href="#" aria-current="page">jdk</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
     
     <div class="card-content article ">
         
@@ -157,18 +166,20 @@
     <!-- 作者信息结束 -->
     
     
-        <i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv">*</span>次
-                        
 
            
  <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-18T05:53:01.000Z">2019-04-18</time>
+                <time class="level-item has-text-grey" datetime="2021-08-10T08:15:01.000Z">2021-08-10</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/jdk/">jdk</a>
+                </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    10 分钟 读完 (大约 1552 个字)
+                    4 分钟 读完 (大约 562 个字)
                 </span>
                 
                 
@@ -177,74 +188,25 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                LINUX I/O 简介
+                <a class="has-link-black-ter" href="/2021/08/10/optional/">Java Optional的用法</a>
             
         </h1>
         <div class="content">
-            <h2 id="LINUX-I-O-简介"><a href="#LINUX-I-O-简介" class="headerlink" title="LINUX I/O 简介"></a>LINUX I/O 简介</h2><p>在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。</p>
-<p>####基本I/O与标准I/O</p>
-<p>类unix系统中有直接对文件进行的操作函数read()/write()，<br>这些被称为不带缓冲的I/O；标准I/O在基本的I/O函数基础上增加了流和缓冲的概念，常用的函数有fopen/getc()/putc()等，标准I/O使用了缓冲的机制，缓冲又分为全缓冲和行缓冲，引入缓冲机制主要是为了提供文件读写的性能和效率。</p>
-<p>读文件调用getc()时,操作系统底层会使用read()函数，并从用户空间切换到内核空间，执行系统调用。首先将文件页从磁盘拷贝到页缓存中，由于页缓存处在内核空间，不能被用户进程直接寻址，所以还需要将页缓存中数据页再次拷贝到内存对应的用户空间中。这样，经过两次数据拷贝过程，进程才能获取到文件内容。写操作也是一样，用户态写数据时，待发送数据所在的缓冲区处于内核空间，用户态不能直接访问，必须先拷贝至内核空间对应的主存，才能写回磁盘中（延迟写回），因此写入也是需要两次数据拷贝。</p>
-<a id="more"></a>
-<p>####I/O模型</p>
-<ul>
-<li>I/O阻塞模型</li>
-</ul>
-<p>默认情况下，我们使用的都是阻塞I/O模型，在缺省情况下所有对文件的操作都是阻塞的。以套接字为例，在进程空间中调用recvfrom.</p>
-<blockquote><p>If no messages are available at the socket, the receive calls wait for a message to arrive, unless the socket is nonblocking (see fcntl(2)), in which case the value -1 is returned and the external variable errno is set to EAGAIN or EWOULDBLOCK. </p>
-</blockquote>
-<p>他会去等待信息返回且被复制到应用进程的缓冲区内或者发送错误并且发送到EAGAIN or EWOULDBLOCK. ，进程会在此期间一直等待。</p>
-<p><img src="/images/io1-1.png" alt></p>
-<ul>
-<li>非阻塞I/O模型</li>
-</ul>
-<p>非阻塞IO模型下，我们发出open/read/write这样的IO操作时，这些操作不会永远阻塞，而是立即返回。对于一个给定的文件描述符，有两种指定非阻塞的方法：</p>
-<blockquote><p>1.调用open获得描述符时，可指定O_NONBLOCK标志。</p>
-<p>2.对于一个已经打开的描述符，可调用fcntl，由该函数打开O_NONBLOCK状态标志。</p>
-</blockquote>
-<p>非阻塞模型由于立即返回，后面需要轮询不断的查看读写是否已经就绪，然后才能进行I/O操作</p>
-<p><img src="/images/io1-2.png" alt></p>
-<ul>
-<li>IO复用</li>
-</ul>
-<p>Linux 提供select/poll,进程通过将一个或多个fd传递给select或poll系统调用，阻塞在select操作上，这样select/poll可以帮我们侦测多个fd是否处于就绪状态。缺点：受FD_SETSIZE大小影响，优点：Linux 提供epoll系统调用，epoll使用基于事件驱动方式代替顺序扫描,性能更高。</p>
-<p><img src="/images/io1-3.png" alt></p>
-<ul>
-<li>信号驱动I/O</li>
-</ul>
-<p>需要开启套接口信号驱动I/O功能，系统通过调用sigaction执行一个信号处理函数（此系统调用立即返回，非阻塞）。当数据返回时生成一个SIGIO，通过信号回调通知应用系统调用recvfrom读取数据。</p>
-<p><img src="/images/io1-4.png" alt></p>
-<ul>
-<li>异步I/O</li>
-</ul>
-<p>告知kernel启动某个操作，并让kernel在完成整个操作后（包括将数据从kernel复制到用户自己的缓存区）进行通知，<br>与信号驱动模型的主要区别是信号驱动I/O有kernel通知何时开始，而异步I/O有kernel通知何时完成。</p>
-<p><img src="/images/io1-5.png" alt></p>
-<p>####epoll</p>
-<p>epoll在2.5.44内核中被引进,epoll与select的原理比较相似，主要因为select一些固有的缺陷所有linux使用了epoll来代替select.而除了epoll，在freeBSD下还有kqueue,Solaris的/dev/poll.<br>epoll 在文件描述符可进行 I/O 操作时进行通知，而 kqueue 和 IOCP 都在请求的操作完成时进行通知。</p>
-<p>在select/poll中，进程只有在调用一定的方法后，内核才对所有监视的文件描述符进行扫描，而epoll事先通过epoll_ctl()来注册一个文件描述符，一旦基于某个文件描述符就绪时，内核会采用类似callback的回调机制，迅速激活这个文件描述符，当进程调用epoll_wait()时便得到通知。</p>
-<p>######epoll的优点</p>
-<ul>
-<li><p>支持一个进程打开的socket描述符（fd）不受FD_SETSIZE限制(仅受限与操作系统的最大文件句柄数)</p>
-</li>
-<li><p>I/O效率不会随着FD的数目的增加而线性下降</p>
-</li>
-<li><p>使用mmap加速内核与用户空间的消息传递（mmap是一种内存映射文件的方法，可以将一个文件或者其它对象映射到进程的虚拟地址空间，实现文件磁盘地址和进程虚拟地址空间中某一段地址的一一对映，这样应用程序就可以通过访问进程虚拟内存地地址直接访问到文件或对象。）</p>
-</li>
-<li><p>epoll的api更加简单</p>
-</li>
-</ul>
-<h3 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h3><p><a href="https://www.kancloud.cn/ssj234/netty-source/433211" target="_blank" rel="noopener">netty</a></p>
-<p><a href="https://www.google.com/search?q=netty%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97+%E7%AC%AC%E4%BA%8C%E7%89%88+pdf" target="_blank" rel="noopener">netty权威指南</a></p>
+            <p>关于Optional,平时项目用的不多.笔者觉得Java 引入Optional 主要用于解决参数时传递一些可能为空对象时产生的空指针问题.</p>
+<h2 id="1-使用Optional的一些问题-filter"><a href="#1-使用Optional的一些问题-filter" class="headerlink" title="1.使用Optional的一些问题 filter"></a>1.使用Optional的一些问题 filter</h2><p>bad code:<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getName())).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getStartDate())).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getEndDate())).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br><span class="line">optional.filter(s -&gt; s.getStartDate().compareTo(s.getEndDate()) &lt;= <span class="hljs-number">0</span>).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br></pre></td></tr></table></figure><br>影响整体代码的阅读和可扩展性,使用if语句判断或者spring validator 来进行参数校验可能会更好.</p>
+<p>good code<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getGroupName()))</span><br><span class="line">        .filter(s -&gt; StrUtil.isNotEmpty(s.getStartDate()))</span><br><span class="line">        .filter(s -&gt; StrUtil.isNotEmpty(s.getEndDate()))</span><br><span class="line">        .filter(s -&gt; s.getStartDate().compareTo(s.getEndDate()) &lt;= <span class="hljs-number">0</span>)</span><br><span class="line">        .orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br></pre></td></tr></table></figure><br>缺点是不能根据具体的参数返回对应的错误信息.</p>
+<figure class="highlight java hljs"><figcaption><span>Optional.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> Optional&lt;T&gt; <span class="hljs-title">filter</span><span class="hljs-params">(Predicate&lt;? <span class="hljs-keyword">super</span> T&gt; predicate)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(predicate);</span><br><span class="line">        <span class="hljs-keyword">if</span> (!isPresent())</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;</span><br><span class="line">        <span class="hljs-keyword">else</span></span><br><span class="line">            <span class="hljs-keyword">return</span> predicate.test(value) ? <span class="hljs-keyword">this</span> : empty();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>filter 先判断当前Optional是否有值,如果存在就使用predicate判断是否符合条件,如果不通过就返回一个空的Optional.</p>
+<h2 id="2-使用Optional的一些问题-map"><a href="#2-使用Optional的一些问题-map" class="headerlink" title="2.使用Optional的一些问题 map"></a>2.使用Optional的一些问题 map</h2><p>往往在对接第三方服务时会使用多层嵌套结构</p>
+<p>比如 Company -&gt; Department -&gt; Team -&gt; User</p>
+<p>bad code<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> (company != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">   Department dep = company.getDepartment();</span><br><span class="line">   <span class="hljs-keyword">if</span> (dep != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">     ...</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>good code<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Optional.ofNullable(Company)</span><br><span class="line">    .map(c -&gt; c.getDepartment())</span><br><span class="line">    .map(d -&gt; d.getTeam())</span><br><span class="line">    .map(t -&gt; t.getUser())</span><br><span class="line">    .orElseThrow(NoSuchElementException::<span class="hljs-keyword">new</span>);</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>map 和 filter 一样,只有当前optional里的值不为空才会去执行对应的函数表达式,原理和if一样但是更简洁.</p>
+<figure class="highlight java hljs"><figcaption><span>Optional.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span>&lt;U&gt; Optional&lt;U&gt; <span class="hljs-title">map</span><span class="hljs-params">(Function&lt;? <span class="hljs-keyword">super</span> T, ? extends U&gt; mapper)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(mapper);</span><br><span class="line">    <span class="hljs-keyword">if</span> (!isPresent())</span><br><span class="line">        <span class="hljs-keyword">return</span> empty();</span><br><span class="line">    <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> Optional.ofNullable(mapper.apply(value));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>   
+<ol start="3">
+<li>orElse 和 orElseGet的区别</li>
+</ol>
+<figure class="highlight java hljs"><figcaption><span>Optional.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">orElse</span><span class="hljs-params">(T other)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> value != <span class="hljs-keyword">null</span> ? value : other;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">orElseGet</span><span class="hljs-params">(Supplier&lt;? extends T&gt; other)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> value != <span class="hljs-keyword">null</span> ? value : other.get();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>2个方法的参数不同,如果传入的参数为固定的值或者对象,那么2个方法的处理和返回没有任何区别.<br>但是当传入的是表达式时,orElse会首先执行表达式获得结果,然后入栈.<br>而 orElseGet 的参数是 Supplier,所以直接入栈,然后在调用 other.get()的时候才会被触发.<br>明显在特殊情况下后者的性能更好.</p>
 
-        </div>
-        
-        <div class="level is-size-7 is-uppercase">
-            <div class="level-start">
-                <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/linux/">linux</a>
-                </div>
-            </div>
         </div>
         
         
@@ -256,19 +218,7 @@
 
 
 
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/04/18/icarus-bug/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">icarus-bug</span>
-            </a>
-        </div>
-        
-        
-    </div>
-</div>
+
 
 
 
@@ -1073,7 +1023,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="LINUX I/O 简介" height="28">
+                    <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
                 
                 </a>
                 <p class="is-size-7">

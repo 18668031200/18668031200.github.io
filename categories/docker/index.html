@@ -2,24 +2,22 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>LINUX I/O 简介 - ygdxd blog!</title>
+<title>分类: docker - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="LINUX I/O 简介在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。 ####基本I/O与标准I/O 类uni">
-<meta name="keywords" content="linux">
-<meta property="og:type" content="article">
-<meta property="og:title" content="LINUX I&#x2F;O 简介">
-<meta property="og:url" content="http://github.com/18668031200.github.io/2019/04/18/year-month-day-LinuxIO-md/index.html">
+    <meta name="description" content="java and go">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ygdxd blog!">
+<meta property="og:url" content="http://github.com/18668031200.github.io/categories/docker/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
-<meta property="og:description" content="LINUX I/O 简介在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。 ####基本I/O与标准I/O 类uni">
+<meta property="og:description" content="java and go">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://github.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-04-18T08:53:45.598Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LINUX I&#x2F;O 简介">
-<meta name="twitter:description" content="LINUX I/O 简介在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。 ####基本I/O与标准I/O 类uni">
+<meta name="twitter:title" content="ygdxd blog!">
+<meta name="twitter:description" content="java and go">
 <meta name="twitter:image" content="http://github.com/images/og_image.png">
 
 
@@ -94,7 +92,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="LINUX I/O 简介" height="28">
+                <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
             
             </a>
         </div>
@@ -140,13 +138,25 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">分类</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">docker</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
 <!-- 原创转载开始 -->
     
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
     
     <!-- 原创转载结束 -->
     
@@ -157,18 +167,20 @@
     <!-- 作者信息结束 -->
     
     
-        <i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv">*</span>次
-                        
 
            
  <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-18T05:53:01.000Z">2019-04-18</time>
+                <time class="level-item has-text-grey" datetime="2021-08-10T07:56:44.000Z">2021-08-10</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    10 分钟 读完 (大约 1552 个字)
+                    4 分钟 读完 (大约 635 个字)
                 </span>
                 
                 
@@ -177,74 +189,18 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                LINUX I/O 简介
+                <a class="has-link-black-ter" href="/2021/08/10/docker-exec/">docker exec 是怎么做到进入容器里的</a>
             
         </h1>
         <div class="content">
-            <h2 id="LINUX-I-O-简介"><a href="#LINUX-I-O-简介" class="headerlink" title="LINUX I/O 简介"></a>LINUX I/O 简介</h2><p>在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。</p>
-<p>####基本I/O与标准I/O</p>
-<p>类unix系统中有直接对文件进行的操作函数read()/write()，<br>这些被称为不带缓冲的I/O；标准I/O在基本的I/O函数基础上增加了流和缓冲的概念，常用的函数有fopen/getc()/putc()等，标准I/O使用了缓冲的机制，缓冲又分为全缓冲和行缓冲，引入缓冲机制主要是为了提供文件读写的性能和效率。</p>
-<p>读文件调用getc()时,操作系统底层会使用read()函数，并从用户空间切换到内核空间，执行系统调用。首先将文件页从磁盘拷贝到页缓存中，由于页缓存处在内核空间，不能被用户进程直接寻址，所以还需要将页缓存中数据页再次拷贝到内存对应的用户空间中。这样，经过两次数据拷贝过程，进程才能获取到文件内容。写操作也是一样，用户态写数据时，待发送数据所在的缓冲区处于内核空间，用户态不能直接访问，必须先拷贝至内核空间对应的主存，才能写回磁盘中（延迟写回），因此写入也是需要两次数据拷贝。</p>
-<a id="more"></a>
-<p>####I/O模型</p>
-<ul>
-<li>I/O阻塞模型</li>
-</ul>
-<p>默认情况下，我们使用的都是阻塞I/O模型，在缺省情况下所有对文件的操作都是阻塞的。以套接字为例，在进程空间中调用recvfrom.</p>
-<blockquote><p>If no messages are available at the socket, the receive calls wait for a message to arrive, unless the socket is nonblocking (see fcntl(2)), in which case the value -1 is returned and the external variable errno is set to EAGAIN or EWOULDBLOCK. </p>
-</blockquote>
-<p>他会去等待信息返回且被复制到应用进程的缓冲区内或者发送错误并且发送到EAGAIN or EWOULDBLOCK. ，进程会在此期间一直等待。</p>
-<p><img src="/images/io1-1.png" alt></p>
-<ul>
-<li>非阻塞I/O模型</li>
-</ul>
-<p>非阻塞IO模型下，我们发出open/read/write这样的IO操作时，这些操作不会永远阻塞，而是立即返回。对于一个给定的文件描述符，有两种指定非阻塞的方法：</p>
-<blockquote><p>1.调用open获得描述符时，可指定O_NONBLOCK标志。</p>
-<p>2.对于一个已经打开的描述符，可调用fcntl，由该函数打开O_NONBLOCK状态标志。</p>
-</blockquote>
-<p>非阻塞模型由于立即返回，后面需要轮询不断的查看读写是否已经就绪，然后才能进行I/O操作</p>
-<p><img src="/images/io1-2.png" alt></p>
-<ul>
-<li>IO复用</li>
-</ul>
-<p>Linux 提供select/poll,进程通过将一个或多个fd传递给select或poll系统调用，阻塞在select操作上，这样select/poll可以帮我们侦测多个fd是否处于就绪状态。缺点：受FD_SETSIZE大小影响，优点：Linux 提供epoll系统调用，epoll使用基于事件驱动方式代替顺序扫描,性能更高。</p>
-<p><img src="/images/io1-3.png" alt></p>
-<ul>
-<li>信号驱动I/O</li>
-</ul>
-<p>需要开启套接口信号驱动I/O功能，系统通过调用sigaction执行一个信号处理函数（此系统调用立即返回，非阻塞）。当数据返回时生成一个SIGIO，通过信号回调通知应用系统调用recvfrom读取数据。</p>
-<p><img src="/images/io1-4.png" alt></p>
-<ul>
-<li>异步I/O</li>
-</ul>
-<p>告知kernel启动某个操作，并让kernel在完成整个操作后（包括将数据从kernel复制到用户自己的缓存区）进行通知，<br>与信号驱动模型的主要区别是信号驱动I/O有kernel通知何时开始，而异步I/O有kernel通知何时完成。</p>
-<p><img src="/images/io1-5.png" alt></p>
-<p>####epoll</p>
-<p>epoll在2.5.44内核中被引进,epoll与select的原理比较相似，主要因为select一些固有的缺陷所有linux使用了epoll来代替select.而除了epoll，在freeBSD下还有kqueue,Solaris的/dev/poll.<br>epoll 在文件描述符可进行 I/O 操作时进行通知，而 kqueue 和 IOCP 都在请求的操作完成时进行通知。</p>
-<p>在select/poll中，进程只有在调用一定的方法后，内核才对所有监视的文件描述符进行扫描，而epoll事先通过epoll_ctl()来注册一个文件描述符，一旦基于某个文件描述符就绪时，内核会采用类似callback的回调机制，迅速激活这个文件描述符，当进程调用epoll_wait()时便得到通知。</p>
-<p>######epoll的优点</p>
-<ul>
-<li><p>支持一个进程打开的socket描述符（fd）不受FD_SETSIZE限制(仅受限与操作系统的最大文件句柄数)</p>
-</li>
-<li><p>I/O效率不会随着FD的数目的增加而线性下降</p>
-</li>
-<li><p>使用mmap加速内核与用户空间的消息传递（mmap是一种内存映射文件的方法，可以将一个文件或者其它对象映射到进程的虚拟地址空间，实现文件磁盘地址和进程虚拟地址空间中某一段地址的一一对映，这样应用程序就可以通过访问进程虚拟内存地地址直接访问到文件或对象。）</p>
-</li>
-<li><p>epoll的api更加简单</p>
-</li>
-</ul>
-<h3 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h3><p><a href="https://www.kancloud.cn/ssj234/netty-source/433211" target="_blank" rel="noopener">netty</a></p>
-<p><a href="https://www.google.com/search?q=netty%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97+%E7%AC%AC%E4%BA%8C%E7%89%88+pdf" target="_blank" rel="noopener">netty权威指南</a></p>
+            <p>转自极客时间深入剖析k8s</p>
+<h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h2><p>Linux Namespace 创建的隔离空间虽然看不见摸不着，但一个进程的 Namespace 信息在宿主机上是确确实实存在的，并且是以一个文件的方式存在。<br>我们可以通过docker inspect 命令获取到正在运行的 Docker 容器的进程号（PID）。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect --format <span class="hljs-string">'&#123;&#123; .State.Pid &#125;&#125;'</span> <span class="hljs-variable">$&#123;container id&#125;</span></span><br><span class="line"></span><br><span class="line">$ ls -l /proc/<span class="hljs-variable">$&#123;Pid&#125;</span>/ns</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，一个进程的每种 Linux Namespace，都在它对应的 /proc/[进程号]/ns 下有一个对应的虚拟文件，并且链接到一个真实的 Namespace 文件上。<br>这也就意味着：一个进程，可以选择加入到某个进程已有的 Namespace 当中，从而达到“进入”这个进程所在容器的目的，这正是 docker exec 的实现原理。<br>而这个操作所依赖的，乃是一个名叫 setns() 的 Linux 系统调用。<br><figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> _GNU_SOURCE</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sched.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> errExit(msg) do &#123; perror(msg); exit(EXIT_FAILURE);&#125; while (0)</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> fd;</span><br><span class="line">    </span><br><span class="line">    fd = open(argv[<span class="hljs-number">1</span>], O_RDONLY);</span><br><span class="line">    <span class="hljs-keyword">if</span> (setns(fd, <span class="hljs-number">0</span>) == <span class="hljs-number">-1</span>) &#123;</span><br><span class="line">        errExit(<span class="hljs-string">"setns"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    execvp(argv[<span class="hljs-number">2</span>], &amp;argv[<span class="hljs-number">2</span>]); </span><br><span class="line">    errExit(<span class="hljs-string">"execvp"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码功能非常简单：它一共接收两个参数，第一个参数是 argv[1]，即当前进程要加入的 Namespace 文件的路径，比如 /proc/[进程号]/ns/net；<br>而第二个参数，则是你要在这个 Namespace 里运行的进程，比如 /bin/bash。<br>这段代码的核心操作，则是通过 open() 系统调用打开了指定的 Namespace 文件，并把这个文件的描述符 fd 交给 setns() 使用。<br>在 setns() 执行后，当前进程就加入了这个文件对应的 Linux Namespace 当中了。</p>
+<p>同时，一旦一个进程加入到了另一个 Namespace 当中，在宿主机的 Namespace 文件上，也会有所体现。<br>你可以用 ps 指令找到这个 set_ns 程序执行的 /bin/bash 进程。查看一下这个 程序对应的进程的 Namespace。<br>2个进程指向的Network Namespace 文件完全一样。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ps aux | grep /bin/bash</span><br><span class="line">$ ls -l /proc/[进程1]/ns/net</span><br><span class="line">$ ls -l /proc/[进程2]/ns/net</span><br></pre></td></tr></table></figure></p>
+<p>我们可以在dockers 启动命令行中增加参数–net container:XXX来加入到另外一个容器的Network Namespace 中。</p>
+<h2 id="2-获取root-权限"><a href="#2-获取root-权限" class="headerlink" title="2.获取root 权限"></a>2.获取root 权限</h2><p>在公司执行了set_ns脚本后，竟然发现原有的用户变成了root。<br>执行id命令后<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ id</span><br><span class="line">uid=0(root) gid=0(root) 组=0(root)</span><br></pre></td></tr></table></figure></p>
 
-        </div>
-        
-        <div class="level is-size-7 is-uppercase">
-            <div class="level-start">
-                <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/linux/">linux</a>
-                </div>
-            </div>
         </div>
         
         
@@ -256,19 +212,7 @@
 
 
 
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/04/18/icarus-bug/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">icarus-bug</span>
-            </a>
-        </div>
-        
-        
-    </div>
-</div>
+
 
 
 
@@ -1073,7 +1017,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="LINUX I/O 简介" height="28">
+                    <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
                 
                 </a>
                 <p class="is-size-7">

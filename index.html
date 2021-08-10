@@ -145,6 +145,147 @@
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
 <!-- 原创转载开始 -->
     
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-08-10T08:15:01.000Z">2021-08-10</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/jdk/">jdk</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 562 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/08/10/optional/">Java Optional的用法</a>
+            
+        </h1>
+        <div class="content">
+            <p>关于Optional,平时项目用的不多.笔者觉得Java 引入Optional 主要用于解决参数时传递一些可能为空对象时产生的空指针问题.</p>
+<h2 id="1-使用Optional的一些问题-filter"><a href="#1-使用Optional的一些问题-filter" class="headerlink" title="1.使用Optional的一些问题 filter"></a>1.使用Optional的一些问题 filter</h2><p>bad code:<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getName())).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getStartDate())).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getEndDate())).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br><span class="line">optional.filter(s -&gt; s.getStartDate().compareTo(s.getEndDate()) &lt;= <span class="hljs-number">0</span>).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br></pre></td></tr></table></figure><br>影响整体代码的阅读和可扩展性,使用if语句判断或者spring validator 来进行参数校验可能会更好.</p>
+<p>good code<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getGroupName()))</span><br><span class="line">        .filter(s -&gt; StrUtil.isNotEmpty(s.getStartDate()))</span><br><span class="line">        .filter(s -&gt; StrUtil.isNotEmpty(s.getEndDate()))</span><br><span class="line">        .filter(s -&gt; s.getStartDate().compareTo(s.getEndDate()) &lt;= <span class="hljs-number">0</span>)</span><br><span class="line">        .orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br></pre></td></tr></table></figure><br>缺点是不能根据具体的参数返回对应的错误信息.</p>
+<figure class="highlight java hljs"><figcaption><span>Optional.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> Optional&lt;T&gt; <span class="hljs-title">filter</span><span class="hljs-params">(Predicate&lt;? <span class="hljs-keyword">super</span> T&gt; predicate)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(predicate);</span><br><span class="line">        <span class="hljs-keyword">if</span> (!isPresent())</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;</span><br><span class="line">        <span class="hljs-keyword">else</span></span><br><span class="line">            <span class="hljs-keyword">return</span> predicate.test(value) ? <span class="hljs-keyword">this</span> : empty();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>filter 先判断当前Optional是否有值,如果存在就使用predicate判断是否符合条件,如果不通过就返回一个空的Optional.</p>
+<h2 id="2-使用Optional的一些问题-map"><a href="#2-使用Optional的一些问题-map" class="headerlink" title="2.使用Optional的一些问题 map"></a>2.使用Optional的一些问题 map</h2><p>往往在对接第三方服务时会使用多层嵌套结构</p>
+<p>比如 Company -&gt; Department -&gt; Team -&gt; User</p>
+<p>bad code<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> (company != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">   Department dep = company.getDepartment();</span><br><span class="line">   <span class="hljs-keyword">if</span> (dep != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">     ...</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>good code<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Optional.ofNullable(Company)</span><br><span class="line">    .map(c -&gt; c.getDepartment())</span><br><span class="line">    .map(d -&gt; d.getTeam())</span><br><span class="line">    .map(t -&gt; t.getUser())</span><br><span class="line">    .orElseThrow(NoSuchElementException::<span class="hljs-keyword">new</span>);</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>map 和 filter 一样,只有当前optional里的值不为空才会去执行对应的函数表达式,原理和if一样但是更简洁.</p>
+<figure class="highlight java hljs"><figcaption><span>Optional.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span>&lt;U&gt; Optional&lt;U&gt; <span class="hljs-title">map</span><span class="hljs-params">(Function&lt;? <span class="hljs-keyword">super</span> T, ? extends U&gt; mapper)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(mapper);</span><br><span class="line">    <span class="hljs-keyword">if</span> (!isPresent())</span><br><span class="line">        <span class="hljs-keyword">return</span> empty();</span><br><span class="line">    <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> Optional.ofNullable(mapper.apply(value));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>   
+<ol start="3">
+<li>orElse 和 orElseGet的区别</li>
+</ol>
+<figure class="highlight java hljs"><figcaption><span>Optional.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">orElse</span><span class="hljs-params">(T other)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> value != <span class="hljs-keyword">null</span> ? value : other;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">orElseGet</span><span class="hljs-params">(Supplier&lt;? extends T&gt; other)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> value != <span class="hljs-keyword">null</span> ? value : other.get();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>2个方法的参数不同,如果传入的参数为固定的值或者对象,那么2个方法的处理和返回没有任何区别.<br>但是当传入的是表达式时,orElse会首先执行表达式获得结果,然后入栈.<br>而 orElseGet 的参数是 Supplier,所以直接入栈,然后在调用 other.get()的时候才会被触发.<br>明显在特殊情况下后者的性能更好.</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-08-10T07:56:44.000Z">2021-08-10</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 635 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/08/10/docker-exec/">docker exec 是怎么做到进入容器里的</a>
+            
+        </h1>
+        <div class="content">
+            <p>转自极客时间深入剖析k8s</p>
+<h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h2><p>Linux Namespace 创建的隔离空间虽然看不见摸不着，但一个进程的 Namespace 信息在宿主机上是确确实实存在的，并且是以一个文件的方式存在。<br>我们可以通过docker inspect 命令获取到正在运行的 Docker 容器的进程号（PID）。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect --format <span class="hljs-string">'&#123;&#123; .State.Pid &#125;&#125;'</span> <span class="hljs-variable">$&#123;container id&#125;</span></span><br><span class="line"></span><br><span class="line">$ ls -l /proc/<span class="hljs-variable">$&#123;Pid&#125;</span>/ns</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，一个进程的每种 Linux Namespace，都在它对应的 /proc/[进程号]/ns 下有一个对应的虚拟文件，并且链接到一个真实的 Namespace 文件上。<br>这也就意味着：一个进程，可以选择加入到某个进程已有的 Namespace 当中，从而达到“进入”这个进程所在容器的目的，这正是 docker exec 的实现原理。<br>而这个操作所依赖的，乃是一个名叫 setns() 的 Linux 系统调用。<br><figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> _GNU_SOURCE</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sched.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> errExit(msg) do &#123; perror(msg); exit(EXIT_FAILURE);&#125; while (0)</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> fd;</span><br><span class="line">    </span><br><span class="line">    fd = open(argv[<span class="hljs-number">1</span>], O_RDONLY);</span><br><span class="line">    <span class="hljs-keyword">if</span> (setns(fd, <span class="hljs-number">0</span>) == <span class="hljs-number">-1</span>) &#123;</span><br><span class="line">        errExit(<span class="hljs-string">"setns"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    execvp(argv[<span class="hljs-number">2</span>], &amp;argv[<span class="hljs-number">2</span>]); </span><br><span class="line">    errExit(<span class="hljs-string">"execvp"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码功能非常简单：它一共接收两个参数，第一个参数是 argv[1]，即当前进程要加入的 Namespace 文件的路径，比如 /proc/[进程号]/ns/net；<br>而第二个参数，则是你要在这个 Namespace 里运行的进程，比如 /bin/bash。<br>这段代码的核心操作，则是通过 open() 系统调用打开了指定的 Namespace 文件，并把这个文件的描述符 fd 交给 setns() 使用。<br>在 setns() 执行后，当前进程就加入了这个文件对应的 Linux Namespace 当中了。</p>
+<p>同时，一旦一个进程加入到了另一个 Namespace 当中，在宿主机的 Namespace 文件上，也会有所体现。<br>你可以用 ps 指令找到这个 set_ns 程序执行的 /bin/bash 进程。查看一下这个 程序对应的进程的 Namespace。<br>2个进程指向的Network Namespace 文件完全一样。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ps aux | grep /bin/bash</span><br><span class="line">$ ls -l /proc/[进程1]/ns/net</span><br><span class="line">$ ls -l /proc/[进程2]/ns/net</span><br></pre></td></tr></table></figure></p>
+<p>我们可以在dockers 启动命令行中增加参数–net container:XXX来加入到另外一个容器的Network Namespace 中。</p>
+<h2 id="2-获取root-权限"><a href="#2-获取root-权限" class="headerlink" title="2.获取root 权限"></a>2.获取root 权限</h2><p>在公司执行了set_ns脚本后，竟然发现原有的用户变成了root。<br>执行id命令后<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ id</span><br><span class="line">uid=0(root) gid=0(root) 组=0(root)</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
     <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
     
     <!-- 原创转载结束 -->
@@ -756,138 +897,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-05-07T08:09:33.000Z">2019-05-07</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/rocketmq/">rocketmq</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    12 分钟 读完 (大约 1745 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/05/07/rocketmq1/">rocketmq1</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="rocketmq-namesrv"><a href="#rocketmq-namesrv" class="headerlink" title="rocketmq namesrv"></a>rocketmq namesrv</h1><h2 id="Namesrv简介"><a href="#Namesrv简介" class="headerlink" title="Namesrv简介"></a>Namesrv简介</h2><p>namesrc 即 NameServer,类似于服务注册中心，它是RocketMq的调度中心，它提供了路由管理，服务注册及服务发现，服务剔除等服务。正是由于它，系统可以迅速地感知消息服务器的健康状况，对消息服务器的单点故障做出反应防止整个系统瘫痪。它还可以对消息进行负载均衡处理防止Broker宕机。<br></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/05/07/rocketmq1/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-05-06T12:49:57.000Z">2019-05-06</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 817 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/05/06/monotonous/">monotonous</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="单调栈结构"><a href="#单调栈结构" class="headerlink" title="单调栈结构"></a>单调栈结构</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>给定一个不含有重复值的数组arr,找到每一个i位置左边和右边离i位置最近且值比arr[i]小的位置，返回所有位置相应的信息。<br>时间复杂度 O（N）。<br></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/05/06/monotonous/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -950,7 +959,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        14
+                        16
                     </p>
                 </div>
             </div>
@@ -960,7 +969,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        4
+                        6
                     </p>
                 </div>
             </div>
@@ -970,7 +979,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        9
+                        11
                     </p>
                 </div>
             </div>
@@ -1068,9 +1077,25 @@
             </h3>
             <ul class="menu-list">
             <li>
+        <a class="level is-marginless" href="/categories/docker/">
+            <span class="level-start">
+                <span class="level-item">docker</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/fastdfs/">
             <span class="level-start">
                 <span class="level-item">fastdfs</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/jdk/">
+            <span class="level-start">
+                <span class="level-item">jdk</span>
             </span>
             <span class="level-end">
                 <span class="level-item tag">1</span>
@@ -1111,7 +1136,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -1125,6 +1150,44 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2021/08/10/optional/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java Optional的用法">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-10T08:15:01.000Z">2021-08-10</time></div>
+                    <a href="/2021/08/10/optional/" class="has-link-black-ter is-size-6">Java Optional的用法</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/jdk/">jdk</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2021/08/10/docker-exec/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="docker exec 是怎么做到进入容器里的">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-10T07:56:44.000Z">2021-08-10</time></div>
+                    <a href="/2021/08/10/docker-exec/" class="has-link-black-ter is-size-6">docker exec 是怎么做到进入容器里的</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1183,44 +1246,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/07/21/SpringRequestEnum2/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于spring boot在请求参数中使用枚举(enums)的几种方式(2)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-21T13:04:11.000Z">2021-07-21</time></div>
-                    <a href="/2021/07/21/SpringRequestEnum2/" class="has-link-black-ter is-size-6">关于spring boot在请求参数中使用枚举(enums)的几种方式(2)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/07/20/SpringRequestEnum1/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于spring boot在请求参数中使用枚举(enums)的几种方式 (1)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-20T13:43:05.000Z">2021-07-20</time></div>
-                    <a href="/2021/07/20/SpringRequestEnum1/" class="has-link-black-ter is-size-6">关于spring boot在请求参数中使用枚举(enums)的几种方式 (1)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1239,7 +1264,7 @@
                     <span class="level-item">八月 2021</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -1313,6 +1338,13 @@
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/docker/">
+                        <span class="tag">docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/fastdfs/">
                         <span class="tag">fastdfs</span>
                         <span class="tag is-grey">1</span>
@@ -1322,6 +1354,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/icarus/">
                         <span class="tag">icarus</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jdk/">
+                        <span class="tag">jdk</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1400,6 +1439,44 @@
         
         <article class="media">
             
+            <a href="/2021/08/10/optional/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java Optional的用法">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-10T08:15:01.000Z">2021-08-10</time></div>
+                    <a href="/2021/08/10/optional/" class="has-link-black-ter is-size-6">Java Optional的用法</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/jdk/">jdk</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2021/08/10/docker-exec/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="docker exec 是怎么做到进入容器里的">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-10T07:56:44.000Z">2021-08-10</time></div>
+                    <a href="/2021/08/10/docker-exec/" class="has-link-black-ter is-size-6">docker exec 是怎么做到进入容器里的</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2021/08/08/sql-group-by/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="GROUP BY分组查询与SQL执行顺序">
@@ -1455,44 +1532,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/07/21/SpringRequestEnum2/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于spring boot在请求参数中使用枚举(enums)的几种方式(2)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-21T13:04:11.000Z">2021-07-21</time></div>
-                    <a href="/2021/07/21/SpringRequestEnum2/" class="has-link-black-ter is-size-6">关于spring boot在请求参数中使用枚举(enums)的几种方式(2)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/07/20/SpringRequestEnum1/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="关于spring boot在请求参数中使用枚举(enums)的几种方式 (1)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-20T13:43:05.000Z">2021-07-20</time></div>
-                    <a href="/2021/07/20/SpringRequestEnum1/" class="has-link-black-ter is-size-6">关于spring boot在请求参数中使用枚举(enums)的几种方式 (1)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1511,7 +1550,7 @@
                     <span class="level-item">八月 2021</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -1585,6 +1624,13 @@
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/docker/">
+                        <span class="tag">docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/fastdfs/">
                         <span class="tag">fastdfs</span>
                         <span class="tag is-grey">1</span>
@@ -1594,6 +1640,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/icarus/">
                         <span class="tag">icarus</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jdk/">
+                        <span class="tag">jdk</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
