@@ -159,6 +159,71 @@
 
            
  <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-08-25T13:29:44.000Z">2021-08-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/java/">java</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 441 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/08/25/ratelimiter/">java 自定义限流器</a>
+            
+        </h1>
+        <div class="content">
+            <p>Java 自定义限流器</p>
+<h2 id="1-使用AtomicInetger-cas实现"><a href="#1-使用AtomicInetger-cas实现" class="headerlink" title="1.使用AtomicInetger cas实现"></a>1.使用AtomicInetger cas实现</h2><figure class="highlight java hljs"><figcaption><span>Bucket.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bucket</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> AtomicInteger count;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Bucket</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">        count = <span class="hljs-keyword">new</span> AtomicInteger(<span class="hljs-number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> AtomicInteger <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCount</span><span class="hljs-params">(AtomicInteger count)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><figcaption><span>RateLimiterAop.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Aspect</span></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RateLimiterAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(RateLimiterAop.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, Bucket&gt; BUCKETS = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object mux = <span class="hljs-keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> ScheduledExecutorService executorService = <span class="hljs-keyword">new</span> ScheduledThreadPoolExecutor(<span class="hljs-number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">static</span> &#123;</span><br><span class="line">        executorService.scheduleAtFixedRate(() -&gt; &#123;</span><br><span class="line">            BUCKETS.values().stream().forEach(b -&gt; &#123;</span><br><span class="line">                <span class="hljs-keyword">if</span> (b.getCount().get() &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">                    b.getCount().decrementAndGet();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Around</span>(<span class="hljs-string">"execution(* com.ygdxd.ratelimiter.*.*(..))"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">limit</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="hljs-comment">//获取访问目标方法</span></span><br><span class="line">        MethodSignature methodSignature = (MethodSignature)joinPoint.getSignature();</span><br><span class="line">        Method targetMethod = methodSignature.getMethod();</span><br><span class="line">        String apiName = targetMethod.getDeclaringClass().getName() + <span class="hljs-string">"."</span> + targetMethod.getName();</span><br><span class="line">        Bucket bucket = BUCKETS.get(apiName);</span><br><span class="line">        <span class="hljs-keyword">if</span> (bucket == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">synchronized</span> (mux) &#123;</span><br><span class="line">                BUCKETS.putIfAbsent(apiName, <span class="hljs-keyword">new</span> Bucket(apiName));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-comment">// 重试太多次 直接失败 也可以加锁</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (!addCount(bucket, <span class="hljs-number">0</span>)) &#123;</span><br><span class="line"><span class="hljs-comment">//                throw new RuntimeException("超出限制次数");</span></span><br><span class="line">                LOGGER.error(<span class="hljs-string">"失败"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> joinPoint.proceed();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">addCount</span><span class="hljs-params">(Bucket bucket, <span class="hljs-keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">3</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">int</span> count = bucket.getCount().get();</span><br><span class="line">        <span class="hljs-keyword">if</span> (count &lt;= <span class="hljs-number">10</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (!bucket.getCount().compareAndSet(count, count + <span class="hljs-number">1</span>))&#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> addCount(bucket, i + <span class="hljs-number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-使用Semapphore实现-接口只能有几个线程，并不是每秒几个request"><a href="#2-使用Semapphore实现-接口只能有几个线程，并不是每秒几个request" class="headerlink" title="2.使用Semapphore实现(接口只能有几个线程，并不是每秒几个request)"></a>2.使用Semapphore实现(接口只能有几个线程，并不是每秒几个request)</h2><figure class="highlight java hljs"><figcaption><span>SemaphoreRateLimiterAop.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Aspect</span></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SemaphoreRateLimiterAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(SemaphoreRateLimiterAop.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, SemaphoreBucket&gt; BUCKETS = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object mux = <span class="hljs-keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Around</span>(<span class="hljs-string">"execution(* com.ygdxd.ratelimiter.*.*(..))"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">limit</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="hljs-comment">//获取访问目标方法</span></span><br><span class="line">        MethodSignature methodSignature = (MethodSignature)joinPoint.getSignature();</span><br><span class="line">        Method targetMethod = methodSignature.getMethod();</span><br><span class="line">        String apiName = targetMethod.getDeclaringClass().getName() + <span class="hljs-string">"."</span> + targetMethod.getName();</span><br><span class="line">        SemaphoreBucket bucket = BUCKETS.get(apiName);</span><br><span class="line">        <span class="hljs-keyword">if</span> (bucket == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">synchronized</span> (mux) &#123;</span><br><span class="line">                bucket = <span class="hljs-keyword">new</span> SemaphoreBucket(apiName);</span><br><span class="line">                BUCKETS.putIfAbsent(apiName, bucket);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">boolean</span> ack = <span class="hljs-keyword">false</span>;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            ack = bucket.getCount().tryAcquire(<span class="hljs-number">1</span>, TimeUnit.SECONDS);</span><br><span class="line">            <span class="hljs-keyword">if</span> (!ack) &#123;</span><br><span class="line">                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"限流了！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">return</span> joinPoint.proceed();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            LOGGER.error(<span class="hljs-string">"error:"</span>, e);</span><br><span class="line">            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"失败！"</span>);</span><br><span class="line">        &#125;<span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (ack) &#123;</span><br><span class="line">                bucket.getCount().release();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><figcaption><span>SemaphoreBucket.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SemaphoreBucket</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> Semaphore count;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SemaphoreBucket</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">        count = <span class="hljs-keyword">new</span> Semaphore(<span class="hljs-number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Semaphore <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCount</span><span class="hljs-params">(Semaphore count)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2021-08-10T08:15:01.000Z">2021-08-10</time>
                 
                 <div class="level-item">
@@ -832,71 +897,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-14T12:19:56.000Z">2019-10-14</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 316 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/10/14/zsh/">zsh</a>
-            
-        </h1>
-        <div class="content">
-            <p>###zsh</p>
-<p>从 macOS Catalina 版开始，您的 Mac 将使用 zsh 作为默认登录 Shell 和交互式 Shell。您还可以在较低版本的 macOS 中将 zsh 设置为默认 Shell。</p>
-<p>默认情况下，您的 Mac 使用 zsh 或 bash 作为登录 Shell 和交互式 Shell 的命令行解释器：</p>
-<p>从 macOS Catalina Beta 版开始，zsh (Z shell) 是所有新建用户帐户的默认 Shell。<br>bash 是 macOS Mojave 及更低版本中的默认 Shell。<br>zsh 与 Bourne Shell (sh) 高度兼容，并且与 bash 基本兼容，但存在一些差别。要进一步了解 zsh 及其全面的命令行完成系统，请在“终端”中输入 man zsh。</p>
-<p>在mac中打卡控制台会出现<br>The default interactive shell is now zsh.<br>To update your account to use zsh, please run <code>chsh -s /bin/zsh</code>.<br>For more details, please visit <a href="https://support.apple.com/kb/HT208050" target="_blank" rel="noopener">https://support.apple.com/kb/HT208050</a>.</p>
-<p>打卡网址发现新添加了.zprofile 和 .zshrc<br>那已经有了bash 为什么需要zsh?</p>
-<p>######Licensing</p>
-<p>google了一下发现<a href="https://thenextweb.com/dd/2019/06/04/why-does-macos-catalina-use-zsh-instead-of-bash-licensing/" target="_blank" rel="noopener">https://thenextweb.com/dd/2019/06/04/why-does-macos-catalina-use-zsh-instead-of-bash-licensing/</a> 里提到苹果好像是为了更换里面的licensing。原来用的是GUN的bash，协议GPLv3。</p>
-<p>同时苹果可能会开始维护更新这个zsh了。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -959,7 +959,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        16
+                        17
                     </p>
                 </div>
             </div>
@@ -969,7 +969,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        6
+                        7
                     </p>
                 </div>
             </div>
@@ -979,7 +979,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -1093,6 +1093,14 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/categories/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/jdk/">
             <span class="level-start">
                 <span class="level-item">jdk</span>
@@ -1136,7 +1144,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -1150,6 +1158,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2021/08/25/ratelimiter/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java 自定义限流器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-25T13:29:44.000Z">2021-08-25</time></div>
+                    <a href="/2021/08/25/ratelimiter/" class="has-link-black-ter is-size-6">java 自定义限流器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1227,25 +1254,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/07/23/SpringBean/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="SpringBean">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-23T11:14:20.000Z">2021-07-23</time></div>
-                    <a href="/2021/07/23/SpringBean/" class="has-link-black-ter is-size-6">SpringBean</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1264,7 +1272,7 @@
                     <span class="level-item">八月 2021</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -1354,6 +1362,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/icarus/">
                         <span class="tag">icarus</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1439,6 +1454,25 @@
         
         <article class="media">
             
+            <a href="/2021/08/25/ratelimiter/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java 自定义限流器">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-25T13:29:44.000Z">2021-08-25</time></div>
+                    <a href="/2021/08/25/ratelimiter/" class="has-link-black-ter is-size-6">java 自定义限流器</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2021/08/10/optional/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="Java Optional的用法">
@@ -1513,25 +1547,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/07/23/SpringBean/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="SpringBean">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-23T11:14:20.000Z">2021-07-23</time></div>
-                    <a href="/2021/07/23/SpringBean/" class="has-link-black-ter is-size-6">SpringBean</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1550,7 +1565,7 @@
                     <span class="level-item">八月 2021</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -1640,6 +1655,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/icarus/">
                         <span class="tag">icarus</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>

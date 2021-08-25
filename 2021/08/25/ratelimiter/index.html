@@ -2,22 +2,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>标签: rocketmq - ygdxd blog!</title>
+<title>java 自定义限流器 - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="java and go">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ygdxd blog!">
-<meta property="og:url" content="http://github.com/18668031200.github.io/tags/rocketmq/index.html">
+    <meta name="description" content="Java 自定义限流器 1.使用AtomicInetger cas实现Bucket.java123456789101112131415161718192021222324252627282930public class Bucket &amp;#123;    private String name;    private AtomicInteger count;    public Bucket(Str">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 自定义限流器">
+<meta property="og:url" content="http://github.com/18668031200.github.io/2021/08/25/ratelimiter/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
-<meta property="og:description" content="java and go">
+<meta property="og:description" content="Java 自定义限流器 1.使用AtomicInetger cas实现Bucket.java123456789101112131415161718192021222324252627282930public class Bucket &amp;#123;    private String name;    private AtomicInteger count;    public Bucket(Str">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://github.com/images/og_image.png">
+<meta property="og:updated_time" content="2021-08-25T14:06:49.939Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ygdxd blog!">
-<meta name="twitter:description" content="java and go">
+<meta name="twitter:title" content="java 自定义限流器">
+<meta name="twitter:description" content="Java 自定义限流器 1.使用AtomicInetger cas实现Bucket.java123456789101112131415161718192021222324252627282930public class Bucket &amp;#123;    private String name;    private AtomicInteger count;    public Bucket(Str">
 <meta name="twitter:image" content="http://github.com/images/og_image.png">
 
 
@@ -92,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                <img src="/images/logo.svg" alt="java 自定义限流器" height="28">
             
             </a>
         </div>
@@ -138,17 +140,6 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">rocketmq</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-content article ">
         
@@ -166,20 +157,22 @@
     <!-- 作者信息结束 -->
     
     
+        <i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv">*</span>次
+                        
 
            
  <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-05-07T08:09:33.000Z">2019-05-07</time>
+                <time class="level-item has-text-grey" datetime="2021-08-25T13:29:44.000Z">2021-08-25</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/rocketmq/">rocketmq</a>
+                <a class="has-link-grey -link" href="/categories/java/">java</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    12 分钟 读完 (大约 1745 个字)
+                    3 分钟 读完 (大约 441 个字)
                 </span>
                 
                 
@@ -188,21 +181,27 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/05/07/rocketmq1/">rocketmq1</a>
+                java 自定义限流器
             
         </h1>
         <div class="content">
-            <h1 id="rocketmq-namesrv"><a href="#rocketmq-namesrv" class="headerlink" title="rocketmq namesrv"></a>rocketmq namesrv</h1><h2 id="Namesrv简介"><a href="#Namesrv简介" class="headerlink" title="Namesrv简介"></a>Namesrv简介</h2><p>namesrc 即 NameServer,类似于服务注册中心，它是RocketMq的调度中心，它提供了路由管理，服务注册及服务发现，服务剔除等服务。正是由于它，系统可以迅速地感知消息服务器的健康状况，对消息服务器的单点故障做出反应防止整个系统瘫痪。它还可以对消息进行负载均衡处理防止Broker宕机。<br></p>
+            <p>Java 自定义限流器</p>
+<h2 id="1-使用AtomicInetger-cas实现"><a href="#1-使用AtomicInetger-cas实现" class="headerlink" title="1.使用AtomicInetger cas实现"></a>1.使用AtomicInetger cas实现</h2><figure class="highlight java hljs"><figcaption><span>Bucket.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bucket</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> AtomicInteger count;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Bucket</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">        count = <span class="hljs-keyword">new</span> AtomicInteger(<span class="hljs-number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> AtomicInteger <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCount</span><span class="hljs-params">(AtomicInteger count)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><figcaption><span>RateLimiterAop.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Aspect</span></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RateLimiterAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(RateLimiterAop.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, Bucket&gt; BUCKETS = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object mux = <span class="hljs-keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> ScheduledExecutorService executorService = <span class="hljs-keyword">new</span> ScheduledThreadPoolExecutor(<span class="hljs-number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">static</span> &#123;</span><br><span class="line">        executorService.scheduleAtFixedRate(() -&gt; &#123;</span><br><span class="line">            BUCKETS.values().stream().forEach(b -&gt; &#123;</span><br><span class="line">                <span class="hljs-keyword">if</span> (b.getCount().get() &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">                    b.getCount().decrementAndGet();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Around</span>(<span class="hljs-string">"execution(* com.ygdxd.ratelimiter.*.*(..))"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">limit</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="hljs-comment">//获取访问目标方法</span></span><br><span class="line">        MethodSignature methodSignature = (MethodSignature)joinPoint.getSignature();</span><br><span class="line">        Method targetMethod = methodSignature.getMethod();</span><br><span class="line">        String apiName = targetMethod.getDeclaringClass().getName() + <span class="hljs-string">"."</span> + targetMethod.getName();</span><br><span class="line">        Bucket bucket = BUCKETS.get(apiName);</span><br><span class="line">        <span class="hljs-keyword">if</span> (bucket == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">synchronized</span> (mux) &#123;</span><br><span class="line">                BUCKETS.putIfAbsent(apiName, <span class="hljs-keyword">new</span> Bucket(apiName));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-comment">// 重试太多次 直接失败 也可以加锁</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (!addCount(bucket, <span class="hljs-number">0</span>)) &#123;</span><br><span class="line"><span class="hljs-comment">//                throw new RuntimeException("超出限制次数");</span></span><br><span class="line">                LOGGER.error(<span class="hljs-string">"失败"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> joinPoint.proceed();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">addCount</span><span class="hljs-params">(Bucket bucket, <span class="hljs-keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">3</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">int</span> count = bucket.getCount().get();</span><br><span class="line">        <span class="hljs-keyword">if</span> (count &lt;= <span class="hljs-number">10</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (!bucket.getCount().compareAndSet(count, count + <span class="hljs-number">1</span>))&#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> addCount(bucket, i + <span class="hljs-number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-使用Semapphore实现-接口只能有几个线程，并不是每秒几个request"><a href="#2-使用Semapphore实现-接口只能有几个线程，并不是每秒几个request" class="headerlink" title="2.使用Semapphore实现(接口只能有几个线程，并不是每秒几个request)"></a>2.使用Semapphore实现(接口只能有几个线程，并不是每秒几个request)</h2><figure class="highlight java hljs"><figcaption><span>SemaphoreRateLimiterAop.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Aspect</span></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SemaphoreRateLimiterAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(SemaphoreRateLimiterAop.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, SemaphoreBucket&gt; BUCKETS = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object mux = <span class="hljs-keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Around</span>(<span class="hljs-string">"execution(* com.ygdxd.ratelimiter.*.*(..))"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">limit</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="hljs-comment">//获取访问目标方法</span></span><br><span class="line">        MethodSignature methodSignature = (MethodSignature)joinPoint.getSignature();</span><br><span class="line">        Method targetMethod = methodSignature.getMethod();</span><br><span class="line">        String apiName = targetMethod.getDeclaringClass().getName() + <span class="hljs-string">"."</span> + targetMethod.getName();</span><br><span class="line">        SemaphoreBucket bucket = BUCKETS.get(apiName);</span><br><span class="line">        <span class="hljs-keyword">if</span> (bucket == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">synchronized</span> (mux) &#123;</span><br><span class="line">                bucket = <span class="hljs-keyword">new</span> SemaphoreBucket(apiName);</span><br><span class="line">                BUCKETS.putIfAbsent(apiName, bucket);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">boolean</span> ack = <span class="hljs-keyword">false</span>;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            ack = bucket.getCount().tryAcquire(<span class="hljs-number">1</span>, TimeUnit.SECONDS);</span><br><span class="line">            <span class="hljs-keyword">if</span> (!ack) &#123;</span><br><span class="line">                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"限流了！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">return</span> joinPoint.proceed();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            LOGGER.error(<span class="hljs-string">"error:"</span>, e);</span><br><span class="line">            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"失败！"</span>);</span><br><span class="line">        &#125;<span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (ack) &#123;</span><br><span class="line">                bucket.getCount().release();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><figcaption><span>SemaphoreBucket.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SemaphoreBucket</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> Semaphore count;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SemaphoreBucket</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">        count = <span class="hljs-keyword">new</span> Semaphore(<span class="hljs-number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Semaphore <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCount</span><span class="hljs-params">(Semaphore count)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/05/07/rocketmq1/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/java/">java</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -212,7 +211,19 @@
 
 
 
-
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/08/10/optional/">
+                <span class="level-item">Java Optional的用法</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 
@@ -1039,7 +1050,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                    <img src="/images/logo.svg" alt="java 自定义限流器" height="28">
                 
                 </a>
                 <p class="is-size-7">
