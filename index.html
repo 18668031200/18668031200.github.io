@@ -145,6 +145,174 @@
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
 <!-- 原创转载开始 -->
     
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-09-14T13:34:50.000Z">2021-09-14</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/dubbo/">dubbo</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    15 分钟 读完 (大约 2218 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/09/14/dubbo-net/">研究 Dubbo 网卡地址注册时的一点思考</a>
+            
+        </h1>
+        <div class="content">
+            <p>曾使用k8s部署dubbo服务时使用虚拟ip会导致consumer不能找到对应的provider。</p>
+<p>转自<a href="https://dubbo.apache.org/zh/blog/2019/10/01/%E7%A0%94%E7%A9%B6-dubbo-%E7%BD%91%E5%8D%A1%E5%9C%B0%E5%9D%80%E6%B3%A8%E5%86%8C%E6%97%B6%E7%9A%84%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83/" target="_blank" rel="noopener">https://dubbo.apache.org/zh/blog/2019/10/01/%E7%A0%94%E7%A9%B6-dubbo-%E7%BD%91%E5%8D%A1%E5%9C%B0%E5%9D%80%E6%B3%A8%E5%86%8C%E6%97%B6%E7%9A%84%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83/</a></p>
+<h2 id="问题：dubbo注册自身ip的问题"><a href="#问题：dubbo注册自身ip的问题" class="headerlink" title="问题：dubbo注册自身ip的问题"></a>问题：dubbo注册自身ip的问题</h2><p>原文:可能相当一部分人还不知道我这篇文章到底要讲什么，我说个场景，大家应该就明晰了。在分布式服务调用过程中，以 Dubbo 为例，服务提供者往往需要将自身的 IP 地址上报给注册中心，供消费者去发现。在大多数情况下 Dubbo 都可以正常工作，但如果你留意过 Dubbo 的 github issue，其实有不少人反馈：Dubbo Provider 注册了错误的 IP。如果你能立刻联想到：多网卡、内外网地址共存、VPN、虚拟网卡等关键词，那我建议你一定要继续将本文看下去，因为我也想到了这些，它们都是本文所要探讨的东西！那么“如何选择合适的网卡地址”呢，Dubbo 现有的逻辑到底算不算完备？我们不急着回答它，而是带着这些问题一起进行研究，相信到文末，其中答案，各位看官自有评说。</p>
+<figure class="highlight java hljs"><figcaption><span>NetUtils.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#这里使用的是阿里的2.6.10版本</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> InetAddress <span class="hljs-title">getLocalAddress0</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        InetAddress localAddress = <span class="hljs-keyword">null</span>;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            localAddress = InetAddress.getLocalHost();</span><br><span class="line">            <span class="hljs-keyword">if</span> (isValidAddress(localAddress)) &#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> localAddress;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            logger.warn(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            Enumeration&lt;NetworkInterface&gt; interfaces = NetworkInterface.getNetworkInterfaces();</span><br><span class="line">            <span class="hljs-keyword">if</span> (interfaces != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">                <span class="hljs-keyword">while</span> (interfaces.hasMoreElements()) &#123;</span><br><span class="line">                    <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                        NetworkInterface network = interfaces.nextElement();</span><br><span class="line">                        Enumeration&lt;InetAddress&gt; addresses = network.getInetAddresses();</span><br><span class="line">                        <span class="hljs-keyword">if</span> (addresses != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">                            <span class="hljs-keyword">while</span> (addresses.hasMoreElements()) &#123;</span><br><span class="line">                                <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                                    InetAddress address = addresses.nextElement();</span><br><span class="line">                                    <span class="hljs-keyword">if</span> (isValidAddress(address)) &#123;</span><br><span class="line">                                        <span class="hljs-keyword">return</span> address;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                                    logger.warn(e);</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                        logger.warn(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            logger.warn(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> localAddress;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><figcaption><span>NetUtils.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#这里使用的是apache的3.2.0版本</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> InetAddress <span class="hljs-title">getLocalAddress0</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        InetAddress localAddress = <span class="hljs-keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// @since 2.7.6, choose the &#123;@link NetworkInterface&#125; first</span></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            NetworkInterface networkInterface = findNetworkInterface();</span><br><span class="line">            Enumeration&lt;InetAddress&gt; addresses = networkInterface.getInetAddresses();</span><br><span class="line">            <span class="hljs-keyword">while</span> (addresses.hasMoreElements()) &#123;</span><br><span class="line">                Optional&lt;InetAddress&gt; addressOp = toValidAddress(addresses.nextElement());</span><br><span class="line">                <span class="hljs-keyword">if</span> (addressOp.isPresent()) &#123;</span><br><span class="line">                    <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                        <span class="hljs-keyword">if</span> (addressOp.get().isReachable(<span class="hljs-number">100</span>)) &#123;</span><br><span class="line">                            <span class="hljs-keyword">return</span> addressOp.get();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                        <span class="hljs-comment">// ignore</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            logger.warn(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            localAddress = InetAddress.getLocalHost();</span><br><span class="line">            Optional&lt;InetAddress&gt; addressOp = toValidAddress(localAddress);</span><br><span class="line">            <span class="hljs-keyword">if</span> (addressOp.isPresent()) &#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> addressOp.get();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            logger.warn(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">return</span> localAddress;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Dubbo 这段选取本地地址的逻辑大致分成了两步</p>
+<p>1.先去 /etc/hosts 文件中找 hostname 对应的 IP 地址，找到则返回；找不到则转<br>2.轮询网卡，寻找合适的 IP 地址，找到则返回；找不到返回 null，在 getLocalAddress0 外侧还有一段逻辑，如果返回 null，则注册 127.0.0.1 这个本地回环地址</p>
+<p>这里与原文的区别在于都使用了try catch捕获了异常</p>
+<h2 id="尝试获取-hostname-映射-IP"><a href="#尝试获取-hostname-映射-IP" class="headerlink" title="尝试获取 hostname 映射 IP"></a>尝试获取 hostname 映射 IP</h2><p>Dubbo 首先选取的是 hostname 对应的 IP，在源码中对应的 InetAddress.getLocalHost(); 在 *nix 系统实际部署 Dubbo 应用时，可以首先使用 hostname 命令获取主机名</p>
+<p>原文:<br><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xujingfengdeMacBook-Pro:~ xujingfeng$ hostname</span><br><span class="line">xujingfengdeMacBook-Pro.local</span><br></pre></td></tr></table></figure></p>
+<p>紧接着在 /etc/hosts 配置 IP 映射，为了验证 Dubbo 的机制，我们随意为 hostname 配置一个 IP 地址</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1	localhost</span><br><span class="line">1.2.3.4 xujingfengdeMacBook-Pro.local</span><br></pre></td></tr></table></figure>
+<p>接着调用 NetUtils.getLocalAddress0() 进行验证，控制台打印如下：<br><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xujingfengdeMacBook-Pro.local/1.2.3.4</span><br></pre></td></tr></table></figure></p>
+<p>我在本地使用 阿里的版本<br><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">ygdxd_admin$</span><span class="hljs-bash"> hostname</span></span><br><span class="line">localhost</span><br></pre></td></tr></table></figure></p>
+<p>debug时InetAddress.getLocalHost() 会返回localhost/127.0.0.1<br>因为使用不了localhost所以不会返回</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(NetUtils.getLocalAddress().toString());</span><br></pre></td></tr></table></figure>
+<p>返回的是<br>/192.168.0.102</p>
+<p><img src="/images/dubbo_net_debug.jpg" alt="demo.java"></p>
+<p>使用debug 发现使用的是eh0的网卡地址</p>
+<h2 id="判定有效的-IP-地址"><a href="#判定有效的-IP-地址" class="headerlink" title="判定有效的 IP 地址"></a>判定有效的 IP 地址</h2><figure class="highlight java hljs"><figcaption><span>NetUtils.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Optional&lt;InetAddress&gt; <span class="hljs-title">toValidAddress</span><span class="hljs-params">(InetAddress address)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (address <span class="hljs-keyword">instanceof</span> Inet6Address) &#123;</span><br><span class="line">        Inet6Address v6Address = (Inet6Address) address;</span><br><span class="line">        <span class="hljs-keyword">if</span> (isValidV6Address(v6Address)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> Optional.ofNullable(normalizeV6Address(v6Address));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">if</span> (isValidV4Address(address)) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> Optional.of(address);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> Optional.empty();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>阿里的版本直接去掉了ipv6的验证</p>
+<figure class="highlight java hljs"><figcaption><span>NetUtils.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidAddress</span><span class="hljs-params">(InetAddress address)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (address == <span class="hljs-keyword">null</span> || address.isLoopbackAddress())</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        String name = address.getHostAddress();</span><br><span class="line">        <span class="hljs-keyword">return</span> (name != <span class="hljs-keyword">null</span></span><br><span class="line">                &amp;&amp; !ANYHOST.equals(name)</span><br><span class="line">                &amp;&amp; !LOCALHOST.equals(name)</span><br><span class="line">                &amp;&amp; IP_PATTERN.matcher(name).matches());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>原文：<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidV6Address</span><span class="hljs-params">(Inet6Address address)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">boolean</span> preferIpv6 = Boolean.getBoolean(<span class="hljs-string">"java.net.preferIPv6Addresses"</span>);</span><br><span class="line">    <span class="hljs-keyword">if</span> (!preferIpv6) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> address.isReachable(<span class="hljs-number">100</span>);</span><br><span class="line">    &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="hljs-comment">// ignore</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最新的apache dubbo 版本<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Optional&lt;InetAddress&gt; <span class="hljs-title">toValidAddress</span><span class="hljs-params">(InetAddress address)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (address <span class="hljs-keyword">instanceof</span> Inet6Address) &#123;</span><br><span class="line">            Inet6Address v6Address = (Inet6Address) address;</span><br><span class="line">            <span class="hljs-keyword">if</span> (isPreferIPV6Address()) &#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> Optional.ofNullable(normalizeV6Address(v6Address));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (isValidV4Address(address)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> Optional.of(address);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> Optional.empty();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>已经取消掉了通过 isReachable 判断网卡的连通性,而在轮训网卡中使用了<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> NetworkInterface <span class="hljs-title">findNetworkInterface</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        List&lt;NetworkInterface&gt; validNetworkInterfaces = emptyList();</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            validNetworkInterfaces = getValidNetworkInterfaces();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            logger.warn(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        NetworkInterface result = <span class="hljs-keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// Try to find the preferred one</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (NetworkInterface networkInterface : validNetworkInterfaces) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (isPreferredNetworkInterface(networkInterface)) &#123;</span><br><span class="line">                result = networkInterface;</span><br><span class="line">                <span class="hljs-keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span> (result == <span class="hljs-keyword">null</span>) &#123; <span class="hljs-comment">// If not found, try to get the first one</span></span><br><span class="line">            <span class="hljs-keyword">for</span> (NetworkInterface networkInterface : validNetworkInterfaces) &#123;</span><br><span class="line">                Enumeration&lt;InetAddress&gt; addresses = networkInterface.getInetAddresses();</span><br><span class="line">                <span class="hljs-keyword">while</span> (addresses.hasMoreElements()) &#123;</span><br><span class="line">                    Optional&lt;InetAddress&gt; addressOp = toValidAddress(addresses.nextElement());</span><br><span class="line">                    <span class="hljs-keyword">if</span> (addressOp.isPresent()) &#123;</span><br><span class="line">                        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                            <span class="hljs-keyword">if</span> (addressOp.get().isReachable(<span class="hljs-number">100</span>)) &#123;</span><br><span class="line">                                result = networkInterface;</span><br><span class="line">                                <span class="hljs-keyword">break</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                            <span class="hljs-comment">// ignore</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span> (result == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            result = first(validNetworkInterfaces);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="轮询网卡"><a href="#轮询网卡" class="headerlink" title="轮询网卡"></a>轮询网卡</h2><p>轮询网卡对应的源码是 NetworkInterface.getNetworkInterfaces().</p>
+<p>这里记录下干扰因素</p>
+<p>1.Docker 网桥<br>2.TUN/TAP 虚拟网络设备<br>3.干扰因素三：多网卡</p>
+<h2 id="记录下网卡工作原理"><a href="#记录下网卡工作原理" class="headerlink" title="记录下网卡工作原理"></a>记录下网卡工作原理</h2><p><img src="/images/dubbo_net_eh0.jpg" alt="eh0"></p>
+<p>上图中的 eth0 表示我们主机已有的真实的网卡接口 (interface)。</p>
+<p>网卡接口 eth0 所代表的真实网卡通过网线(wire)和外部网络相连，该物理网卡收到的数据包会经由接口 eth0 传递给内核的网络协议栈(Network Stack)。然后协议栈对这些数据包进行进一步的处理。</p>
+<p>对于一些错误的数据包,协议栈可以选择丢弃；对于不属于本机的数据包，协议栈可以选择转发；而对于确实是传递给本机的数据包,而且该数据包确实被上层的应用所需要，协议栈会通过 Socket API 告知上层正在等待的应用程序。</p>
+<h2 id="TUN-工作原理"><a href="#TUN-工作原理" class="headerlink" title="TUN 工作原理"></a>TUN 工作原理</h2><p><img src="/images/dubbo_net_tun0.jpg" alt="TUN"></p>
+<p>我们知道，普通的网卡是通过网线来收发数据包的话，而 TUN 设备比较特殊，它通过一个文件收发数据包。</p>
+<p>如上图所示，tunX 和上面的 eth0 在逻辑上面是等价的， tunX 也代表了一个网络接口,虽然这个接口是系统通过软件所模拟出来的.</p>
+<p>网卡接口 tunX 所代表的虚拟网卡通过文件 /dev/tunX 与我们的应用程序(App)相连，应用程序每次使用 write 之类的系统调用将数据写入该文件，这些数据会以网络层数据包的形式，通过该虚拟网卡，经由网络接口 tunX 传递给网络协议栈，同时该应用程序也可以通过 read 之类的系统调用，经由文件 /dev/tunX 读取到协议栈向 tunX 传递的所有数据包。</p>
+<p>此外，协议栈可以像操纵普通网卡一样来操纵 tunX 所代表的虚拟网卡。比如说，给 tunX 设定 IP 地址，设置路由，总之，在协议栈看来，tunX 所代表的网卡和其他普通的网卡区别不大，当然，硬要说区别，那还是有的,那就是 tunX 设备不存在 MAC 地址，这个很好理解，tunX 只模拟到了网络层，要 MAC地址没有任何意义。当然，如果是 tapX 的话，在协议栈的眼中，tapX 和真实网卡没有任何区别。</p>
+<p>是不是有些懵了？我是谁，为什么我要在这篇文章里面学习 TUN！因为我们常用的 VPN 基本就是基于 TUN/TAP 搭建的，如果我们使用 TUN 设备搭建一个基于 UDP 的 VPN ，那么整个处理过程可能是这幅样子：<br><img src="/images/dubbo_net_tun1.jpg" alt="TUN"></p>
+<h2 id="TAP-工作原理"><a href="#TAP-工作原理" class="headerlink" title="TAP 工作原理"></a>TAP 工作原理</h2><p>TAP 设备与 TUN 设备工作方式完全相同，区别在于：</p>
+<p>TUN 设备是一个三层设备，它只模拟到了 IP 层，即网络层 我们可以通过 /dev/tunX 文件收发 IP 层数据包，它无法与物理网卡做 bridge，但是可以通过三层交换（如 ip_forward）与物理网卡连通。可以使用ifconfig之类的命令给该设备设定 IP 地址。<br>TAP 设备是一个二层设备，它比 TUN 更加深入，通过 /dev/tapX 文件可以收发 MAC 层数据包，即数据链路层，拥有 MAC 层功能，可以与物理网卡做 bridge，支持 MAC 层广播。同样的，我们也可以通过ifconfig之类的命令给该设备设定 IP 地址，你如果愿意，我们可以给它设定 MAC 地址。<br>关于文章中出现的二层，三层，我这里说明一下，第一层是物理层，第二层是数据链路层，第三层是网络层，第四层是传输层。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-09-06T12:43:13.000Z">2021-09-06</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 715 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/09/06/serialize-lambda/">SerializeLambda</a>
+            
+        </h1>
+        <div class="content">
+            <p>在mybatis plus 查询中想根据某个字段排序,但是字段是字符串类型,百度了下mysql提供了几种方法。</p>
+<p>比如根据code进行排序<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#1.</span><br><span class="line">ORDER BY</span><br><span class="line">	`code` * 1 ASC</span><br><span class="line">#2.</span><br><span class="line">ORDER BY</span><br><span class="line">	`code` + 0 ASC</span><br><span class="line">#1.</span><br><span class="line">ORDER BY</span><br><span class="line">	CAST(`code` AS DECIMAL) ASC</span><br></pre></td></tr></table></figure></p>
+<p>然而项目中代码使用了LambdaQueryWrapper 里面指定了使用lambda来指定排序的列，并不能根据想要的特殊情况进行排序。</p>
+<p>本来想着entity里加一个数据库不存在的字段 然后设置这个字段的名称为 code+0 但是mybatis plus 不会把@Tablefiled<br>中exist为false的放进去</p>
+<p>AbstractLambdaWrapper 获取不到对应的列信息<br>COLUMN_CACHE_MAP 是根据TableInfo 创建的.在initTableFields时会过滤<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">static</span> TableInfo <span class="hljs-title">initTableInfo</span><span class="hljs-params">(Configuration configuration, String currentNamespace, Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">/* 没有获取到缓存信息,则初始化 */</span></span><br><span class="line">        TableInfo tableInfo = <span class="hljs-keyword">new</span> TableInfo(clazz);</span><br><span class="line">        tableInfo.setCurrentNamespace(currentNamespace);</span><br><span class="line">        tableInfo.setConfiguration(configuration);</span><br><span class="line">        GlobalConfig globalConfig = GlobalConfigUtils.getGlobalConfig(configuration);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 初始化表名相关 */</span></span><br><span class="line">        <span class="hljs-keyword">final</span> String[] excludeProperty = initTableName(clazz, globalConfig, tableInfo);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; excludePropertyList = excludeProperty != <span class="hljs-keyword">null</span> &amp;&amp; excludeProperty.length &gt; <span class="hljs-number">0</span> ? Arrays.asList(excludeProperty) : Collections.emptyList();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 初始化字段相关 */</span></span><br><span class="line">        initTableFields(clazz, globalConfig, tableInfo, excludePropertyList);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 自动构建 resultMap */</span></span><br><span class="line">        tableInfo.initResultMapIfNeed();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 缓存 lambda */</span></span><br><span class="line">        LambdaUtils.installCache(tableInfo);</span><br><span class="line">        <span class="hljs-keyword">return</span> tableInfo;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Field&gt; <span class="hljs-title">getAllFields</span><span class="hljs-params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        List&lt;Field&gt; fieldList = ReflectionKit.getFieldList(ClassUtils.getUserClass(clazz));</span><br><span class="line">        <span class="hljs-keyword">return</span> fieldList.stream()</span><br><span class="line">            .filter(field -&gt; &#123;</span><br><span class="line">                <span class="hljs-comment">/* 过滤注解非表字段属性 */</span></span><br><span class="line">                TableField tableField = field.getAnnotation(TableField.class);</span><br><span class="line">                <span class="hljs-keyword">return</span> (tableField == <span class="hljs-keyword">null</span> || tableField.exist());</span><br><span class="line">            &#125;).collect(toList());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>查看了下如何获取列名的源码</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">SerializedLambda <span class="hljs-title">resolve</span><span class="hljs-params">(SFunction&lt;T, ?&gt; func)</span> </span>&#123;</span><br><span class="line">Class&lt;?&gt; clazz = func.getClass();</span><br><span class="line">String name = clazz.getName();</span><br><span class="line"><span class="hljs-comment">// 使用WeakReference缓存</span></span><br><span class="line"><span class="hljs-keyword">return</span> Optional.ofNullable(FUNC_CACHE.get(name))</span><br><span class="line">.map(WeakReference::get)</span><br><span class="line">.orElseGet(() -&gt; &#123;</span><br><span class="line">    <span class="hljs-comment">// 这里根据lambda 获取SerializedLambda</span></span><br><span class="line">    SerializedLambda lambda = SerializedLambda.resolve(func);</span><br><span class="line">FUNC_CACHE.put(name, <span class="hljs-keyword">new</span> WeakReference&lt;&gt;(lambda));</span><br><span class="line"><span class="hljs-keyword">return</span> lambda;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">    * 通过反序列化转换 lambda 表达式，该方法只能序列化 lambda 表达式，不能序列化接口实现或者正常非 lambda 写法的对象</span></span><br><span class="line"><span class="hljs-comment">    *</span></span><br><span class="line"><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> lambda lambda对象</span></span><br><span class="line"><span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 返回解析后的 SerializedLambda</span></span><br><span class="line"><span class="hljs-comment">    */</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> SerializedLambda <span class="hljs-title">resolve</span><span class="hljs-params">(SFunction&lt;?, ?&gt; lambda)</span> </span>&#123;</span><br><span class="line">       <span class="hljs-keyword">if</span> (!lambda.getClass().isSynthetic()) &#123;</span><br><span class="line">           <span class="hljs-keyword">throw</span> ExceptionUtils.mpe(<span class="hljs-string">"该方法仅能传入 lambda 表达式产生的合成类"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="hljs-comment">// 使用字节码进行读取</span></span><br><span class="line">       <span class="hljs-keyword">try</span> (ObjectInputStream objIn = <span class="hljs-keyword">new</span> ObjectInputStream(<span class="hljs-keyword">new</span> ByteArrayInputStream(SerializationUtils.serialize(lambda))) &#123;</span><br><span class="line">           <span class="hljs-meta">@Override</span></span><br><span class="line">           <span class="hljs-keyword">protected</span> Class&lt;?&gt; resolveClass(ObjectStreamClass objectStreamClass) <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException &#123;</span><br><span class="line">               Class&lt;?&gt; clazz;</span><br><span class="line">               <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                   clazz = ClassUtils.toClassConfident(objectStreamClass.getName());</span><br><span class="line">               &#125; <span class="hljs-keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                   clazz = <span class="hljs-keyword">super</span>.resolveClass(objectStreamClass);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="hljs-keyword">return</span> clazz == java.lang.invoke.SerializedLambda.class ? SerializedLambda.class : clazz;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;) &#123;</span><br><span class="line">           <span class="hljs-keyword">return</span> (SerializedLambda) objIn.readObject();</span><br><span class="line">       &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException | IOException e) &#123;</span><br><span class="line">           <span class="hljs-keyword">throw</span> ExceptionUtils.mpe(<span class="hljs-string">"This is impossible to happen"</span>, e);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 获取 SerializedLambda 对应的列信息，从 lambda 表达式中推测实体类</span></span><br><span class="line"><span class="hljs-comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="hljs-comment">     * 如果获取不到列信息，那么本次条件组装将会失败</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> lambda     lambda 表达式</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> onlyColumn 如果是，结果: "name", 如果否： "name" as "name"</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 列</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> com.baomidou.mybatisplus.core.exceptions.MybatisPlusException 获取不到列信息时抛出异常</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@see</span> SerializedLambda#getImplClass()</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@see</span> SerializedLambda#getImplMethodName()</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getColumn</span><span class="hljs-params">(SerializedLambda lambda, <span class="hljs-keyword">boolean</span> onlyColumn)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 获取类名</span></span><br><span class="line">        Class&lt;?&gt; aClass = lambda.getInstantiatedType();</span><br><span class="line">        <span class="hljs-comment">// 初始化 主要是缓存一下列信息</span></span><br><span class="line">        tryInitCache(aClass);</span><br><span class="line">        String fieldName = PropertyNamer.methodToProperty(lambda.getImplMethodName());</span><br><span class="line">        ColumnCache columnCache = getColumnCache(fieldName, aClass);</span><br><span class="line">        <span class="hljs-keyword">return</span> onlyColumn ? columnCache.getColumn() : columnCache.getColumnSelect();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="SerializedLambda"><a href="#SerializedLambda" class="headerlink" title="SerializedLambda"></a>SerializedLambda</h1><p>这里面发现能把lambda表达式进行序列化,然后获取相关lambda的信息.</p>
+<p><img src="/images/serialized_lambda.jpg" alt="SerializedLambda.java"></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
     <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
     
     <!-- 原创转载结束 -->
@@ -752,153 +920,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-07-15T14:10:51.000Z">2021-07-15</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 读完 (大约 564 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/07/15/mysql8/">mysql8</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="mysql-8-新特性"><a href="#mysql-8-新特性" class="headerlink" title="mysql 8 新特性"></a>mysql 8 新特性</h1><p>mysql分库分表并不是一定从性能的角度上需求，大部分场景是为了更好的管理数据</p>
-<ol>
-<li>数据量大时需要对数据进行新加字段进行加以归类标记，DDL会锁表导致长时间堵塞。(mysql 8 特性会大幅度缩短这个时间，同时mysql 8增加了备份锁，减少备份的时间)</li>
-<li>当一张表或者一个库出现问题时不会导致整个应用不能访问db.</li>
-<li>灰度？数据库性能。</li>
-</ol>
-<h2 id="WHERE-语句内使用函数走索引"><a href="#WHERE-语句内使用函数走索引" class="headerlink" title="WHERE 语句内使用函数走索引"></a>WHERE 语句内使用函数走索引</h2><p>select * from x where YEAR(date) = 2021</p>
-<h2 id="降序索引"><a href="#降序索引" class="headerlink" title="降序索引 "></a>降序索引 </h2><p>mysql索引以前一直都是顺序，现在可以按降序存储。</p>
-<p>index idx_c1_c2(c1,c2 desc)<br>在索引反向扫描是 explain 语句extra中会显示Backward index scan</p>
-<h2 id="GROUP-BY-语句不在隐式排序"><a href="#GROUP-BY-语句不在隐式排序" class="headerlink" title="GROUP BY 语句不在隐式排序"></a>GROUP BY 语句不在隐式排序</h2><p>现在select group by 语句不会按照group by 字段进行隐式排序<br>mysql 5x 中explain 语句的extra 中有Using filesort</p>
-<h2 id="在高并发的情况下性能提升"><a href="#在高并发的情况下性能提升" class="headerlink" title="在高并发的情况下性能提升"></a>在高并发的情况下性能提升</h2><p>在高并发的情况下，只读和更新操作性能提升</p>
-<h2 id="默认字符集为utf8mb4"><a href="#默认字符集为utf8mb4" class="headerlink" title="默认字符集为utf8mb4"></a>默认字符集为utf8mb4</h2><p>修改默认字符集，同时查询性能增加</p>
-<h2 id="增加SKIP-LOCKED-和NOWAIT"><a href="#增加SKIP-LOCKED-和NOWAIT" class="headerlink" title="增加SKIP LOCKED 和NOWAIT"></a>增加SKIP LOCKED 和NOWAIT</h2><p>select <em> from x where id = 1 for update skip locked<br>select </em> from x where id = 1 for update skip nowait</p>
-<p>前者查询加锁的记录被其他线程持有锁时会直接返回空。<br>后者查询加锁的记录被其他线程持有锁时会直接报错。<br>在高并发下比如抢红包等场景下使用。</p>
-<h2 id="文档数据库"><a href="#文档数据库" class="headerlink" title="文档数据库"></a>文档数据库</h2><p>mysql 支持nosql的crud.同时提供了JSON函数</p>
-<h2 id="新增统计函数和GIS"><a href="#新增统计函数和GIS" class="headerlink" title="新增统计函数和GIS"></a>新增统计函数和GIS</h2><p>窗口函数。(不常用)<br>GIS 地理信息(不常用)</p>
-<h2 id="DDL-原子性"><a href="#DDL-原子性" class="headerlink" title="DDL 原子性"></a>DDL 原子性</h2><p>数据字典集中存储，增强crash safe能力。</p>
-<h2 id="MGR-增强"><a href="#MGR-增强" class="headerlink" title="MGR 增强"></a>MGR 增强</h2><p>MGR 集群的健壮和稳定性加强。</p>
-<h2 id="自增主键id存储-在删除一条数据后又新增一条数据"><a href="#自增主键id存储-在删除一条数据后又新增一条数据" class="headerlink" title="自增主键id存储 在删除一条数据后又新增一条数据"></a>自增主键id存储 在删除一条数据后又新增一条数据</h2><p>在mysql8之前,自增主键的最大值存储在内存中。mysql8将自增id在事务结束checkpoint时放到了redolog中。所以mysql8之前id会持续增大而8会使用之前的。</p>
-<p>![mysql] (/images/mysql8_id_inc.jpg)</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-05-14T15:43:57.000Z">2021-05-14</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 473 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/05/14/ContextStartedEvent/">monotonous</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Spring-Event-关于ContextStartedEvent-使用"><a href="#Spring-Event-关于ContextStartedEvent-使用" class="headerlink" title="Spring Event 关于ContextStartedEvent 使用"></a>Spring Event 关于ContextStartedEvent 使用</h1><h2 id="问题"><a href="#问题" class="headerlink" title=" 问题"></a> 问题</h2><p> 在spring boot 中定义event listener 实现ContextStartedEventListener<contextstartedevent> 监听上下文启动实现.发现项目启动后项目并不会打印出我们所需要的日志</contextstartedevent></p>
-<figure class="highlight java hljs"><figcaption><span>ContextStartedEventListener.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ContextStartedEventListener</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ApplicationListener</span>&lt;<span class="hljs-title">ContextStartedEvent</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger log = LoggerFactory.getLogger(ContextStartedEventListener.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onApplicationEvent</span><span class="hljs-params">(ContextStartedEvent event)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="hljs-string">"ContextStartedEventListener : 项目启动"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p> 打开spring 源码发现在AbstractApplicationContext#start() 方法中调用了此方法。<br> ContextStoppedEvent同理也是stop方法。</p>
- <figure class="highlight java hljs"><figcaption><span>AbstractApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().start();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStartedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stop</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().stop();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStoppedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<pre><code>定位到调用该方法的地方为DefaultLifecycleProcessor#start(). 很明显是在生命周期的处理器中调用。再次定位调用这个start方法的来源。
-</code></pre> <figure class="highlight java hljs"><figcaption><span>AbstractApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> </span><br><span class="line"> <span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().start();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStartedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;	 </span><br><span class="line">	</span><br></pre></td></tr></table></figure>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我们一般启动spring boot 是使用AbstractApplicationContext#refresh方法而不是start()方法，所以这里只能使用abstractApplicationContext 的start方法启动上下文是才会产生这个事件。</p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>在DefaultLifecycleProcessor中使用spring boot 启动使用的是</p>
-<figure class="highlight java hljs"><figcaption><span>DefaultLifecycleProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onRefresh</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">		startBeans(<span class="hljs-keyword">true</span>);</span><br><span class="line">		<span class="hljs-keyword">this</span>.running = <span class="hljs-keyword">true</span>;</span><br><span class="line">	&#125; 	</span><br></pre></td></tr></table></figure>
-<p>他和刚刚的abstrctApplicationContext调用地start方法只有一个参数autoStartupOnly的区别。<br>这个参数为false时即我们abstrctApplicationContext.start时可以在我们的lifecycle bean 上使用注解@Phase 定义生命周期的阶段，从而自定义lifecycle bean 的start顺序。</p>
-<p>这个注解还和timeoutPerShutdownPhase这个产数有关，timeoutPerShutdownPhase定义了lifecycle bean stop的超时时间<br><figure class="highlight java hljs"><figcaption><span>DefaultLifecycleProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stop</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.members.isEmpty()) &#123;</span><br><span class="line">				<span class="hljs-keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">this</span>.members.sort(Collections.reverseOrder());</span><br><span class="line">			CountDownLatch latch = <span class="hljs-keyword">new</span> CountDownLatch(<span class="hljs-keyword">this</span>.smartMemberCount);</span><br><span class="line">			Set&lt;String&gt; countDownBeanNames = Collections.synchronizedSet(<span class="hljs-keyword">new</span> LinkedHashSet&lt;&gt;());</span><br><span class="line">			Set&lt;String&gt; lifecycleBeanNames = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(<span class="hljs-keyword">this</span>.lifecycleBeans.keySet());</span><br><span class="line">			<span class="hljs-keyword">for</span> (LifecycleGroupMember member : <span class="hljs-keyword">this</span>.members) &#123;</span><br><span class="line">				<span class="hljs-keyword">if</span> (lifecycleBeanNames.contains(member.name)) &#123;</span><br><span class="line">					doStop(<span class="hljs-keyword">this</span>.lifecycleBeans, member.name, latch, countDownBeanNames);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (member.bean <span class="hljs-keyword">instanceof</span> SmartLifecycle) &#123;</span><br><span class="line">					<span class="hljs-comment">// Already removed: must have been a dependent bean from another phase</span></span><br><span class="line">					latch.countDown();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">				latch.await(<span class="hljs-keyword">this</span>.timeout, TimeUnit.MILLISECONDS);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">				Thread.currentThread().interrupt();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">   」</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -961,7 +982,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        17
+                        19
                     </p>
                 </div>
             </div>
@@ -971,7 +992,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        7
+                        8
                     </p>
                 </div>
             </div>
@@ -981,7 +1002,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        12
+                        13
                     </p>
                 </div>
             </div>
@@ -1087,6 +1108,14 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/categories/dubbo/">
+            <span class="level-start">
+                <span class="level-item">dubbo</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/fastdfs/">
             <span class="level-start">
                 <span class="level-item">fastdfs</span>
@@ -1146,7 +1175,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -1160,6 +1189,44 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2021/09/14/dubbo-net/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="研究 Dubbo 网卡地址注册时的一点思考">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-14T13:34:50.000Z">2021-09-14</time></div>
+                    <a href="/2021/09/14/dubbo-net/" class="has-link-black-ter is-size-6">研究 Dubbo 网卡地址注册时的一点思考</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/dubbo/">dubbo</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2021/09/06/serialize-lambda/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="SerializeLambda">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-06T12:43:13.000Z">2021-09-06</time></div>
+                    <a href="/2021/09/06/serialize-lambda/" class="has-link-black-ter is-size-6">SerializeLambda</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1218,44 +1285,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/08/08/sql-group-by/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="GROUP BY分组查询与SQL执行顺序">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-08T13:42:09.000Z">2021-08-08</time></div>
-                    <a href="/2021/08/08/sql-group-by/" class="has-link-black-ter is-size-6">GROUP BY分组查询与SQL执行顺序</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/07/29/fastdfs/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="fastdfs部署及应用">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-29T15:07:10.000Z">2021-07-29</time></div>
-                    <a href="/2021/07/29/fastdfs/" class="has-link-black-ter is-size-6">fastdfs部署及应用</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/fastdfs/">fastdfs</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1267,6 +1296,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2021/08/">
@@ -1355,6 +1395,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/dubbo/">
+                        <span class="tag">dubbo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/fastdfs/">
                         <span class="tag">fastdfs</span>
                         <span class="tag is-grey">1</span>
@@ -1371,7 +1418,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/java/">
                         <span class="tag">java</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
@@ -1456,6 +1503,44 @@
         
         <article class="media">
             
+            <a href="/2021/09/14/dubbo-net/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="研究 Dubbo 网卡地址注册时的一点思考">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-14T13:34:50.000Z">2021-09-14</time></div>
+                    <a href="/2021/09/14/dubbo-net/" class="has-link-black-ter is-size-6">研究 Dubbo 网卡地址注册时的一点思考</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/dubbo/">dubbo</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2021/09/06/serialize-lambda/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="SerializeLambda">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-06T12:43:13.000Z">2021-09-06</time></div>
+                    <a href="/2021/09/06/serialize-lambda/" class="has-link-black-ter is-size-6">SerializeLambda</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2021/08/25/ratelimiter/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="java 自定义限流器">
@@ -1511,44 +1596,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/08/08/sql-group-by/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="GROUP BY分组查询与SQL执行顺序">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-08T13:42:09.000Z">2021-08-08</time></div>
-                    <a href="/2021/08/08/sql-group-by/" class="has-link-black-ter is-size-6">GROUP BY分组查询与SQL执行顺序</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/07/29/fastdfs/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="fastdfs部署及应用">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-07-29T15:07:10.000Z">2021-07-29</time></div>
-                    <a href="/2021/07/29/fastdfs/" class="has-link-black-ter is-size-6">fastdfs部署及应用</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/fastdfs/">fastdfs</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1560,6 +1607,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2021/08/">
@@ -1648,6 +1706,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/dubbo/">
+                        <span class="tag">dubbo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/fastdfs/">
                         <span class="tag">fastdfs</span>
                         <span class="tag is-grey">1</span>
@@ -1664,7 +1729,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/java/">
                         <span class="tag">java</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
