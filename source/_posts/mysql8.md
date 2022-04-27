@@ -76,4 +76,4 @@ MGR 集群的健壮和稳定性加强。
 --------
 在mysql8之前,自增主键的最大值存储在内存中。mysql8将自增id在事务结束checkpoint时放到了redolog中。所以mysql8之前id会持续增大而8会使用之前的。
 
-![mysql] (/images/mysql8_id_inc.jpg)
+![mysql](images/mysql8_id_inc.jpg)
