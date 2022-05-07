@@ -145,6 +145,140 @@
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
 <!-- 原创转载开始 -->
     
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2022-04-27T14:47:53.000Z">2022-04-27</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    几秒 读完 (大约 44 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2022/04/27/docker_cmd/">Dockerfile ENTRYPOINT和CMD</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="Dockerfile中ENTRYPOINT和CMD"><a href="#Dockerfile中ENTRYPOINT和CMD" class="headerlink" title="Dockerfile中ENTRYPOINT和CMD"></a>Dockerfile中ENTRYPOINT和CMD</h3><ul>
+<li>ENTRYPOINT定义容器启动时被调用的可执行程序</li>
+<li>CMD指定传递给ENTRYPOINT的参数</li>
+</ul>
+<h3 id="ENTRYPOINT-的2种形式"><a href="#ENTRYPOINT-的2种形式" class="headerlink" title="ENTRYPOINT 的2种形式"></a>ENTRYPOINT 的2种形式</h3><p><img src="images/docker_cmd.jpg" alt="docker_cmd.jpg"></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2022-04-26T15:21:10.000Z">2022-04-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 688 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2022/04/26/k8s-svc1/">k8s_svc笔记</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="K8S-service-对象笔记-1"><a href="#K8S-service-对象笔记-1" class="headerlink" title="K8S service 对象笔记(1)"></a>K8S service 对象笔记(1)</h1><h2 id="1-loadbalance-作用"><a href="#1-loadbalance-作用" class="headerlink" title="1.loadbalance 作用"></a>1.loadbalance 作用</h2><pre><code>loadbalance 对象主要作用是将pod服务暴露出来，并提供负载均衡的作用。loadbalance不像NodePort那样在每个集群的节点上打开一个端口那样访问，他拥有自己独一无二的可公开访问的IP地址，在使用kubectl get svc 的EXTERNAL-IP那一列可以看到，可以通过这些ip访问服务。
+如果k8s在不支持loadbalance环境中运行，则不会调配负责平衡器，但该服务仍将表现得像一个NodePort服务，loadbalance是NodePort服务的扩展。
+</code></pre><h2 id="浏览器会话亲和性"><a href="#浏览器会话亲和性" class="headerlink" title="浏览器会话亲和性"></a>浏览器会话亲和性</h2><pre><code>由于浏览器使用keep-alive连接，当浏览器首次与服务连接时，第一次会随机选择一个集群，然后会将属于该连接的所有请求都会发往第一次建立连接的集群，即使会话亲和性设置成None，用户也会使用相同的pod直到连接关闭。
+</code></pre><h2 id="不必要的网络跳数"><a href="#不必要的网络跳数" class="headerlink" title="不必要的网络跳数"></a>不必要的网络跳数</h2><pre><code>当外部浏览器通过端口连接服务时，随机选择的pod并不一定在接收连接的同一节点上，这就可能需要额外的网路跳。同时这会可能导致对数据包执行源网络地址转换（SNAP）, 数据包的源ip就会发生变化，会影响后端服务获取客户端的ip地址。
+这时候可以在服务的spec中设置externalTrafficPolicy为Local来避免这种情况。
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  externalTrafficPolicy: Local</span><br></pre></td></tr></table></figure>
+
+如果服务使用了该设置，并且通过服务的节点端口打开外部连接时，服务代理会选择本地运行的pod，如果没有本地pod，就将连接挂起(并不会像不使用那样转发到全局随机pod),所以需要确保负载均衡到一个有pod服务的节点。
+同时该设置会导致如果节点上pod的数量不相等，使用Local外部流量策略会导致pod的负载分布不均衡。
+</code></pre><h2 id="ingress工作原理"><a href="#ingress工作原理" class="headerlink" title="ingress工作原理"></a>ingress工作原理</h2><pre><code>客户端先对要访问的域名做DNS查找，DNS服务器返回ingress控制器的ip地址（可以通过kubectl get ingresses 命令的ADDRESS一列中找到对应的ip）。然后客户端向控制器发送请求并在Host头中指定要访问的域名，控制器从该头部中确定访问具体的哪个服务，通过与该服务相关联的Endpoint对象查看ip，然后向其中的一个pod转发。
+</code></pre><p>参考 《Kubernetes in action》</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
     <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
     
     <!-- 原创转载结束 -->
@@ -791,164 +925,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-07-23T11:14:20.000Z">2021-07-23</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    7 分钟 读完 (大约 1020 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/07/23/SpringBean/">SpringBean</a>
-            
-        </h1>
-        <div class="content">
-            <p>关于spring bean的实例化和初始化流程的一些记录</p>
-<h2 id="1-BeanDedifinition的beanClass设置"><a href="#1-BeanDedifinition的beanClass设置" class="headerlink" title="1.BeanDedifinition的beanClass设置"></a>1.BeanDedifinition的beanClass设置</h2><p>当想要去创建bean时,是想创建BeanDedifinition,而在BeanDedifinition创建完之后,Bean实例化之前BeanDedifinition的beanClass由String类型转成对应Bean的class类型,而ClassLoader则是由当前线程的ClassLoader(AppClassLoader)进行加载.</p>
-<p>那beanClass为什么是String类型的.<br><figure class="highlight java hljs"><figcaption><span>AbstractBeanDefinition.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setBeanClassName</span><span class="hljs-params">(@Nullable String beanClassName)</span> </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">this</span>.beanClass = beanClassName;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure><br>这里设置BeanClassName时默认设置beanClass为类名.那我们在实例化bean时必须先把beanClass转换成对应的class对象.<br>对应的设置的方法为AbstractBeanFactory的resolveBeanClass方法.在方法里又调用了doResolveBeanClass方法,里面先获取ClassLoader,之后调用AbstractBeanDefinition的resolveBeanClass方法.在这个方法里通过ClassLoader它设置我们beanClass.</p>
-<figure class="highlight java hljs"><figcaption><span>AbstractBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Nullable</span></span><br><span class="line">	<span class="hljs-keyword">private</span> Class&lt;?&gt; doResolveBeanClass(RootBeanDefinition mbd, Class&lt;?&gt;... typesToMatch)</span><br><span class="line">			<span class="hljs-keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line"></span><br><span class="line">		ClassLoader beanClassLoader = getBeanClassLoader();</span><br><span class="line">		ClassLoader dynamicLoader = beanClassLoader;</span><br><span class="line">		<span class="hljs-keyword">boolean</span> freshResolve = <span class="hljs-keyword">false</span>;</span><br><span class="line">		<span class="hljs-comment">// 省略部分代码</span></span><br><span class="line">		....</span><br><span class="line">		<span class="hljs-keyword">return</span> mbd.resolveBeanClass(beanClassLoader);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
-<p>在这里设置beanClass.<br><figure class="highlight java hljs"><figcaption><span>AbstractBeanDefinition.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Nullable</span></span><br><span class="line">	<span class="hljs-keyword">public</span> Class&lt;?&gt; resolveBeanClass(<span class="hljs-meta">@Nullable</span> ClassLoader classLoader) <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">		String className = getBeanClassName();</span><br><span class="line">		<span class="hljs-keyword">if</span> (className == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		Class&lt;?&gt; resolvedClass = ClassUtils.forName(className, classLoader);</span><br><span class="line">		<span class="hljs-keyword">this</span>.beanClass = resolvedClass;</span><br><span class="line">		<span class="hljs-keyword">return</span> resolvedClass;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li>spring aware 接口回调</li>
-</ol>
-<hr>
-<p>首先创建bean</p>
-<figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">protected</span> Object <span class="hljs-title">doCreateBean</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String beanName, <span class="hljs-keyword">final</span> RootBeanDefinition mbd, <span class="hljs-keyword">final</span> @Nullable Object[] args)</span></span></span><br><span class="line"><span class="hljs-function">			<span class="hljs-keyword">throws</span> BeanCreationException </span>&#123;</span><br><span class="line">			</span><br><span class="line">			<span class="hljs-comment">// Instantiate the bean.</span></span><br><span class="line">		BeanWrapper instanceWrapper = <span class="hljs-keyword">null</span>;</span><br><span class="line">		<span class="hljs-comment">// 如果是单例就不用重复实例化了</span></span><br><span class="line">		<span class="hljs-keyword">if</span> (mbd.isSingleton()) &#123;</span><br><span class="line">			instanceWrapper = <span class="hljs-keyword">this</span>.factoryBeanInstanceCache.remove(beanName);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">if</span> (instanceWrapper == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			instanceWrapper = createBeanInstance(beanName, mbd, args);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-comment">//其他步骤</span></span><br><span class="line">		...</span><br><span class="line">		</span><br><span class="line">		<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">		    <span class="hljs-comment">// 设置bean的属性 </span></span><br><span class="line">			populateBean(beanName, mbd, instanceWrapper);</span><br><span class="line">			<span class="hljs-comment">// 初始化bean</span></span><br><span class="line">			exposedObject = initializeBean(beanName, exposedObject, mbd);</span><br><span class="line">		&#125;</span><br><span class="line">			</span><br><span class="line">			</span><br><span class="line">&#125;			</span><br></pre></td></tr></table></figure>
-<p>在AbstractAutowireCapableBeanFactory的initializeBean方法中实现了对spring中Aware的回调</p>
-<figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">protected</span> Object <span class="hljs-title">initializeBean</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String beanName, <span class="hljs-keyword">final</span> Object bean, @Nullable RootBeanDefinition mbd)</span> </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">if</span> (System.getSecurityManager() != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			AccessController.doPrivileged((PrivilegedAction&lt;Object&gt;) () -&gt; &#123;</span><br><span class="line">				invokeAwareMethods(beanName, bean);</span><br><span class="line">				<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">			&#125;, getAccessControlContext());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">else</span> &#123;</span><br><span class="line">			invokeAwareMethods(beanName, bean);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		Object wrappedBean = bean;</span><br><span class="line">		<span class="hljs-keyword">if</span> (mbd == <span class="hljs-keyword">null</span> || !mbd.isSynthetic()) &#123;</span><br><span class="line">			wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">			invokeInitMethods(beanName, wrappedBean, mbd);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> BeanCreationException(</span><br><span class="line">					(mbd != <span class="hljs-keyword">null</span> ? mbd.getResourceDescription() : <span class="hljs-keyword">null</span>),</span><br><span class="line">					beanName, <span class="hljs-string">"Invocation of init method failed"</span>, ex);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">if</span> (mbd == <span class="hljs-keyword">null</span> || !mbd.isSynthetic()) &#123;</span><br><span class="line">			wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">return</span> wrappedBean;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<p>这个方法中首先判断安全,然后调用invokeAwareMethods 这个方法<br><figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">invokeAwareMethods</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String beanName, <span class="hljs-keyword">final</span> Object bean)</span> </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> Aware) &#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> BeanNameAware) &#123;</span><br><span class="line">				((BeanNameAware) bean).setBeanName(beanName);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> BeanClassLoaderAware) &#123;</span><br><span class="line">				ClassLoader bcl = getBeanClassLoader();</span><br><span class="line">				<span class="hljs-keyword">if</span> (bcl != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">					((BeanClassLoaderAware) bean).setBeanClassLoader(bcl);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> BeanFactoryAware) &#123;</span><br><span class="line">				((BeanFactoryAware) bean).setBeanFactory(AbstractAutowireCapableBeanFactory.<span class="hljs-keyword">this</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个方法依次调用了BeanNameAware, BeanClassLoaderAware, BeanFactoryAware.这里并没有调用ApplicationContextAware,因为这里是初始化bean相关的回调. ApplicationContextAware回调在applyBeanPostProcessorsBeforeInitialization方法中进行.</p>
-<p>再来看下applyBeanPostProcessorsBeforeInitialization</p>
-<figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">applyBeanPostProcessorsBeforeInitialization</span><span class="hljs-params">(Object existingBean, String beanName)</span></span></span><br><span class="line"><span class="hljs-function">			<span class="hljs-keyword">throws</span> BeansException </span>&#123;</span><br><span class="line"></span><br><span class="line">		Object result = existingBean;</span><br><span class="line">		<span class="hljs-keyword">for</span> (BeanPostProcessor processor : getBeanPostProcessors()) &#123;</span><br><span class="line">			Object current = processor.postProcessBeforeInitialization(result, beanName);</span><br><span class="line">			<span class="hljs-keyword">if</span> (current == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">				<span class="hljs-keyword">return</span> result;</span><br><span class="line">			&#125;</span><br><span class="line">			result = current;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">return</span> result;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<p>通过获取beanfactory里面的BeanPostProcessors 然后调用postProcessBeforeInitialization.如果我们的BeanPostProcessors中包含了ApplicationContextAwareProcessor(这是一个内部类),那么spring便会实现ApplicationContextAware回调.</p>
-<figure class="highlight java hljs"><figcaption><span>ApplicationContextAwareProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">postProcessBeforeInitialization</span><span class="hljs-params">(<span class="hljs-keyword">final</span> Object bean, String beanName)</span> <span class="hljs-keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		AccessControlContext acc = <span class="hljs-keyword">null</span>;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">if</span> (System.getSecurityManager() != <span class="hljs-keyword">null</span> &amp;&amp;</span><br><span class="line">				(bean <span class="hljs-keyword">instanceof</span> EnvironmentAware || bean <span class="hljs-keyword">instanceof</span> EmbeddedValueResolverAware ||</span><br><span class="line">						bean <span class="hljs-keyword">instanceof</span> ResourceLoaderAware || bean <span class="hljs-keyword">instanceof</span> ApplicationEventPublisherAware ||</span><br><span class="line">						bean <span class="hljs-keyword">instanceof</span> MessageSourceAware || bean <span class="hljs-keyword">instanceof</span> ApplicationContextAware)) &#123;</span><br><span class="line">			acc = <span class="hljs-keyword">this</span>.applicationContext.getBeanFactory().getAccessControlContext();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">if</span> (acc != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			AccessController.doPrivileged((PrivilegedAction&lt;Object&gt;) () -&gt; &#123;</span><br><span class="line">				invokeAwareInterfaces(bean);</span><br><span class="line">				<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">			&#125;, acc);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">else</span> &#123;</span><br><span class="line">			invokeAwareInterfaces(bean);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<p>这里面回调了关于application context上下文的Aware接口<br><figure class="highlight java hljs"><figcaption><span>ApplicationContextAwareProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">invokeAwareInterfaces</span><span class="hljs-params">(Object bean)</span> </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> Aware) &#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> EnvironmentAware) &#123;</span><br><span class="line">				((EnvironmentAware) bean).setEnvironment(<span class="hljs-keyword">this</span>.applicationContext.getEnvironment());</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> EmbeddedValueResolverAware) &#123;</span><br><span class="line">				((EmbeddedValueResolverAware) bean).setEmbeddedValueResolver(<span class="hljs-keyword">this</span>.embeddedValueResolver);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> ResourceLoaderAware) &#123;</span><br><span class="line">				((ResourceLoaderAware) bean).setResourceLoader(<span class="hljs-keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> ApplicationEventPublisherAware) &#123;</span><br><span class="line">				((ApplicationEventPublisherAware) bean).setApplicationEventPublisher(<span class="hljs-keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> MessageSourceAware) &#123;</span><br><span class="line">				((MessageSourceAware) bean).setMessageSource(<span class="hljs-keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> ApplicationContextAware) &#123;</span><br><span class="line">				((ApplicationContextAware) bean).setApplicationContext(<span class="hljs-keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们再回到initializeBean方法 ,在applyBeanPostProcessorsBeforeInitialization方法之后调用了invokeInitMethods方法.里面先调用了实现InitializingBean的afterPropertiesSet方法,之后如果bean有InitMethod就调用它.<br><figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">invokeInitMethods</span><span class="hljs-params">(String beanName, <span class="hljs-keyword">final</span> Object bean, @Nullable RootBeanDefinition mbd)</span></span></span><br><span class="line"><span class="hljs-function">			<span class="hljs-keyword">throws</span> Throwable </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">boolean</span> isInitializingBean = (bean <span class="hljs-keyword">instanceof</span> InitializingBean);</span><br><span class="line">		<span class="hljs-keyword">if</span> (isInitializingBean &amp;&amp; (mbd == <span class="hljs-keyword">null</span> || !mbd.isExternallyManagedInitMethod(<span class="hljs-string">"afterPropertiesSet"</span>))) &#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (logger.isTraceEnabled()) &#123;</span><br><span class="line">				logger.trace(<span class="hljs-string">"Invoking afterPropertiesSet() on bean with name '"</span> + beanName + <span class="hljs-string">"'"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (System.getSecurityManager() != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">				<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">					AccessController.doPrivileged((PrivilegedExceptionAction&lt;Object&gt;) () -&gt; &#123;</span><br><span class="line">						((InitializingBean) bean).afterPropertiesSet();</span><br><span class="line">						<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">					&#125;, getAccessControlContext());</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="hljs-keyword">catch</span> (PrivilegedActionException pae) &#123;</span><br><span class="line">					<span class="hljs-keyword">throw</span> pae.getException();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">else</span> &#123;</span><br><span class="line">				((InitializingBean) bean).afterPropertiesSet();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">if</span> (mbd != <span class="hljs-keyword">null</span> &amp;&amp; bean.getClass() != NullBean.class) &#123;</span><br><span class="line">			String initMethodName = mbd.getInitMethodName();</span><br><span class="line">			<span class="hljs-keyword">if</span> (StringUtils.hasLength(initMethodName) &amp;&amp;</span><br><span class="line">					!(isInitializingBean &amp;&amp; <span class="hljs-string">"afterPropertiesSet"</span>.equals(initMethodName)) &amp;&amp;</span><br><span class="line">					!mbd.isExternallyManagedInitMethod(initMethodName)) &#123;</span><br><span class="line">				invokeCustomInitMethod(beanName, bean, mbd);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最后applyBeanPostProcessorsAfterInitialization主要回调BeanPostProcessor.postProcessAfterInitialization方法,例如ApplicationListener Bean初始化之后,ApplicationListenerDetector在此阶段将其添加到applicationContext.</p>
-<figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">applyBeanPostProcessorsAfterInitialization</span><span class="hljs-params">(Object existingBean, String beanName)</span></span></span><br><span class="line"><span class="hljs-function">			<span class="hljs-keyword">throws</span> BeansException </span>&#123;</span><br><span class="line"></span><br><span class="line">		Object result = existingBean;</span><br><span class="line">		<span class="hljs-keyword">for</span> (BeanPostProcessor processor : getBeanPostProcessors()) &#123;</span><br><span class="line">			Object current = processor.postProcessAfterInitialization(result, beanName);</span><br><span class="line">			<span class="hljs-keyword">if</span> (current == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">				<span class="hljs-keyword">return</span> result;</span><br><span class="line">			&#125;</span><br><span class="line">			result = current;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">return</span> result;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-07-21T13:04:11.000Z">2021-07-21</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    6 分钟 读完 (大约 827 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/07/21/SpringRequestEnum2/">关于spring boot在请求参数中使用枚举(enums)的几种方式(2)</a>
-            
-        </h1>
-        <div class="content">
-            <p>在日常开发中，我们都会在请求中使用某些枚举类型，这样不仅能够防止恶意客户端输入一些错误值，提高程序的健壮性，还可以提高代码的可读性和可维护性。当时当我们在request 参数中添加枚举后，spring boot并不会帮助我们自动解析成枚举，这就需要我们能够自己配置了。下面介绍几种日常开发中会用的方式。</p>
-<h2 id="3-使用-JsonCreator"><a href="#3-使用-JsonCreator" class="headerlink" title="3.使用@JsonCreator"></a>3.使用@JsonCreator</h2><p>一把项目中,我们使用都是POST方法使用body来接收对象,在对象中我们定义了枚举参数,但是当我们传入json字符串反序列化时，项目会出现错误400.JSON parse error: Cannot deserialize value of type.</p>
-<p>那这个错误是怎么产生的呢？<br>我们通过debug发现在RequestMappingHandlerAdapter.java这个类的invokeHandlerMethod方法中将请求转换为调用我们写的接口的.<br>而这个方法最终会调用InvocableHandlerMethod.java的getMethodArgumentValues来获取其中的参数.那如何来获取呢，便是通过里面的resolver集合.当我们使用@RequestBody来接收请求参数是,系统对应的选择RequestResponseBodyMethodProcessor来处理.<br>前面我们的GET请求是使用RequestParamMethodArgumentResolver来处理的.<br>那RequestResponseBodyMethodProcessor是怎么处理的,它也和RequestParamMethodArgumentResolver一样是使用converter来处理,但是使用的是HttpMessageConverter,因为他是读取消息体来获取参数的.</p>
-<figure class="highlight java hljs"><figcaption><span>AbstractMessageConverterMethodArgumentResolver.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span> (HttpMessageConverter&lt;?&gt; converter : <span class="hljs-keyword">this</span>.messageConverters) &#123;</span><br><span class="line">				Class&lt;HttpMessageConverter&lt;?&gt;&gt; converterType = (Class&lt;HttpMessageConverter&lt;?&gt;&gt;) converter.getClass();</span><br><span class="line">				GenericHttpMessageConverter&lt;?&gt; genericConverter =</span><br><span class="line">						(converter <span class="hljs-keyword">instanceof</span> GenericHttpMessageConverter ? (GenericHttpMessageConverter&lt;?&gt;) converter : <span class="hljs-keyword">null</span>);</span><br><span class="line">				<span class="hljs-keyword">if</span> (genericConverter != <span class="hljs-keyword">null</span> ? genericConverter.canRead(targetType, contextClass, contentType) :</span><br><span class="line">						(targetClass != <span class="hljs-keyword">null</span> &amp;&amp; converter.canRead(targetClass, contentType))) &#123;</span><br><span class="line">					<span class="hljs-keyword">if</span> (message.hasBody()) &#123;</span><br><span class="line">						HttpInputMessage msgToUse =</span><br><span class="line">								getAdvice().beforeBodyRead(message, parameter, targetType, converterType);</span><br><span class="line">						body = (genericConverter != <span class="hljs-keyword">null</span> ? genericConverter.read(targetType, contextClass, msgToUse) :</span><br><span class="line">								((HttpMessageConverter&lt;T&gt;) converter).read(targetClass, msgToUse));</span><br><span class="line">						body = getAdvice().afterBodyRead(body, msgToUse, parameter, targetType, converterType);</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="hljs-keyword">else</span> &#123;</span><br><span class="line">						body = getAdvice().handleEmptyBody(<span class="hljs-keyword">null</span>, message, parameter, targetType, converterType);</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="hljs-keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br></pre></td></tr></table></figure>
-<p>这里我们看到程序使用了一个for循环来尝试过去处理,而我们输入的是json字符串那么最终采用的便是我们一直用的MappingJackson2HttpMessageConverter.这个converter在反序列化成枚举是便会产生异常.</p>
-<p>那解决方法便是尝试让我们的枚举类支持反序列化方式和增加我们自己定义的converter.这里方便起见我们可以直接用@JsonCreater来让我们的枚举支持反序列化.</p>
-<p>首先在我们的项目的IntegerRequestEnum这个枚举类中增加静态方法</p>
-<figure class="highlight java hljs"><figcaption><span>IntegerRequestEnum.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@JsonCreator</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> IntegerRequestEnum <span class="hljs-title">decode</span><span class="hljs-params">(Integer source)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">for</span> (IntegerRequestEnum e : IntegerRequestEnum.values()) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (e.getCode().equals(source)) &#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> A;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>请求类对象:<br><figure class="highlight java hljs"><figcaption><span>EnumRequest.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EnumRequest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">private</span> IntegerRequestEnum ir;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> IntegerRequestEnum <span class="hljs-title">getIr</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> ir;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setIr</span><span class="hljs-params">(IntegerRequestEnum ir)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.ir = ir;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>接着定义我们的接口<br><figure class="highlight java hljs"><figcaption><span>EnumController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@PostMapping</span>(<span class="hljs-string">"/post"</span>)</span><br><span class="line">    <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; postEnumRequest(<span class="hljs-meta">@RequestBody</span> EnumRequest A) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> ResponseEntity.ok(A.getIr().getCode());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"> </span><br></pre></td></tr></table></figure></p>
-<p> 使用POSTMAN访问成功返回我们需要的值.</p>
-<h2 id="4-使用JsonDeserializer-不推荐"><a href="#4-使用JsonDeserializer-不推荐" class="headerlink" title="4.使用JsonDeserializer(不推荐)"></a>4.使用JsonDeserializer(不推荐)</h2><p>最简单的方法但是枚举类一多配置起来比较复杂</p>
-<p>定义我们的Deserializer<br><figure class="highlight java hljs"><figcaption><span>IntegerEnumDeserializer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IntegerEnumDeserializer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">JsonDeserializer</span>&lt;<span class="hljs-title">IntegerRequestEnum</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-meta">@Override</span></span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">public</span> IntegerRequestEnum <span class="hljs-title">deserialize</span><span class="hljs-params">(JsonParser jsonParser, DeserializationContext deserializationContext)</span> <span class="hljs-keyword">throws</span> IOException, JsonProcessingException </span>&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> IntegerRequestEnum.decode(jsonParser.getIntValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>然后在我们Request对象里的枚举属性上使用注解@JsonDeserialize(using = IntegerEnumDeserializer.class)</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>阿里在开发手册中不推荐返回值使用枚举,认为枚举在可扩展性上存在不足.</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -964,6 +940,8 @@
             <li><a class="pagination-link is-current" href="/">1</a></li>
             
             <li><a class="pagination-link has-text-black-ter" href="/page/2/">2</a></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/page/3/">3</a></li>
             
         </ul>
     </nav>
@@ -983,22 +961,22 @@
             <div class="level-item has-text-centered">
                 <div>
                     
-                        <img class="image is-128x128 has-mb-6" src="https://www.gravatar.com/avatar/9e74c6d1d6f620a5ac838ebfe5135d38?s=128" alt="沈涛">
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
                     
                     
                     <p class="is-size-4 is-block">
-                        沈涛
+                        Your name
                     </p>
                     
                     
                     <p class="is-size-6 is-block">
-                        java developer / gopher
+                        Your title
                     </p>
                     
                     
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Hang Zhou, CN</span>
+                        <span>Your location</span>
                     </p>
                     
                 </div>
@@ -1011,7 +989,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        20
+                        22
                     </p>
                 </div>
             </div>
@@ -1021,7 +999,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        9
+                        10
                     </p>
                 </div>
             </div>
@@ -1031,20 +1009,20 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        13
+                        14
                     </p>
                 </div>
             </div>
         </nav>
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="http://github.com/18668031200" target="_blank">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice" target="_blank">
                 关注我</a>
         </div>
         
         
         <div class="level is-mobile">
             
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/18668031200">
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
                 
                 <i class="fab fa-github"></i>
                 
@@ -1134,7 +1112,7 @@
                 <span class="level-item">docker</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">1</span>
+                <span class="level-item tag">2</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/dubbo/">
@@ -1164,6 +1142,14 @@
         <a class="level is-marginless" href="/categories/jdk/">
             <span class="level-start">
                 <span class="level-item">jdk</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/k8s/">
+            <span class="level-start">
+                <span class="level-item">k8s</span>
             </span>
             <span class="level-end">
                 <span class="level-item tag">1</span>
@@ -1212,7 +1198,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 10px;">k8s</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -1226,6 +1212,44 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2022/04/27/docker_cmd/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Dockerfile ENTRYPOINT和CMD">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-27T14:47:53.000Z">2022-04-27</time></div>
+                    <a href="/2022/04/27/docker_cmd/" class="has-link-black-ter is-size-6">Dockerfile ENTRYPOINT和CMD</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/04/26/k8s-svc1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_svc笔记">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-26T15:21:10.000Z">2022-04-26</time></div>
+                    <a href="/2022/04/26/k8s-svc1/" class="has-link-black-ter is-size-6">k8s_svc笔记</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1284,44 +1308,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/08/25/ratelimiter/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java 自定义限流器">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-25T13:29:44.000Z">2021-08-25</time></div>
-                    <a href="/2021/08/25/ratelimiter/" class="has-link-black-ter is-size-6">java 自定义限流器</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/08/10/optional/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java Optional的用法">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-10T08:15:01.000Z">2021-08-10</time></div>
-                    <a href="/2021/08/10/optional/" class="has-link-black-ter is-size-6">Java Optional的用法</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/jdk/">jdk</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1333,6 +1319,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2022/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2021/09/">
@@ -1427,7 +1424,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/docker/">
                         <span class="tag">docker</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
@@ -1462,6 +1459,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/jdk/">
                         <span class="tag">jdk</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/k8s/">
+                        <span class="tag">k8s</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1540,6 +1544,44 @@
         
         <article class="media">
             
+            <a href="/2022/04/27/docker_cmd/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Dockerfile ENTRYPOINT和CMD">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-27T14:47:53.000Z">2022-04-27</time></div>
+                    <a href="/2022/04/27/docker_cmd/" class="has-link-black-ter is-size-6">Dockerfile ENTRYPOINT和CMD</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/04/26/k8s-svc1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_svc笔记">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-26T15:21:10.000Z">2022-04-26</time></div>
+                    <a href="/2022/04/26/k8s-svc1/" class="has-link-black-ter is-size-6">k8s_svc笔记</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2021/09/19/linux-virtual-addr/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="虚拟地址转换流程">
@@ -1595,44 +1637,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/08/25/ratelimiter/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java 自定义限流器">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-25T13:29:44.000Z">2021-08-25</time></div>
-                    <a href="/2021/08/25/ratelimiter/" class="has-link-black-ter is-size-6">java 自定义限流器</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/08/10/optional/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java Optional的用法">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-08-10T08:15:01.000Z">2021-08-10</time></div>
-                    <a href="/2021/08/10/optional/" class="has-link-black-ter is-size-6">Java Optional的用法</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/jdk/">jdk</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1644,6 +1648,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2022/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2021/09/">
@@ -1738,7 +1753,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/docker/">
                         <span class="tag">docker</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
@@ -1773,6 +1788,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/jdk/">
                         <span class="tag">jdk</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/k8s/">
+                        <span class="tag">k8s</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1847,7 +1869,7 @@
                 
                 </a>
                 <p class="is-size-7">
-                &copy; 2021 ygdxd&nbsp;
+                &copy; 2022 ygdxd&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
                 
                 </p>
