@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>ygdxd blog!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="java and go">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ygdxd blog!">
+<meta property="og:url" content="http://github.com/18668031200.github.io/page/2/index.html">
+<meta property="og:site_name" content="ygdxd blog!">
+<meta property="og:description" content="java and go">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://github.com/images/og_image.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ygdxd blog!">
+<meta name="twitter:description" content="java and go">
+<meta name="twitter:image" content="http://github.com/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-08-08T13:42:09.000Z">2021-08-08</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 514 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/08/08/sql-group-by/">GROUP BY分组查询与SQL执行顺序</a>
+            
+        </h1>
+        <div class="content">
+            <p>转自：<a href="http://blog.163.com/shexinyang@126/blog/static/1367393122013526113822666/" target="_blank" rel="noopener">http://blog.163.com/shexinyang@126/blog/static/1367393122013526113822666/</a> </p>
+<h2 id="1-SELECT语句使用GROUP-BY的一些规定"><a href="#1-SELECT语句使用GROUP-BY的一些规定" class="headerlink" title="1.SELECT语句使用GROUP BY的一些规定"></a>1.SELECT语句使用GROUP BY的一些规定</h2><ul>
+<li>GROUP BY子句可以包含任意数目的列。也就是说可以在组里再分组，为数据分组提供更细致的控制。</li>
+<li>如果在GROUP BY子句中指定多个分组，数据将在最后指定的分组上汇总。</li>
+<li>GROUP BY子句中列出的每个列都必须是检索列或有效的表达式（但不能是聚集函数）。如果在SELECT中使用了表达式，则必须在GROUP BY子句中指定相同的表达式。不能使用别名。</li>
+<li>除了聚集计算语句外，GROUP BY子句中的每一列都必须在SELECT语句给出。</li>
+<li>如果分组列中有NULL值，则NULL将作为一个分组返回。如果有多行NULL值，它们将分为一组。</li>
+<li>GROUP BY子句必须在WHERE子句之后，ORDER BY之前。</li>
+</ul>
+<h2 id="2-过滤分组"><a href="#2-过滤分组" class="headerlink" title="2.过滤分组"></a>2.过滤分组</h2><p>对分组过于采用HAVING子句。HAVING子句支持所有WHERE的操作。HAVING与WHERE的区别在于WHERE是过滤行的，而HAVING是用来过滤分组。</p>
+<p>另一种理解WHERE与HAVING的区别的方法是，WHERE在分组之前过滤，而HAVING在分组之后以每组为单位过滤。</p>
+<h2 id="3-分组与排序"><a href="#3-分组与排序" class="headerlink" title="3.分组与排序"></a>3.分组与排序</h2><p>一般在使用GROUP BY子句时，也应该使用ORDER BY子句。这是保证数据正确排序的唯一方法。</p>
+<p>SQL SELECT语句的执行顺序：</p>
+<p>from子句组装来自不同数据源的数据(若有join，则先执行on后条件，再连接数据源)；<br>where子句基于指定的条件对记录行进行筛选；<br>group by子句将数据划分为多个分组；<br>使用聚集函数进行计算；<br>使用having子句筛选分组；<br>计算所有的表达式；<br>使用order by对结果集进行排序；<br>select 集合输出。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-07-29T15:07:10.000Z">2021-07-29</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/fastdfs/">fastdfs</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    8 分钟 读完 (大约 1254 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/07/29/fastdfs/">fastdfs部署及应用</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>FastDFS是一个开源的轻量级分布式文件系统,为互联网应用量身定做,简单、灵活、高效,采用C语言开发,由阿里巴巴开发并开源.<br>FastDFS对文件进行管理,功能包括：文件存储、文件同步、文件访问(文件上传、文件下载、文件删除)等,解决了大容量文件存储的问题,特别适合以文件为载体的在线服务,如相册网站、文档网站、图片网站、视频网站等等.<br>FastDFS充分考虑了冗余备份、线性扩容等机制,并注重高可用、高性能等指标,使用FastDFS很容易搭建一套高性能的文件服务器集群提供文件上传、下载等服务.</p>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>FastDFS文件系统由两大部分构成,一个是客户端,一个是服务端.<br>客户端通常就是我们的程序,我们可以使用第三方的扩展包去连接fastdfs.</p>
+<p>跟踪器(tracker)主要做调度工作,在内存中记录集群中存储节点storage的状态信息,是前端Client和后端存储节点storage的枢纽.<br>因为相关信息全部在内存中,Tracker server的性能非常高,一个较大的集群(比如上百个group)中有3台就足够了.<br>每个 storage 在启动后会连接 Tracker，告知自己所属 group 等信息，并保持周期性心跳。storage以group为单位,每个group里可以有多个storage单位.</p>
+<p>存储节点(storage)用于存储文件,包括文件和文件属性(meta data)都保存到存储服务器磁盘上,完成文件管理的所有功能:文件存储、文件同步和提供文件访问等.</p>
+<h2 id="1-下载镜像"><a href="#1-下载镜像" class="headerlink" title="1.下载镜像"></a>1.下载镜像</h2><p>执行命令docker search fastdfs</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NAME                           DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED</span><br><span class="line">season/fastdfs                 FastDFS                                         77</span><br><span class="line">ygqygq2/fastdfs-nginx          整合了nginx的fastdfs                                27                                      [OK]</span><br><span class="line">luhuiguo/fastdfs               FastDFS is an open source high performance d…   25                                      [OK]</span><br><span class="line">morunchang/fastdfs             A FastDFS image                                 20</span><br><span class="line">delron/fastdfs                                                                 13</span><br><span class="line">qbanxiaoli/fastdfs             FastDFS+FastDHT(单机+集群版)                         12                                      [OK]</span><br></pre></td></tr></table></figure>
+<p>这里根据star数选取最高的 season/fastdfs,打开docker hub搜索这个镜像<a href="https://hub.docker.com/r/season/fastdfs" target="_blank" rel="noopener">https://hub.docker.com/r/season/fastdfs</a><br>里面有具体使用这个镜像的方法教程,这里点击tag页选取最新的版本1.2.<br>使用docker pull season/fastdfs:1.2等待docker 帮我们自动下载好镜像.</p>
+<ol start="2">
+<li>启动tracker和storage服务</li>
+</ol>
+<hr>
+<p>首先创建对应的文件夹<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/fastdfs</span><br></pre></td></tr></table></figure></p>
+<p>启动tracker </p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name tracker \</span><br><span class="line">-p 22122:22122 \</span><br><span class="line">--restart=always --net host \</span><br><span class="line">-v /home/ucmed/fastdfs/tracker/data:/fastdfs/tracker/data \</span><br><span class="line">season/fastdfs:1.2 tracker</span><br></pre></td></tr></table></figure>
+<p>启动storage服务</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name storage \</span><br><span class="line">--restart=always --net host \</span><br><span class="line">-v /home/fastdfs/data/storage:/fastdfs/store_path \</span><br><span class="line">-e TRACKER_SERVER=&quot;192.168.3.134:22122&quot; \</span><br><span class="line">season/fastdfs:1.2 storage</span><br></pre></td></tr></table></figure>
+<p>这里笔者曾使用TRACKER_SERVER=”127.0.0.1” 但是启动服务使用命令docker logs发现程序并为成功启动.<br>提示TRACKER_SERVER不能设置成127.0.0.1.</p>
+<p>搭建完2个容器后进入tracker 进行测试<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it tracker bash</span><br><span class="line">cd /etc/fdfs/</span><br><span class="line">ls</span><br><span class="line">cat client.conf</span><br></pre></td></tr></table></figure></p>
+<p>输出的 client.conf 都是默认配置，我们可以找到其中的 track_server 将默认的地址改成我们设置的storage地址<br>执行命令<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker cp trakcer:/etc/fdfs/client.conf /home/fastdfs/</span><br><span class="line">vim client.conf</span><br><span class="line">docker cp /home/fastdfs/client.conf tracker:/etc/fdfs</span><br></pre></td></tr></table></figure></p>
+<p>修改其中的track_server地址</p>
+<p>执行命令<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it tracker bash</span><br><span class="line">fdfs_monitor /etc/fdfs/client.conf</span><br></pre></td></tr></table></figure></p>
+<p>控制台会输出DEBUG信息<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEBUG - base_path=/fastdfs/client, connect_timeout=30, network_timeout=60, tracker_server_count=1, anti_steal_token=0, anti_steal_secret_key length=0, use_connection_pool=0, g_connection_pool_max_idle_time=3600s, use_storage_id=0, storage server id count: 0</span><br></pre></td></tr></table></figure></p>
+<p>表示storage已经成功的连上了我们的tracker.<br>之后尝试上传文件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#fdfs_upload_file /etc/fdfs/client.conf **.txt</span><br><span class="line">group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt</span><br></pre></td></tr></table></figure></p>
+<p>这样fastdfs就搭建完成了</p>
+<h2 id="3-nginx-服务"><a href="#3-nginx-服务" class="headerlink" title="3.nginx 服务"></a>3.nginx 服务</h2><p>如果想要访问我们上传的文件 就需要启动nginx modual.拷贝出nginx配置文件 修改其中的location节点</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker cp storage:/etc/nginx/conf/nginx.conf /home/fastdfs/nginx/</span><br><span class="line"></span><br><span class="line">docker run -id --name fastdfs_nginx \</span><br><span class="line">--restart=always \</span><br><span class="line">-v /home/fastdfs/data/storage:/fastdfs/store_path \</span><br><span class="line">-v /home/fastdfs/nginx.conf:/etc/nginx/conf/nginx.conf \</span><br><span class="line">-p 80:80 \</span><br><span class="line">-e TRACKER_SERVER=192.168.3.134:22122 \</span><br><span class="line">season/fastdfs:1.2 nginx</span><br></pre></td></tr></table></figure>
+<p>这时候打开浏览器访问<a href="http://192.168.3.134/group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt" target="_blank" rel="noopener">http://192.168.3.134/group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt</a><br>出现刚刚上传的文件信息.</p>
+<h2 id="4-spring-boo-集成"><a href="#4-spring-boo-集成" class="headerlink" title="4.spring boo 集成"></a>4.spring boo 集成</h2><p>增加maven 依赖<br><figure class="highlight hljs"><figcaption><span>pom.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.github.tobato&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;fastdfs-client&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.27.2&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在Maven当中配置依赖以后，SpringBoot项目将会自动导入FastDFS依赖<br>添加config</p>
+<figure class="highlight java hljs"><figcaption><span>ComponetImport.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 导入FastDFS-Client组件</span></span><br><span class="line"><span class="hljs-comment"> * </span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> tobato</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-meta">@Configuration</span></span><br><span class="line"><span class="hljs-meta">@Import</span>(FdfsClientConfig.class)</span><br><span class="line"><span class="hljs-comment">// 解决jmx重复注册bean的问题</span></span><br><span class="line"><span class="hljs-meta">@EnableMBeanExport</span>(registration = RegistrationPolicy.IGNORE_EXISTING)</span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ComponetImport</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// 导入依赖组件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在application.yml当中配置Fdfs相关参数</p>
+<figure class="highlight java hljs"><figcaption><span>application.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fdfs:</span><br><span class="line">  connect-timeout: <span class="hljs-number">500</span></span><br><span class="line">  so-timeout: <span class="hljs-number">5000</span></span><br><span class="line">  thumb-image:</span><br><span class="line">    width: <span class="hljs-number">200</span></span><br><span class="line">    height: <span class="hljs-number">200</span></span><br><span class="line">  tracker-list:</span><br><span class="line">    - <span class="hljs-number">192.168</span>.3.134:<span class="hljs-number">22122</span></span><br><span class="line">  pool:</span><br><span class="line">    max-total: <span class="hljs-number">3</span></span><br><span class="line">    max-total-per-key: <span class="hljs-number">5</span></span><br><span class="line">    max-idle-per-key: <span class="hljs-number">3</span></span><br></pre></td></tr></table></figure>
+<p>编写上传接口</p>
+<figure class="highlight java hljs"><figcaption><span>FastDfsController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/dfs"</span>)</span><br><span class="line"><span class="hljs-meta">@RestController</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FastDfsController</span> </span>&#123;</span><br><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> FastFileStorageClient fastFileStorageClient;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FastDfsController</span><span class="hljs-params">(FastFileStorageClient fastFileStorageClient)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.fastFileStorageClient = fastFileStorageClient;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-meta">@PostMapping</span>(value = <span class="hljs-string">"/upload"</span>,consumes = &#123;MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.IMAGE_PNG_VALUE&#125;)</span><br><span class="line">        <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; upload(MultipartFile multipartFile) <span class="hljs-keyword">throws</span> IOException &#123;</span><br><span class="line">    </span><br><span class="line">            String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());</span><br><span class="line">            FastFile fastFile = <span class="hljs-keyword">new</span> FastFile(multipartFile.getInputStream(), multipartFile.getSize(), extension, <span class="hljs-keyword">new</span> HashSet&lt;&gt;());</span><br><span class="line">            StorePath storePath = fastFileStorageClient.uploadFile(fastFile);</span><br><span class="line">            <span class="hljs-keyword">return</span> ResponseEntity.ok(storePath.getFullPath());</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用我们的接口后便会返回对应的路径.</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-07-23T11:14:20.000Z">2021-07-23</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/spring/">spring</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 分钟 读完 (大约 1020 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/07/23/SpringBean/">SpringBean</a>
+            
+        </h1>
+        <div class="content">
+            <p>关于spring bean的实例化和初始化流程的一些记录</p>
+<h2 id="1-BeanDedifinition的beanClass设置"><a href="#1-BeanDedifinition的beanClass设置" class="headerlink" title="1.BeanDedifinition的beanClass设置"></a>1.BeanDedifinition的beanClass设置</h2><p>当想要去创建bean时,是想创建BeanDedifinition,而在BeanDedifinition创建完之后,Bean实例化之前BeanDedifinition的beanClass由String类型转成对应Bean的class类型,而ClassLoader则是由当前线程的ClassLoader(AppClassLoader)进行加载.</p>
+<p>那beanClass为什么是String类型的.<br><figure class="highlight java hljs"><figcaption><span>AbstractBeanDefinition.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setBeanClassName</span><span class="hljs-params">(@Nullable String beanClassName)</span> </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">this</span>.beanClass = beanClassName;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure><br>这里设置BeanClassName时默认设置beanClass为类名.那我们在实例化bean时必须先把beanClass转换成对应的class对象.<br>对应的设置的方法为AbstractBeanFactory的resolveBeanClass方法.在方法里又调用了doResolveBeanClass方法,里面先获取ClassLoader,之后调用AbstractBeanDefinition的resolveBeanClass方法.在这个方法里通过ClassLoader它设置我们beanClass.</p>
+<figure class="highlight java hljs"><figcaption><span>AbstractBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Nullable</span></span><br><span class="line">	<span class="hljs-keyword">private</span> Class&lt;?&gt; doResolveBeanClass(RootBeanDefinition mbd, Class&lt;?&gt;... typesToMatch)</span><br><span class="line">			<span class="hljs-keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line"></span><br><span class="line">		ClassLoader beanClassLoader = getBeanClassLoader();</span><br><span class="line">		ClassLoader dynamicLoader = beanClassLoader;</span><br><span class="line">		<span class="hljs-keyword">boolean</span> freshResolve = <span class="hljs-keyword">false</span>;</span><br><span class="line">		<span class="hljs-comment">// 省略部分代码</span></span><br><span class="line">		....</span><br><span class="line">		<span class="hljs-keyword">return</span> mbd.resolveBeanClass(beanClassLoader);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+<p>在这里设置beanClass.<br><figure class="highlight java hljs"><figcaption><span>AbstractBeanDefinition.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Nullable</span></span><br><span class="line">	<span class="hljs-keyword">public</span> Class&lt;?&gt; resolveBeanClass(<span class="hljs-meta">@Nullable</span> ClassLoader classLoader) <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">		String className = getBeanClassName();</span><br><span class="line">		<span class="hljs-keyword">if</span> (className == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		Class&lt;?&gt; resolvedClass = ClassUtils.forName(className, classLoader);</span><br><span class="line">		<span class="hljs-keyword">this</span>.beanClass = resolvedClass;</span><br><span class="line">		<span class="hljs-keyword">return</span> resolvedClass;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>spring aware 接口回调</li>
+</ol>
+<hr>
+<p>首先创建bean</p>
+<figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">protected</span> Object <span class="hljs-title">doCreateBean</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String beanName, <span class="hljs-keyword">final</span> RootBeanDefinition mbd, <span class="hljs-keyword">final</span> @Nullable Object[] args)</span></span></span><br><span class="line"><span class="hljs-function">			<span class="hljs-keyword">throws</span> BeanCreationException </span>&#123;</span><br><span class="line">			</span><br><span class="line">			<span class="hljs-comment">// Instantiate the bean.</span></span><br><span class="line">		BeanWrapper instanceWrapper = <span class="hljs-keyword">null</span>;</span><br><span class="line">		<span class="hljs-comment">// 如果是单例就不用重复实例化了</span></span><br><span class="line">		<span class="hljs-keyword">if</span> (mbd.isSingleton()) &#123;</span><br><span class="line">			instanceWrapper = <span class="hljs-keyword">this</span>.factoryBeanInstanceCache.remove(beanName);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">if</span> (instanceWrapper == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			instanceWrapper = createBeanInstance(beanName, mbd, args);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-comment">//其他步骤</span></span><br><span class="line">		...</span><br><span class="line">		</span><br><span class="line">		<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">		    <span class="hljs-comment">// 设置bean的属性 </span></span><br><span class="line">			populateBean(beanName, mbd, instanceWrapper);</span><br><span class="line">			<span class="hljs-comment">// 初始化bean</span></span><br><span class="line">			exposedObject = initializeBean(beanName, exposedObject, mbd);</span><br><span class="line">		&#125;</span><br><span class="line">			</span><br><span class="line">			</span><br><span class="line">&#125;			</span><br></pre></td></tr></table></figure>
+<p>在AbstractAutowireCapableBeanFactory的initializeBean方法中实现了对spring中Aware的回调</p>
+<figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">protected</span> Object <span class="hljs-title">initializeBean</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String beanName, <span class="hljs-keyword">final</span> Object bean, @Nullable RootBeanDefinition mbd)</span> </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">if</span> (System.getSecurityManager() != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			AccessController.doPrivileged((PrivilegedAction&lt;Object&gt;) () -&gt; &#123;</span><br><span class="line">				invokeAwareMethods(beanName, bean);</span><br><span class="line">				<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">			&#125;, getAccessControlContext());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">else</span> &#123;</span><br><span class="line">			invokeAwareMethods(beanName, bean);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		Object wrappedBean = bean;</span><br><span class="line">		<span class="hljs-keyword">if</span> (mbd == <span class="hljs-keyword">null</span> || !mbd.isSynthetic()) &#123;</span><br><span class="line">			wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">			invokeInitMethods(beanName, wrappedBean, mbd);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> BeanCreationException(</span><br><span class="line">					(mbd != <span class="hljs-keyword">null</span> ? mbd.getResourceDescription() : <span class="hljs-keyword">null</span>),</span><br><span class="line">					beanName, <span class="hljs-string">"Invocation of init method failed"</span>, ex);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">if</span> (mbd == <span class="hljs-keyword">null</span> || !mbd.isSynthetic()) &#123;</span><br><span class="line">			wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">return</span> wrappedBean;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法中首先判断安全,然后调用invokeAwareMethods 这个方法<br><figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">invokeAwareMethods</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String beanName, <span class="hljs-keyword">final</span> Object bean)</span> </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> Aware) &#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> BeanNameAware) &#123;</span><br><span class="line">				((BeanNameAware) bean).setBeanName(beanName);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> BeanClassLoaderAware) &#123;</span><br><span class="line">				ClassLoader bcl = getBeanClassLoader();</span><br><span class="line">				<span class="hljs-keyword">if</span> (bcl != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">					((BeanClassLoaderAware) bean).setBeanClassLoader(bcl);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> BeanFactoryAware) &#123;</span><br><span class="line">				((BeanFactoryAware) bean).setBeanFactory(AbstractAutowireCapableBeanFactory.<span class="hljs-keyword">this</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个方法依次调用了BeanNameAware, BeanClassLoaderAware, BeanFactoryAware.这里并没有调用ApplicationContextAware,因为这里是初始化bean相关的回调. ApplicationContextAware回调在applyBeanPostProcessorsBeforeInitialization方法中进行.</p>
+<p>再来看下applyBeanPostProcessorsBeforeInitialization</p>
+<figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">applyBeanPostProcessorsBeforeInitialization</span><span class="hljs-params">(Object existingBean, String beanName)</span></span></span><br><span class="line"><span class="hljs-function">			<span class="hljs-keyword">throws</span> BeansException </span>&#123;</span><br><span class="line"></span><br><span class="line">		Object result = existingBean;</span><br><span class="line">		<span class="hljs-keyword">for</span> (BeanPostProcessor processor : getBeanPostProcessors()) &#123;</span><br><span class="line">			Object current = processor.postProcessBeforeInitialization(result, beanName);</span><br><span class="line">			<span class="hljs-keyword">if</span> (current == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">				<span class="hljs-keyword">return</span> result;</span><br><span class="line">			&#125;</span><br><span class="line">			result = current;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">return</span> result;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>通过获取beanfactory里面的BeanPostProcessors 然后调用postProcessBeforeInitialization.如果我们的BeanPostProcessors中包含了ApplicationContextAwareProcessor(这是一个内部类),那么spring便会实现ApplicationContextAware回调.</p>
+<figure class="highlight java hljs"><figcaption><span>ApplicationContextAwareProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">postProcessBeforeInitialization</span><span class="hljs-params">(<span class="hljs-keyword">final</span> Object bean, String beanName)</span> <span class="hljs-keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		AccessControlContext acc = <span class="hljs-keyword">null</span>;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">if</span> (System.getSecurityManager() != <span class="hljs-keyword">null</span> &amp;&amp;</span><br><span class="line">				(bean <span class="hljs-keyword">instanceof</span> EnvironmentAware || bean <span class="hljs-keyword">instanceof</span> EmbeddedValueResolverAware ||</span><br><span class="line">						bean <span class="hljs-keyword">instanceof</span> ResourceLoaderAware || bean <span class="hljs-keyword">instanceof</span> ApplicationEventPublisherAware ||</span><br><span class="line">						bean <span class="hljs-keyword">instanceof</span> MessageSourceAware || bean <span class="hljs-keyword">instanceof</span> ApplicationContextAware)) &#123;</span><br><span class="line">			acc = <span class="hljs-keyword">this</span>.applicationContext.getBeanFactory().getAccessControlContext();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">if</span> (acc != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			AccessController.doPrivileged((PrivilegedAction&lt;Object&gt;) () -&gt; &#123;</span><br><span class="line">				invokeAwareInterfaces(bean);</span><br><span class="line">				<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">			&#125;, acc);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">else</span> &#123;</span><br><span class="line">			invokeAwareInterfaces(bean);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面回调了关于application context上下文的Aware接口<br><figure class="highlight java hljs"><figcaption><span>ApplicationContextAwareProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">invokeAwareInterfaces</span><span class="hljs-params">(Object bean)</span> </span>&#123;</span><br><span class="line">		<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> Aware) &#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> EnvironmentAware) &#123;</span><br><span class="line">				((EnvironmentAware) bean).setEnvironment(<span class="hljs-keyword">this</span>.applicationContext.getEnvironment());</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> EmbeddedValueResolverAware) &#123;</span><br><span class="line">				((EmbeddedValueResolverAware) bean).setEmbeddedValueResolver(<span class="hljs-keyword">this</span>.embeddedValueResolver);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> ResourceLoaderAware) &#123;</span><br><span class="line">				((ResourceLoaderAware) bean).setResourceLoader(<span class="hljs-keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> ApplicationEventPublisherAware) &#123;</span><br><span class="line">				((ApplicationEventPublisherAware) bean).setApplicationEventPublisher(<span class="hljs-keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> MessageSourceAware) &#123;</span><br><span class="line">				((MessageSourceAware) bean).setMessageSource(<span class="hljs-keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (bean <span class="hljs-keyword">instanceof</span> ApplicationContextAware) &#123;</span><br><span class="line">				((ApplicationContextAware) bean).setApplicationContext(<span class="hljs-keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们再回到initializeBean方法 ,在applyBeanPostProcessorsBeforeInitialization方法之后调用了invokeInitMethods方法.里面先调用了实现InitializingBean的afterPropertiesSet方法,之后如果bean有InitMethod就调用它.<br><figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">invokeInitMethods</span><span class="hljs-params">(String beanName, <span class="hljs-keyword">final</span> Object bean, @Nullable RootBeanDefinition mbd)</span></span></span><br><span class="line"><span class="hljs-function">			<span class="hljs-keyword">throws</span> Throwable </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">boolean</span> isInitializingBean = (bean <span class="hljs-keyword">instanceof</span> InitializingBean);</span><br><span class="line">		<span class="hljs-keyword">if</span> (isInitializingBean &amp;&amp; (mbd == <span class="hljs-keyword">null</span> || !mbd.isExternallyManagedInitMethod(<span class="hljs-string">"afterPropertiesSet"</span>))) &#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (logger.isTraceEnabled()) &#123;</span><br><span class="line">				logger.trace(<span class="hljs-string">"Invoking afterPropertiesSet() on bean with name '"</span> + beanName + <span class="hljs-string">"'"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span> (System.getSecurityManager() != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">				<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">					AccessController.doPrivileged((PrivilegedExceptionAction&lt;Object&gt;) () -&gt; &#123;</span><br><span class="line">						((InitializingBean) bean).afterPropertiesSet();</span><br><span class="line">						<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">					&#125;, getAccessControlContext());</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="hljs-keyword">catch</span> (PrivilegedActionException pae) &#123;</span><br><span class="line">					<span class="hljs-keyword">throw</span> pae.getException();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">else</span> &#123;</span><br><span class="line">				((InitializingBean) bean).afterPropertiesSet();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="hljs-keyword">if</span> (mbd != <span class="hljs-keyword">null</span> &amp;&amp; bean.getClass() != NullBean.class) &#123;</span><br><span class="line">			String initMethodName = mbd.getInitMethodName();</span><br><span class="line">			<span class="hljs-keyword">if</span> (StringUtils.hasLength(initMethodName) &amp;&amp;</span><br><span class="line">					!(isInitializingBean &amp;&amp; <span class="hljs-string">"afterPropertiesSet"</span>.equals(initMethodName)) &amp;&amp;</span><br><span class="line">					!mbd.isExternallyManagedInitMethod(initMethodName)) &#123;</span><br><span class="line">				invokeCustomInitMethod(beanName, bean, mbd);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后applyBeanPostProcessorsAfterInitialization主要回调BeanPostProcessor.postProcessAfterInitialization方法,例如ApplicationListener Bean初始化之后,ApplicationListenerDetector在此阶段将其添加到applicationContext.</p>
+<figure class="highlight java hljs"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">applyBeanPostProcessorsAfterInitialization</span><span class="hljs-params">(Object existingBean, String beanName)</span></span></span><br><span class="line"><span class="hljs-function">			<span class="hljs-keyword">throws</span> BeansException </span>&#123;</span><br><span class="line"></span><br><span class="line">		Object result = existingBean;</span><br><span class="line">		<span class="hljs-keyword">for</span> (BeanPostProcessor processor : getBeanPostProcessors()) &#123;</span><br><span class="line">			Object current = processor.postProcessAfterInitialization(result, beanName);</span><br><span class="line">			<span class="hljs-keyword">if</span> (current == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">				<span class="hljs-keyword">return</span> result;</span><br><span class="line">			&#125;</span><br><span class="line">			result = current;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">return</span> result;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-07-21T13:04:11.000Z">2021-07-21</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/spring/">spring</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 827 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/07/21/SpringRequestEnum2/">关于spring boot在请求参数中使用枚举(enums)的几种方式(2)</a>
+            
+        </h1>
+        <div class="content">
+            <p>在日常开发中，我们都会在请求中使用某些枚举类型，这样不仅能够防止恶意客户端输入一些错误值，提高程序的健壮性，还可以提高代码的可读性和可维护性。当时当我们在request 参数中添加枚举后，spring boot并不会帮助我们自动解析成枚举，这就需要我们能够自己配置了。下面介绍几种日常开发中会用的方式。</p>
+<h2 id="3-使用-JsonCreator"><a href="#3-使用-JsonCreator" class="headerlink" title="3.使用@JsonCreator"></a>3.使用@JsonCreator</h2><p>一把项目中,我们使用都是POST方法使用body来接收对象,在对象中我们定义了枚举参数,但是当我们传入json字符串反序列化时，项目会出现错误400.JSON parse error: Cannot deserialize value of type.</p>
+<p>那这个错误是怎么产生的呢？<br>我们通过debug发现在RequestMappingHandlerAdapter.java这个类的invokeHandlerMethod方法中将请求转换为调用我们写的接口的.<br>而这个方法最终会调用InvocableHandlerMethod.java的getMethodArgumentValues来获取其中的参数.那如何来获取呢，便是通过里面的resolver集合.当我们使用@RequestBody来接收请求参数是,系统对应的选择RequestResponseBodyMethodProcessor来处理.<br>前面我们的GET请求是使用RequestParamMethodArgumentResolver来处理的.<br>那RequestResponseBodyMethodProcessor是怎么处理的,它也和RequestParamMethodArgumentResolver一样是使用converter来处理,但是使用的是HttpMessageConverter,因为他是读取消息体来获取参数的.</p>
+<figure class="highlight java hljs"><figcaption><span>AbstractMessageConverterMethodArgumentResolver.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span> (HttpMessageConverter&lt;?&gt; converter : <span class="hljs-keyword">this</span>.messageConverters) &#123;</span><br><span class="line">				Class&lt;HttpMessageConverter&lt;?&gt;&gt; converterType = (Class&lt;HttpMessageConverter&lt;?&gt;&gt;) converter.getClass();</span><br><span class="line">				GenericHttpMessageConverter&lt;?&gt; genericConverter =</span><br><span class="line">						(converter <span class="hljs-keyword">instanceof</span> GenericHttpMessageConverter ? (GenericHttpMessageConverter&lt;?&gt;) converter : <span class="hljs-keyword">null</span>);</span><br><span class="line">				<span class="hljs-keyword">if</span> (genericConverter != <span class="hljs-keyword">null</span> ? genericConverter.canRead(targetType, contextClass, contentType) :</span><br><span class="line">						(targetClass != <span class="hljs-keyword">null</span> &amp;&amp; converter.canRead(targetClass, contentType))) &#123;</span><br><span class="line">					<span class="hljs-keyword">if</span> (message.hasBody()) &#123;</span><br><span class="line">						HttpInputMessage msgToUse =</span><br><span class="line">								getAdvice().beforeBodyRead(message, parameter, targetType, converterType);</span><br><span class="line">						body = (genericConverter != <span class="hljs-keyword">null</span> ? genericConverter.read(targetType, contextClass, msgToUse) :</span><br><span class="line">								((HttpMessageConverter&lt;T&gt;) converter).read(targetClass, msgToUse));</span><br><span class="line">						body = getAdvice().afterBodyRead(body, msgToUse, parameter, targetType, converterType);</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="hljs-keyword">else</span> &#123;</span><br><span class="line">						body = getAdvice().handleEmptyBody(<span class="hljs-keyword">null</span>, message, parameter, targetType, converterType);</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="hljs-keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们看到程序使用了一个for循环来尝试过去处理,而我们输入的是json字符串那么最终采用的便是我们一直用的MappingJackson2HttpMessageConverter.这个converter在反序列化成枚举是便会产生异常.</p>
+<p>那解决方法便是尝试让我们的枚举类支持反序列化方式和增加我们自己定义的converter.这里方便起见我们可以直接用@JsonCreater来让我们的枚举支持反序列化.</p>
+<p>首先在我们的项目的IntegerRequestEnum这个枚举类中增加静态方法</p>
+<figure class="highlight java hljs"><figcaption><span>IntegerRequestEnum.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@JsonCreator</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> IntegerRequestEnum <span class="hljs-title">decode</span><span class="hljs-params">(Integer source)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">for</span> (IntegerRequestEnum e : IntegerRequestEnum.values()) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (e.getCode().equals(source)) &#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> A;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>请求类对象:<br><figure class="highlight java hljs"><figcaption><span>EnumRequest.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EnumRequest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">private</span> IntegerRequestEnum ir;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> IntegerRequestEnum <span class="hljs-title">getIr</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> ir;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setIr</span><span class="hljs-params">(IntegerRequestEnum ir)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.ir = ir;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接着定义我们的接口<br><figure class="highlight java hljs"><figcaption><span>EnumController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@PostMapping</span>(<span class="hljs-string">"/post"</span>)</span><br><span class="line">    <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; postEnumRequest(<span class="hljs-meta">@RequestBody</span> EnumRequest A) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> ResponseEntity.ok(A.getIr().getCode());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"> </span><br></pre></td></tr></table></figure></p>
+<p> 使用POSTMAN访问成功返回我们需要的值.</p>
+<h2 id="4-使用JsonDeserializer-不推荐"><a href="#4-使用JsonDeserializer-不推荐" class="headerlink" title="4.使用JsonDeserializer(不推荐)"></a>4.使用JsonDeserializer(不推荐)</h2><p>最简单的方法但是枚举类一多配置起来比较复杂</p>
+<p>定义我们的Deserializer<br><figure class="highlight java hljs"><figcaption><span>IntegerEnumDeserializer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IntegerEnumDeserializer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">JsonDeserializer</span>&lt;<span class="hljs-title">IntegerRequestEnum</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-meta">@Override</span></span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">public</span> IntegerRequestEnum <span class="hljs-title">deserialize</span><span class="hljs-params">(JsonParser jsonParser, DeserializationContext deserializationContext)</span> <span class="hljs-keyword">throws</span> IOException, JsonProcessingException </span>&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> IntegerRequestEnum.decode(jsonParser.getIntValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>然后在我们Request对象里的枚举属性上使用注解@JsonDeserialize(using = IntegerEnumDeserializer.class)</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>阿里在开发手册中不推荐返回值使用枚举,认为枚举在可扩展性上存在不足.</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-07-20T13:43:05.000Z">2021-07-20</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/spring/">spring</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 897 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/07/20/SpringRequestEnum1/">关于spring boot在请求参数中使用枚举(enums)的几种方式 (1)</a>
+            
+        </h1>
+        <div class="content">
+            <p>在日常开发中，我们都会在请求中使用某些枚举类型，这样不仅能够防止恶意客户端输入一些错误值，提高程序的健壮性，还可以提高代码的可读性和可维护性。当时当我们在request 参数中添加枚举后，spring boot并不会帮助我们自动解析成枚举，这就需要我们能够自己配置了。</p>
+<h2 id="1-直接使用字符串"><a href="#1-直接使用字符串" class="headerlink" title="1.直接使用字符串"></a>1.直接使用字符串</h2><p>先定义一个接收输入的枚举类</p>
+<figure class="highlight java hljs"><figcaption><span>RequestEnum.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> RequestEnum &#123;</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * A</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    A(<span class="hljs-string">"A"</span>),</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * B</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    B(<span class="hljs-string">"B"</span>);</span><br><span class="line"></span><br><span class="line">    RequestEnum(String code) &#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> String code;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getCode</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCode</span><span class="hljs-params">(String code)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>接着定义一个接收GET请求的接口</p>
+<figure class="highlight java hljs"><figcaption><span>EnumController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@GetMapping</span></span><br><span class="line">    <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; getEnumRequest(<span class="hljs-meta">@RequestParam</span> RequestEnum A) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> ResponseEntity.ok(A.getCode());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p>这个时候我们启动项目，在浏览器输入<br><a href="http://localhost:8080/**?A=A" target="_blank" rel="noopener">http://localhost:8080/**?A=A</a></p>
+<p>这个时候能够看到浏览器显示一个字母A 说明spring boot 能够把我们的字符串成功转换成枚举RequestEnum。</p>
+<h1 id="2-使用Integer或者其他类型"><a href="#2-使用Integer或者其他类型" class="headerlink" title="2.使用Integer或者其他类型"></a>2.使用Integer或者其他类型</h1><p>我们再定义一个枚举<br><figure class="highlight java hljs"><figcaption><span>IntegerRequestEnum.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> IntegerRequestEnum &#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * A</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    A(<span class="hljs-number">1</span>),</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * B</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    B(<span class="hljs-number">2</span>);</span><br><span class="line"></span><br><span class="line">    IntegerRequestEnum(Integer code) &#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> Integer code;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getCode</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCode</span><span class="hljs-params">(Integer code)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>接着编写接收这个枚举的接口</p>
+<figure class="highlight java hljs"><figcaption><span>EnumController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">"int"</span>)</span><br><span class="line">    <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; getIntegerEnumRequest(<span class="hljs-meta">@RequestParam</span> IntegerRequestEnum A) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> ResponseEntity.ok(A.getCode());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p>这个时候我们在浏览器输入<br><a href="http://localhost:8080/**/int?A=2" target="_blank" rel="noopener">http://localhost:8080/**/int?A=2</a></p>
+<p>发现浏览器返回浏览错误信息</p>
+<p>There was an unexpected error (type=Bad Request, status=400).</p>
+<h1 id="3-解析"><a href="#3-解析" class="headerlink" title="3.解析"></a>3.解析</h1><p>为什么String类型可以直接解析成枚举而字符串不能呢？<br>我们看下他是怎么解析的。<br><figure class="highlight java hljs"><figcaption><span>InvocableHandlerMethod.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">protected</span> Object[] getMethodArgumentValues(NativeWebRequest request, <span class="hljs-meta">@Nullable</span> ModelAndViewContainer mavContainer,</span><br><span class="line">			Object... providedArgs) <span class="hljs-keyword">throws</span> Exception &#123;</span><br><span class="line">			</span><br><span class="line">			<span class="hljs-keyword">if</span> (ObjectUtils.isEmpty(getMethodParameters())) &#123;</span><br><span class="line">			<span class="hljs-keyword">return</span> EMPTY_ARGS;</span><br><span class="line">		&#125;</span><br><span class="line">		MethodParameter[] parameters = getMethodParameters();</span><br><span class="line">		Object[] args = <span class="hljs-keyword">new</span> Object[parameters.length];</span><br><span class="line">		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; parameters.length; i++) &#123;</span><br><span class="line">			MethodParameter parameter = parameters[i];</span><br><span class="line">			<span class="hljs-comment">// 省略部分代码</span></span><br><span class="line">			<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">				args[i] = <span class="hljs-keyword">this</span>.resolvers.resolveArgument(parameter, mavContainer, request, <span class="hljs-keyword">this</span>.dataBinderFactory);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">				<span class="hljs-comment">//错误处理			&#125;</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">return</span> args;</span><br><span class="line">	</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>在InvocableHandlerMethod.java 这个类里spring 通过反射帮我们获取了方法接收的参数的类型，然后通过resolvers去查找处理(里面使用map保存,增加速度).最终调用了RequestParamMethodArgumentResolver的父类AbstractNamedValueMethodArgumentResolver来处理。</p>
+<figure class="highlight java hljs"><figcaption><span>AbstractNamedValueMethodArgumentResolver.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> Object <span class="hljs-title">resolveArgument</span><span class="hljs-params">(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">			NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">			</span><br><span class="line">			<span class="hljs-comment">// 获取值</span></span><br><span class="line">			Object arg = resolveName(resolvedName.toString(), nestedParameter, webRequest);</span><br><span class="line">			<span class="hljs-comment">// @RequestParam 的值处理</span></span><br><span class="line">			<span class="hljs-keyword">if</span> (arg == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (namedValueInfo.defaultValue != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">				arg = resolveStringValue(namedValueInfo.defaultValue);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-comment">// 在这里optional是可以为空的</span></span><br><span class="line">			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (namedValueInfo.required &amp;&amp; !nestedParameter.isOptional()) &#123;</span><br><span class="line">				handleMissingValue(namedValueInfo.name, nestedParameter, webRequest);</span><br><span class="line">			&#125;</span><br><span class="line">			arg = handleNullValue(namedValueInfo.name, arg, nestedParameter.getNestedParameterType());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">""</span>.equals(arg) &amp;&amp; namedValueInfo.defaultValue != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">			arg = resolveStringValue(namedValueInfo.defaultValue);</span><br><span class="line">		&#125;</span><br><span class="line">			</span><br><span class="line">		<span class="hljs-comment">// 在这里处理成我们想要的枚举类型</span></span><br><span class="line">		arg = binder.convertIfNecessary(arg, parameter.getParameterType(), parameter);</span><br><span class="line">				</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在binder.convertIfNecessary调用方法中我们最终调用了TypeConverterDelegate这个代理类的convertIfNecessary这个方法.这里面最终执行了如下代码<br><figure class="highlight java hljs"><figcaption><span>TypeConverterDelegate.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> (conversionService.canConvert(sourceTypeDesc, typeDescriptor)) &#123;</span><br><span class="line">				<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">					<span class="hljs-keyword">return</span> (T) conversionService.convert(newValue, sourceTypeDesc, typeDescriptor);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="hljs-keyword">catch</span> (ConversionFailedException ex) &#123;</span><br><span class="line">					<span class="hljs-comment">// fallback to default conversion logic below</span></span><br><span class="line">					conversionAttemptEx = ex;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>在这里最终会产生异常.<br>这里面会调用String-&gt;Enum 这个converter,它是用了enum的构造方法进行转化.但是我们的IntegerRequestEnum的构造方法是Integer.<br>另外我们通过debug还能看到conversionService的converters里一共缓存了124个converter.</p>
+<p><img src="images/converters.png" alt></p>
+<p>所以如果我们需要解析我们的enum就需要在这个conterters里增加我们的自定义的converter.<br><figure class="highlight java hljs"><figcaption><span>WebConfig.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Configuration</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WebConfig</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addFormatters</span><span class="hljs-params">(FormatterRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addConverter(String.class, IntegerRequestEnum.class, <span class="hljs-keyword">new</span> StringToIntegerEnumConverter());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>增加配置当我们再次访问<a href="http://localhost:8080/**/int?A=2之后页面就能正常返回" target="_blank" rel="noopener">http://localhost:8080/**/int?A=2之后页面就能正常返回</a>.</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-07-15T14:10:51.000Z">2021-07-15</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 564 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/07/15/mysql8/">mysql8</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="mysql-8-新特性"><a href="#mysql-8-新特性" class="headerlink" title="mysql 8 新特性"></a>mysql 8 新特性</h1><p>mysql分库分表并不是一定从性能的角度上需求，大部分场景是为了更好的管理数据</p>
+<ol>
+<li>数据量大时需要对数据进行新加字段进行加以归类标记，DDL会锁表导致长时间堵塞。(mysql 8 特性会大幅度缩短这个时间，同时mysql 8增加了备份锁，减少备份的时间)</li>
+<li>当一张表或者一个库出现问题时不会导致整个应用不能访问db.</li>
+<li>灰度？数据库性能。</li>
+</ol>
+<h2 id="WHERE-语句内使用函数走索引"><a href="#WHERE-语句内使用函数走索引" class="headerlink" title="WHERE 语句内使用函数走索引"></a>WHERE 语句内使用函数走索引</h2><p>select * from x where YEAR(date) = 2021</p>
+<h2 id="降序索引"><a href="#降序索引" class="headerlink" title="降序索引 "></a>降序索引 </h2><p>mysql索引以前一直都是顺序，现在可以按降序存储。</p>
+<p>index idx_c1_c2(c1,c2 desc)<br>在索引反向扫描是 explain 语句extra中会显示Backward index scan</p>
+<h2 id="GROUP-BY-语句不在隐式排序"><a href="#GROUP-BY-语句不在隐式排序" class="headerlink" title="GROUP BY 语句不在隐式排序"></a>GROUP BY 语句不在隐式排序</h2><p>现在select group by 语句不会按照group by 字段进行隐式排序<br>mysql 5x 中explain 语句的extra 中有Using filesort</p>
+<h2 id="在高并发的情况下性能提升"><a href="#在高并发的情况下性能提升" class="headerlink" title="在高并发的情况下性能提升"></a>在高并发的情况下性能提升</h2><p>在高并发的情况下，只读和更新操作性能提升</p>
+<h2 id="默认字符集为utf8mb4"><a href="#默认字符集为utf8mb4" class="headerlink" title="默认字符集为utf8mb4"></a>默认字符集为utf8mb4</h2><p>修改默认字符集，同时查询性能增加</p>
+<h2 id="增加SKIP-LOCKED-和NOWAIT"><a href="#增加SKIP-LOCKED-和NOWAIT" class="headerlink" title="增加SKIP LOCKED 和NOWAIT"></a>增加SKIP LOCKED 和NOWAIT</h2><p>select <em> from x where id = 1 for update skip locked<br>select </em> from x where id = 1 for update skip nowait</p>
+<p>前者查询加锁的记录被其他线程持有锁时会直接返回空。<br>后者查询加锁的记录被其他线程持有锁时会直接报错。<br>在高并发下比如抢红包等场景下使用。</p>
+<h2 id="文档数据库"><a href="#文档数据库" class="headerlink" title="文档数据库"></a>文档数据库</h2><p>mysql 支持nosql的crud.同时提供了JSON函数</p>
+<h2 id="新增统计函数和GIS"><a href="#新增统计函数和GIS" class="headerlink" title="新增统计函数和GIS"></a>新增统计函数和GIS</h2><p>窗口函数。(不常用)<br>GIS 地理信息(不常用)</p>
+<h2 id="DDL-原子性"><a href="#DDL-原子性" class="headerlink" title="DDL 原子性"></a>DDL 原子性</h2><p>数据字典集中存储，增强crash safe能力。</p>
+<h2 id="MGR-增强"><a href="#MGR-增强" class="headerlink" title="MGR 增强"></a>MGR 增强</h2><p>MGR 集群的健壮和稳定性加强。</p>
+<h2 id="自增主键id存储-在删除一条数据后又新增一条数据"><a href="#自增主键id存储-在删除一条数据后又新增一条数据" class="headerlink" title="自增主键id存储 在删除一条数据后又新增一条数据"></a>自增主键id存储 在删除一条数据后又新增一条数据</h2><p>在mysql8之前,自增主键的最大值存储在内存中。mysql8将自增id在事务结束checkpoint时放到了redolog中。所以mysql8之前id会持续增大而8会使用之前的。</p>
+<p><img src="images/mysql8_id_inc.jpg" alt="mysql"></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-05-14T15:43:57.000Z">2021-05-14</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 473 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/05/14/ContextStartedEvent/">monotonous</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="Spring-Event-关于ContextStartedEvent-使用"><a href="#Spring-Event-关于ContextStartedEvent-使用" class="headerlink" title="Spring Event 关于ContextStartedEvent 使用"></a>Spring Event 关于ContextStartedEvent 使用</h1><h2 id="问题"><a href="#问题" class="headerlink" title=" 问题"></a> 问题</h2><p> 在spring boot 中定义event listener 实现ContextStartedEventListener<contextstartedevent> 监听上下文启动实现.发现项目启动后项目并不会打印出我们所需要的日志</contextstartedevent></p>
+<figure class="highlight java hljs"><figcaption><span>ContextStartedEventListener.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ContextStartedEventListener</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ApplicationListener</span>&lt;<span class="hljs-title">ContextStartedEvent</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger log = LoggerFactory.getLogger(ContextStartedEventListener.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onApplicationEvent</span><span class="hljs-params">(ContextStartedEvent event)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="hljs-string">"ContextStartedEventListener : 项目启动"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p> 打开spring 源码发现在AbstractApplicationContext#start() 方法中调用了此方法。<br> ContextStoppedEvent同理也是stop方法。</p>
+ <figure class="highlight java hljs"><figcaption><span>AbstractApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().start();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStartedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stop</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().stop();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStoppedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>定位到调用该方法的地方为DefaultLifecycleProcessor#start(). 很明显是在生命周期的处理器中调用。再次定位调用这个start方法的来源。
+</code></pre> <figure class="highlight java hljs"><figcaption><span>AbstractApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> </span><br><span class="line"> <span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().start();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStartedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;	 </span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我们一般启动spring boot 是使用AbstractApplicationContext#refresh方法而不是start()方法，所以这里只能使用abstractApplicationContext 的start方法启动上下文是才会产生这个事件。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>在DefaultLifecycleProcessor中使用spring boot 启动使用的是</p>
+<figure class="highlight java hljs"><figcaption><span>DefaultLifecycleProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onRefresh</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">		startBeans(<span class="hljs-keyword">true</span>);</span><br><span class="line">		<span class="hljs-keyword">this</span>.running = <span class="hljs-keyword">true</span>;</span><br><span class="line">	&#125; 	</span><br></pre></td></tr></table></figure>
+<p>他和刚刚的abstrctApplicationContext调用地start方法只有一个参数autoStartupOnly的区别。<br>这个参数为false时即我们abstrctApplicationContext.start时可以在我们的lifecycle bean 上使用注解@Phase 定义生命周期的阶段，从而自定义lifecycle bean 的start顺序。</p>
+<p>这个注解还和timeoutPerShutdownPhase这个产数有关，timeoutPerShutdownPhase定义了lifecycle bean stop的超时时间<br><figure class="highlight java hljs"><figcaption><span>DefaultLifecycleProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stop</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.members.isEmpty()) &#123;</span><br><span class="line">				<span class="hljs-keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">this</span>.members.sort(Collections.reverseOrder());</span><br><span class="line">			CountDownLatch latch = <span class="hljs-keyword">new</span> CountDownLatch(<span class="hljs-keyword">this</span>.smartMemberCount);</span><br><span class="line">			Set&lt;String&gt; countDownBeanNames = Collections.synchronizedSet(<span class="hljs-keyword">new</span> LinkedHashSet&lt;&gt;());</span><br><span class="line">			Set&lt;String&gt; lifecycleBeanNames = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(<span class="hljs-keyword">this</span>.lifecycleBeans.keySet());</span><br><span class="line">			<span class="hljs-keyword">for</span> (LifecycleGroupMember member : <span class="hljs-keyword">this</span>.members) &#123;</span><br><span class="line">				<span class="hljs-keyword">if</span> (lifecycleBeanNames.contains(member.name)) &#123;</span><br><span class="line">					doStop(<span class="hljs-keyword">this</span>.lifecycleBeans, member.name, latch, countDownBeanNames);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (member.bean <span class="hljs-keyword">instanceof</span> SmartLifecycle) &#123;</span><br><span class="line">					<span class="hljs-comment">// Already removed: must have been a dependent bean from another phase</span></span><br><span class="line">					latch.countDown();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">				latch.await(<span class="hljs-keyword">this</span>.timeout, TimeUnit.MILLISECONDS);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">				Thread.currentThread().interrupt();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">   」</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-10-14T12:19:56.000Z">2019-10-14</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 316 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/10/14/zsh/">zsh</a>
+            
+        </h1>
+        <div class="content">
+            <p>###zsh</p>
+<p>从 macOS Catalina 版开始，您的 Mac 将使用 zsh 作为默认登录 Shell 和交互式 Shell。您还可以在较低版本的 macOS 中将 zsh 设置为默认 Shell。</p>
+<p>默认情况下，您的 Mac 使用 zsh 或 bash 作为登录 Shell 和交互式 Shell 的命令行解释器：</p>
+<p>从 macOS Catalina Beta 版开始，zsh (Z shell) 是所有新建用户帐户的默认 Shell。<br>bash 是 macOS Mojave 及更低版本中的默认 Shell。<br>zsh 与 Bourne Shell (sh) 高度兼容，并且与 bash 基本兼容，但存在一些差别。要进一步了解 zsh 及其全面的命令行完成系统，请在“终端”中输入 man zsh。</p>
+<p>在mac中打卡控制台会出现<br>The default interactive shell is now zsh.<br>To update your account to use zsh, please run <code>chsh -s /bin/zsh</code>.<br>For more details, please visit <a href="https://support.apple.com/kb/HT208050" target="_blank" rel="noopener">https://support.apple.com/kb/HT208050</a>.</p>
+<p>打卡网址发现新添加了.zprofile 和 .zshrc<br>那已经有了bash 为什么需要zsh?</p>
+<p>######Licensing</p>
+<p>google了一下发现<a href="https://thenextweb.com/dd/2019/06/04/why-does-macos-catalina-use-zsh-instead-of-bash-licensing/" target="_blank" rel="noopener">https://thenextweb.com/dd/2019/06/04/why-does-macos-catalina-use-zsh-instead-of-bash-licensing/</a> 里提到苹果好像是为了更换里面的licensing。原来用的是GUN的bash，协议GPLv3。</p>
+<p>同时苹果可能会开始维护更新这个zsh了。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-05-07T08:09:33.000Z">2019-05-07</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/rocketmq/">rocketmq</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    12 分钟 读完 (大约 1745 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/05/07/rocketmq1/">rocketmq1</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="rocketmq-namesrv"><a href="#rocketmq-namesrv" class="headerlink" title="rocketmq namesrv"></a>rocketmq namesrv</h1><h2 id="Namesrv简介"><a href="#Namesrv简介" class="headerlink" title="Namesrv简介"></a>Namesrv简介</h2><p>namesrc 即 NameServer,类似于服务注册中心，它是RocketMq的调度中心，它提供了路由管理，服务注册及服务发现，服务剔除等服务。正是由于它，系统可以迅速地感知消息服务器的健康状况，对消息服务器的单点故障做出反应防止整个系统瘫痪。它还可以对消息进行负载均衡处理防止Broker宕机。<br></p>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/05/07/rocketmq1/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-05-06T12:49:57.000Z">2019-05-06</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 817 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/05/06/monotonous/">monotonous</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="单调栈结构"><a href="#单调栈结构" class="headerlink" title="单调栈结构"></a>单调栈结构</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>给定一个不含有重复值的数组arr,找到每一个i位置左边和右边离i位置最近且值比arr[i]小的位置，返回所有位置相应的信息。<br>时间复杂度 O（N）。<br></p>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/05/06/monotonous/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+    
+<div class="card card-transparent">
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <div class="pagination-previous">
+            <a class="is-flex-grow has-text-black-ter" href="/">上一页</a>
+        </div>
+        <div class="pagination-next">
+            <a class="is-flex-grow has-text-black-ter" href="/page/3/">下一页</a>
+        </div>
+        <ul class="pagination-list is-hidden-mobile">
+            
+            <li><a class="pagination-link has-text-black-ter" href="/">1</a></li>
+            
+            <li><a class="pagination-link is-current" href="/page/2/">2</a></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/page/3/">3</a></li>
+            
+        </ul>
+    </nav>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Your name">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Your name
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Your title
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Your location</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        24
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        10
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        14
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/docker/">
+            <span class="level-start">
+                <span class="level-item">docker</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/dubbo/">
+            <span class="level-start">
+                <span class="level-item">dubbo</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/fastdfs/">
+            <span class="level-start">
+                <span class="level-item">fastdfs</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/jdk/">
+            <span class="level-start">
+                <span class="level-item">jdk</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/k8s/">
+            <span class="level-start">
+                <span class="level-item">k8s</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/linux/">
+            <span class="level-start">
+                <span class="level-item">linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/mysql/">
+            <span class="level-start">
+                <span class="level-item">mysql</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/rocketmq/">
+            <span class="level-start">
+                <span class="level-item">rocketmq</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/spring/">
+            <span class="level-start">
+                <span class="level-item">spring</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 15px;">k8s</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2022/05/17/k8s_pod/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s pod 属性">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-17T13:40:37.000Z">2022-05-17</time></div>
+                    <a href="/2022/05/17/k8s_pod/" class="has-link-black-ter is-size-6">k8s pod 属性</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/05/07/spring_retry/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="spring_retry">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-07T12:18:54.000Z">2022-05-07</time></div>
+                    <a href="/2022/05/07/spring_retry/" class="has-link-black-ter is-size-6">spring_retry</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/04/27/docker_cmd/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Dockerfile ENTRYPOINT和CMD">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-27T14:47:53.000Z">2022-04-27</time></div>
+                    <a href="/2022/04/27/docker_cmd/" class="has-link-black-ter is-size-6">Dockerfile ENTRYPOINT和CMD</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/04/26/k8s-svc1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_svc笔记">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-26T15:21:10.000Z">2022-04-26</time></div>
+                    <a href="/2022/04/26/k8s-svc1/" class="has-link-black-ter is-size-6">k8s_svc笔记</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2021/09/19/linux-virtual-addr/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="虚拟地址转换流程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-19T13:28:51.000Z">2021-09-19</time></div>
+                    <a href="/2021/09/19/linux-virtual-addr/" class="has-link-black-ter is-size-6">虚拟地址转换流程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/linux/">linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2022/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2022/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/docker/">
+                        <span class="tag">docker</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dubbo/">
+                        <span class="tag">dubbo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/fastdfs/">
+                        <span class="tag">fastdfs</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/icarus/">
+                        <span class="tag">icarus</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jdk/">
+                        <span class="tag">jdk</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/k8s/">
+                        <span class="tag">k8s</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/linux/">
+                        <span class="tag">linux</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mysql/">
+                        <span class="tag">mysql</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/nio/">
+                        <span class="tag">nio</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/rocketmq/">
+                        <span class="tag">rocketmq</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/spring/">
+                        <span class="tag">spring</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/spring-security/">
+                        <span class="tag">spring security</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/算法/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2022/05/17/k8s_pod/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s pod 属性">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-17T13:40:37.000Z">2022-05-17</time></div>
+                    <a href="/2022/05/17/k8s_pod/" class="has-link-black-ter is-size-6">k8s pod 属性</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/05/07/spring_retry/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="spring_retry">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-07T12:18:54.000Z">2022-05-07</time></div>
+                    <a href="/2022/05/07/spring_retry/" class="has-link-black-ter is-size-6">spring_retry</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/04/27/docker_cmd/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Dockerfile ENTRYPOINT和CMD">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-27T14:47:53.000Z">2022-04-27</time></div>
+                    <a href="/2022/04/27/docker_cmd/" class="has-link-black-ter is-size-6">Dockerfile ENTRYPOINT和CMD</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/04/26/k8s-svc1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_svc笔记">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-26T15:21:10.000Z">2022-04-26</time></div>
+                    <a href="/2022/04/26/k8s-svc1/" class="has-link-black-ter is-size-6">k8s_svc笔记</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2021/09/19/linux-virtual-addr/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="虚拟地址转换流程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-19T13:28:51.000Z">2021-09-19</time></div>
+                    <a href="/2021/09/19/linux-virtual-addr/" class="has-link-black-ter is-size-6">虚拟地址转换流程</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/linux/">linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2022/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2022/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/docker/">
+                        <span class="tag">docker</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dubbo/">
+                        <span class="tag">dubbo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/fastdfs/">
+                        <span class="tag">fastdfs</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/icarus/">
+                        <span class="tag">icarus</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/jdk/">
+                        <span class="tag">jdk</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/k8s/">
+                        <span class="tag">k8s</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/linux/">
+                        <span class="tag">linux</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mysql/">
+                        <span class="tag">mysql</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/nio/">
+                        <span class="tag">nio</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/rocketmq/">
+                        <span class="tag">rocketmq</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/spring/">
+                        <span class="tag">spring</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/spring-security/">
+                        <span class="tag">spring security</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/算法/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2022 ygdxd&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
