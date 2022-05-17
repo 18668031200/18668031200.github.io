@@ -2,7 +2,7 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>ygdxd blog!</title>
+<title>标签: mysql - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
@@ -10,7 +10,7 @@
     <meta name="description" content="java and go">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ygdxd blog!">
-<meta property="og:url" content="http://github.com/18668031200.github.io/page/3/index.html">
+<meta property="og:url" content="http://github.com/18668031200.github.io/tags/mysql/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
 <meta property="og:description" content="java and go">
 <meta property="og:locale" content="zh-CN">
@@ -137,296 +137,171 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-28T07:09:41.000Z">2019-04-28</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    8 分钟 读完 (大约 1131 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/04/28/DirectByteBuffer/">DirectByteBuffer</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="堆外内存DirectByteBuffer"><a href="#堆外内存DirectByteBuffer" class="headerlink" title="堆外内存DirectByteBuffer"></a>堆外内存DirectByteBuffer</h3><p>DirectByteBuffer是jdk提供的访问对外内存的一种实现，堆外内存的优势在于，1.使用socket网络传输时，它能够节省堆内存到堆外内存的复制消耗。2.对于磁盘io,可以使用内存映射，提高效率。3.不需要考虑gc问题。它并不受jvm内存管理,所有当对外内存不足时，系统会显式地调用一次System.gc()，如果还是不能申请到足够内存，系统就会报出</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: Direct buffer memory</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/28/DirectByteBuffer/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-22T08:00:25.000Z">2019-04-22</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 453 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/04/22/ss-config1/">spring security 1 配置类加载</a>
-            
-        </h1>
-        <div class="content">
-            <p>##spring security 配置类加载</p>
-<p>####WebSecurityConfigurerAdapter</p>
-<p>一般我们在使用spring security作为我们安全验证的时候经常会编写配置类继承WebSecurityConfigurerAdapter，通过重写其中的config()类来自定义自己的安全验证流程。而HttpSecurity类则是其中非常重要的一个配置类，通过它你可以集成其他第三方的生态来满足自己的业务需求。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/22/ss-config1/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-18T07:56:47.000Z">2019-04-18</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 219 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/04/18/icarus-bug/">icarus-bug</a>
-            
-        </h1>
-        <div class="content">
-            <p>##记一次hexo切换主题icarus排版混乱的bug</p>
-<p>######起因</p>
-<p>第一次使用hexo搭建blog,看到icarus主题漂亮就入了坑，本地运行完美。<br>仿照国内教程各种详细的配置。</p>
-<p><a href="http://blog.kimzing.com/" target="_blank" rel="noopener">http://blog.kimzing.com/</a></p>
-<p>准备remote上传</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo hexo d -g</span><br></pre></td></tr></table></figure>
-<p>一切ok,打开网站却发现左边的介绍去了中间，样式全无。按F12查看控制台发现并没有脚本或者css报错信息，只能google. 搜索内容如下</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/18/icarus-bug/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-18T05:53:01.000Z">2019-04-18</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    10 分钟 读完 (大约 1552 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/04/18/year-month-day-LinuxIO-md/">LINUX I/O 简介</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="LINUX-I-O-简介"><a href="#LINUX-I-O-简介" class="headerlink" title="LINUX I/O 简介"></a>LINUX I/O 简介</h2><p>在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。</p>
-<p>####基本I/O与标准I/O</p>
-<p>类unix系统中有直接对文件进行的操作函数read()/write()，<br>这些被称为不带缓冲的I/O；标准I/O在基本的I/O函数基础上增加了流和缓冲的概念，常用的函数有fopen/getc()/putc()等，标准I/O使用了缓冲的机制，缓冲又分为全缓冲和行缓冲，引入缓冲机制主要是为了提供文件读写的性能和效率。</p>
-<p>读文件调用getc()时,操作系统底层会使用read()函数，并从用户空间切换到内核空间，执行系统调用。首先将文件页从磁盘拷贝到页缓存中，由于页缓存处在内核空间，不能被用户进程直接寻址，所以还需要将页缓存中数据页再次拷贝到内存对应的用户空间中。这样，经过两次数据拷贝过程，进程才能获取到文件内容。写操作也是一样，用户态写数据时，待发送数据所在的缓冲区处于内核空间，用户态不能直接访问，必须先拷贝至内核空间对应的主存，才能写回磁盘中（延迟写回），因此写入也是需要两次数据拷贝。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/18/year-month-day-LinuxIO-md/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-    
-<div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/page/2/">上一页</a>
-        </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/page/4/">下一页</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/">1</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/page/2/">2</a></li>
-            
-            <li><a class="pagination-link is-current" href="/page/3/">3</a></li>
-            
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/tags">标签</a></li>
+            <li class="is-active"><a href="#" aria-current="page">mysql</a></li>
         </ul>
-    </nav>
+        </nav>
+    </div>
 </div>
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-08-08T13:42:09.000Z">2021-08-08</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 514 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/08/08/sql-group-by/">GROUP BY分组查询与SQL执行顺序</a>
+            
+        </h1>
+        <div class="content">
+            <p>转自：<a href="http://blog.163.com/shexinyang@126/blog/static/1367393122013526113822666/" target="_blank" rel="noopener">http://blog.163.com/shexinyang@126/blog/static/1367393122013526113822666/</a> </p>
+<h2 id="1-SELECT语句使用GROUP-BY的一些规定"><a href="#1-SELECT语句使用GROUP-BY的一些规定" class="headerlink" title="1.SELECT语句使用GROUP BY的一些规定"></a>1.SELECT语句使用GROUP BY的一些规定</h2><ul>
+<li>GROUP BY子句可以包含任意数目的列。也就是说可以在组里再分组，为数据分组提供更细致的控制。</li>
+<li>如果在GROUP BY子句中指定多个分组，数据将在最后指定的分组上汇总。</li>
+<li>GROUP BY子句中列出的每个列都必须是检索列或有效的表达式（但不能是聚集函数）。如果在SELECT中使用了表达式，则必须在GROUP BY子句中指定相同的表达式。不能使用别名。</li>
+<li>除了聚集计算语句外，GROUP BY子句中的每一列都必须在SELECT语句给出。</li>
+<li>如果分组列中有NULL值，则NULL将作为一个分组返回。如果有多行NULL值，它们将分为一组。</li>
+<li>GROUP BY子句必须在WHERE子句之后，ORDER BY之前。</li>
+</ul>
+<h2 id="2-过滤分组"><a href="#2-过滤分组" class="headerlink" title="2.过滤分组"></a>2.过滤分组</h2><p>对分组过于采用HAVING子句。HAVING子句支持所有WHERE的操作。HAVING与WHERE的区别在于WHERE是过滤行的，而HAVING是用来过滤分组。</p>
+<p>另一种理解WHERE与HAVING的区别的方法是，WHERE在分组之前过滤，而HAVING在分组之后以每组为单位过滤。</p>
+<h2 id="3-分组与排序"><a href="#3-分组与排序" class="headerlink" title="3.分组与排序"></a>3.分组与排序</h2><p>一般在使用GROUP BY子句时，也应该使用ORDER BY子句。这是保证数据正确排序的唯一方法。</p>
+<p>SQL SELECT语句的执行顺序：</p>
+<p>from子句组装来自不同数据源的数据(若有join，则先执行on后条件，再连接数据源)；<br>where子句基于指定的条件对记录行进行筛选；<br>group by子句将数据划分为多个分组；<br>使用聚集函数进行计算；<br>使用having子句筛选分组；<br>计算所有的表达式；<br>使用order by对结果集进行排序；<br>select 集合输出。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-07-15T14:10:51.000Z">2021-07-15</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 564 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/07/15/mysql8/">mysql8</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="mysql-8-新特性"><a href="#mysql-8-新特性" class="headerlink" title="mysql 8 新特性"></a>mysql 8 新特性</h1><p>mysql分库分表并不是一定从性能的角度上需求，大部分场景是为了更好的管理数据</p>
+<ol>
+<li>数据量大时需要对数据进行新加字段进行加以归类标记，DDL会锁表导致长时间堵塞。(mysql 8 特性会大幅度缩短这个时间，同时mysql 8增加了备份锁，减少备份的时间)</li>
+<li>当一张表或者一个库出现问题时不会导致整个应用不能访问db.</li>
+<li>灰度？数据库性能。</li>
+</ol>
+<h2 id="WHERE-语句内使用函数走索引"><a href="#WHERE-语句内使用函数走索引" class="headerlink" title="WHERE 语句内使用函数走索引"></a>WHERE 语句内使用函数走索引</h2><p>select * from x where YEAR(date) = 2021</p>
+<h2 id="降序索引"><a href="#降序索引" class="headerlink" title="降序索引 "></a>降序索引 </h2><p>mysql索引以前一直都是顺序，现在可以按降序存储。</p>
+<p>index idx_c1_c2(c1,c2 desc)<br>在索引反向扫描是 explain 语句extra中会显示Backward index scan</p>
+<h2 id="GROUP-BY-语句不在隐式排序"><a href="#GROUP-BY-语句不在隐式排序" class="headerlink" title="GROUP BY 语句不在隐式排序"></a>GROUP BY 语句不在隐式排序</h2><p>现在select group by 语句不会按照group by 字段进行隐式排序<br>mysql 5x 中explain 语句的extra 中有Using filesort</p>
+<h2 id="在高并发的情况下性能提升"><a href="#在高并发的情况下性能提升" class="headerlink" title="在高并发的情况下性能提升"></a>在高并发的情况下性能提升</h2><p>在高并发的情况下，只读和更新操作性能提升</p>
+<h2 id="默认字符集为utf8mb4"><a href="#默认字符集为utf8mb4" class="headerlink" title="默认字符集为utf8mb4"></a>默认字符集为utf8mb4</h2><p>修改默认字符集，同时查询性能增加</p>
+<h2 id="增加SKIP-LOCKED-和NOWAIT"><a href="#增加SKIP-LOCKED-和NOWAIT" class="headerlink" title="增加SKIP LOCKED 和NOWAIT"></a>增加SKIP LOCKED 和NOWAIT</h2><p>select <em> from x where id = 1 for update skip locked<br>select </em> from x where id = 1 for update skip nowait</p>
+<p>前者查询加锁的记录被其他线程持有锁时会直接返回空。<br>后者查询加锁的记录被其他线程持有锁时会直接报错。<br>在高并发下比如抢红包等场景下使用。</p>
+<h2 id="文档数据库"><a href="#文档数据库" class="headerlink" title="文档数据库"></a>文档数据库</h2><p>mysql 支持nosql的crud.同时提供了JSON函数</p>
+<h2 id="新增统计函数和GIS"><a href="#新增统计函数和GIS" class="headerlink" title="新增统计函数和GIS"></a>新增统计函数和GIS</h2><p>窗口函数。(不常用)<br>GIS 地理信息(不常用)</p>
+<h2 id="DDL-原子性"><a href="#DDL-原子性" class="headerlink" title="DDL 原子性"></a>DDL 原子性</h2><p>数据字典集中存储，增强crash safe能力。</p>
+<h2 id="MGR-增强"><a href="#MGR-增强" class="headerlink" title="MGR 增强"></a>MGR 增强</h2><p>MGR 集群的健壮和稳定性加强。</p>
+<h2 id="自增主键id存储-在删除一条数据后又新增一条数据"><a href="#自增主键id存储-在删除一条数据后又新增一条数据" class="headerlink" title="自增主键id存储 在删除一条数据后又新增一条数据"></a>自增主键id存储 在删除一条数据后又新增一条数据</h2><p>在mysql8之前,自增主键的最大值存储在内存中。mysql8将自增id在事务结束checkpoint时放到了redolog中。所以mysql8之前id会持续增大而8会使用之前的。</p>
+<p><img src="images/mysql8_id_inc.jpg" alt="mysql"></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
 </div>
                 
 

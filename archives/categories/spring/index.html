@@ -2,7 +2,7 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>ygdxd blog!</title>
+<title>分类: spring - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
@@ -10,7 +10,7 @@
     <meta name="description" content="java and go">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ygdxd blog!">
-<meta property="og:url" content="http://github.com/18668031200.github.io/page/2/index.html">
+<meta property="og:url" content="http://github.com/18668031200.github.io/categories/spring/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
 <meta property="og:description" content="java and go">
 <meta property="og:locale" content="zh-CN">
@@ -137,7 +137,18 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">分类</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">spring</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
     <div class="card">
     
     <div class="card-content article ">
@@ -159,17 +170,17 @@
 
            
  <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-08-08T13:42:09.000Z">2021-08-08</time>
+                <time class="level-item has-text-grey" datetime="2022-05-07T12:18:54.000Z">2022-05-07</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
+                <a class="has-link-grey -link" href="/categories/spring/">spring</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 514 个字)
+                    17 分钟 读完 (大约 2584 个字)
                 </span>
                 
                 
@@ -178,119 +189,53 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2021/08/08/sql-group-by/">GROUP BY分组查询与SQL执行顺序</a>
+                <a class="has-link-black-ter" href="/2022/05/07/spring_retry/">spring_retry</a>
             
         </h1>
         <div class="content">
-            <p>转自：<a href="http://blog.163.com/shexinyang@126/blog/static/1367393122013526113822666/" target="_blank" rel="noopener">http://blog.163.com/shexinyang@126/blog/static/1367393122013526113822666/</a> </p>
-<h2 id="1-SELECT语句使用GROUP-BY的一些规定"><a href="#1-SELECT语句使用GROUP-BY的一些规定" class="headerlink" title="1.SELECT语句使用GROUP BY的一些规定"></a>1.SELECT语句使用GROUP BY的一些规定</h2><ul>
-<li>GROUP BY子句可以包含任意数目的列。也就是说可以在组里再分组，为数据分组提供更细致的控制。</li>
-<li>如果在GROUP BY子句中指定多个分组，数据将在最后指定的分组上汇总。</li>
-<li>GROUP BY子句中列出的每个列都必须是检索列或有效的表达式（但不能是聚集函数）。如果在SELECT中使用了表达式，则必须在GROUP BY子句中指定相同的表达式。不能使用别名。</li>
-<li>除了聚集计算语句外，GROUP BY子句中的每一列都必须在SELECT语句给出。</li>
-<li>如果分组列中有NULL值，则NULL将作为一个分组返回。如果有多行NULL值，它们将分为一组。</li>
-<li>GROUP BY子句必须在WHERE子句之后，ORDER BY之前。</li>
+            <h1 id="spring-retry原理"><a href="#spring-retry原理" class="headerlink" title="spring retry原理"></a>spring retry原理</h1><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><pre><code>spring retry可以帮助我们简化重复调用代码，不必要给每个方法编写对应的重试逻辑，避免下次维护和扩展时带来困难。
+</code></pre><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><pre><code>使用spring retry就必须要捆版使用spring aop, 你只想在某个工具类里重试时明显使用自己的代码更加轻量，自己把重试逻辑抽离出来，完全可以按照自己想要地参数进行重试。
+</code></pre><h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 自己的包 --&gt;</span><br><span class="line">&lt;dependency&gt;  </span><br><span class="line"> &lt;groupId&gt;org.springframework.retry&lt;/groupId&gt;  </span><br><span class="line"> &lt;artifactId&gt;spring-retry&lt;/artifactId&gt;  </span><br><span class="line"> &lt;version&gt;1.3.3&lt;/version&gt;  </span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 使用了aop --&gt;</span><br><span class="line">&lt;dependency&gt;  </span><br><span class="line"> &lt;groupId&gt;org.springframework&lt;/groupId&gt;  </span><br><span class="line"> &lt;artifactId&gt;spring-aspects&lt;/artifactId&gt;  </span><br><span class="line"> &lt;version&gt;5.2.8.RELEASE&lt;/version&gt;  </span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableRetry  </span><br><span class="line">public class RetryDemo &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public interface RetryService &#123;  </span><br><span class="line">  </span><br><span class="line">    @Retryable(value = RuntimeException.class, maxAttempts = 3,  </span><br><span class="line">  backoff= @Backoff(value = 1500, maxDelay = 100000, multiplier = 1.2))  </span><br><span class="line">    String service(String s);  </span><br><span class="line">  </span><br><span class="line">  @Recover  </span><br><span class="line">  String recover(RuntimeException e, String s);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>@EnableRetry - 表示开启重试机制 </li>
+<li>@Retryable - 表示这个方法需要重试</li>
+<li>@Backoff - 表示重试中的退避策略,即失败的时候应该如何等待还是直接到recover</li>
+<li>@Recover - 兜底方法，即多次重试后还是失败就会执行这个方法</li>
 </ul>
-<h2 id="2-过滤分组"><a href="#2-过滤分组" class="headerlink" title="2.过滤分组"></a>2.过滤分组</h2><p>对分组过于采用HAVING子句。HAVING子句支持所有WHERE的操作。HAVING与WHERE的区别在于WHERE是过滤行的，而HAVING是用来过滤分组。</p>
-<p>另一种理解WHERE与HAVING的区别的方法是，WHERE在分组之前过滤，而HAVING在分组之后以每组为单位过滤。</p>
-<h2 id="3-分组与排序"><a href="#3-分组与排序" class="headerlink" title="3.分组与排序"></a>3.分组与排序</h2><p>一般在使用GROUP BY子句时，也应该使用ORDER BY子句。这是保证数据正确排序的唯一方法。</p>
-<p>SQL SELECT语句的执行顺序：</p>
-<p>from子句组装来自不同数据源的数据(若有join，则先执行on后条件，再连接数据源)；<br>where子句基于指定的条件对记录行进行筛选；<br>group by子句将数据划分为多个分组；<br>使用聚集函数进行计算；<br>使用having子句筛选分组；<br>计算所有的表达式；<br>使用order by对结果集进行排序；<br>select 集合输出。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-07-29T15:07:10.000Z">2021-07-29</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/fastdfs/">fastdfs</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    8 分钟 读完 (大约 1254 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/07/29/fastdfs/">fastdfs部署及应用</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>FastDFS是一个开源的轻量级分布式文件系统,为互联网应用量身定做,简单、灵活、高效,采用C语言开发,由阿里巴巴开发并开源.<br>FastDFS对文件进行管理,功能包括：文件存储、文件同步、文件访问(文件上传、文件下载、文件删除)等,解决了大容量文件存储的问题,特别适合以文件为载体的在线服务,如相册网站、文档网站、图片网站、视频网站等等.<br>FastDFS充分考虑了冗余备份、线性扩容等机制,并注重高可用、高性能等指标,使用FastDFS很容易搭建一套高性能的文件服务器集群提供文件上传、下载等服务.</p>
-<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>FastDFS文件系统由两大部分构成,一个是客户端,一个是服务端.<br>客户端通常就是我们的程序,我们可以使用第三方的扩展包去连接fastdfs.</p>
-<p>跟踪器(tracker)主要做调度工作,在内存中记录集群中存储节点storage的状态信息,是前端Client和后端存储节点storage的枢纽.<br>因为相关信息全部在内存中,Tracker server的性能非常高,一个较大的集群(比如上百个group)中有3台就足够了.<br>每个 storage 在启动后会连接 Tracker，告知自己所属 group 等信息，并保持周期性心跳。storage以group为单位,每个group里可以有多个storage单位.</p>
-<p>存储节点(storage)用于存储文件,包括文件和文件属性(meta data)都保存到存储服务器磁盘上,完成文件管理的所有功能:文件存储、文件同步和提供文件访问等.</p>
-<h2 id="1-下载镜像"><a href="#1-下载镜像" class="headerlink" title="1.下载镜像"></a>1.下载镜像</h2><p>执行命令docker search fastdfs</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NAME                           DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED</span><br><span class="line">season/fastdfs                 FastDFS                                         77</span><br><span class="line">ygqygq2/fastdfs-nginx          整合了nginx的fastdfs                                27                                      [OK]</span><br><span class="line">luhuiguo/fastdfs               FastDFS is an open source high performance d…   25                                      [OK]</span><br><span class="line">morunchang/fastdfs             A FastDFS image                                 20</span><br><span class="line">delron/fastdfs                                                                 13</span><br><span class="line">qbanxiaoli/fastdfs             FastDFS+FastDHT(单机+集群版)                         12                                      [OK]</span><br></pre></td></tr></table></figure>
-<p>这里根据star数选取最高的 season/fastdfs,打开docker hub搜索这个镜像<a href="https://hub.docker.com/r/season/fastdfs" target="_blank" rel="noopener">https://hub.docker.com/r/season/fastdfs</a><br>里面有具体使用这个镜像的方法教程,这里点击tag页选取最新的版本1.2.<br>使用docker pull season/fastdfs:1.2等待docker 帮我们自动下载好镜像.</p>
-<ol start="2">
-<li>启动tracker和storage服务</li>
-</ol>
-<hr>
-<p>首先创建对应的文件夹<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/fastdfs</span><br></pre></td></tr></table></figure></p>
-<p>启动tracker </p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name tracker \</span><br><span class="line">-p 22122:22122 \</span><br><span class="line">--restart=always --net host \</span><br><span class="line">-v /home/ucmed/fastdfs/tracker/data:/fastdfs/tracker/data \</span><br><span class="line">season/fastdfs:1.2 tracker</span><br></pre></td></tr></table></figure>
-<p>启动storage服务</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name storage \</span><br><span class="line">--restart=always --net host \</span><br><span class="line">-v /home/fastdfs/data/storage:/fastdfs/store_path \</span><br><span class="line">-e TRACKER_SERVER=&quot;192.168.3.134:22122&quot; \</span><br><span class="line">season/fastdfs:1.2 storage</span><br></pre></td></tr></table></figure>
-<p>这里笔者曾使用TRACKER_SERVER=”127.0.0.1” 但是启动服务使用命令docker logs发现程序并为成功启动.<br>提示TRACKER_SERVER不能设置成127.0.0.1.</p>
-<p>搭建完2个容器后进入tracker 进行测试<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it tracker bash</span><br><span class="line">cd /etc/fdfs/</span><br><span class="line">ls</span><br><span class="line">cat client.conf</span><br></pre></td></tr></table></figure></p>
-<p>输出的 client.conf 都是默认配置，我们可以找到其中的 track_server 将默认的地址改成我们设置的storage地址<br>执行命令<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker cp trakcer:/etc/fdfs/client.conf /home/fastdfs/</span><br><span class="line">vim client.conf</span><br><span class="line">docker cp /home/fastdfs/client.conf tracker:/etc/fdfs</span><br></pre></td></tr></table></figure></p>
-<p>修改其中的track_server地址</p>
-<p>执行命令<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it tracker bash</span><br><span class="line">fdfs_monitor /etc/fdfs/client.conf</span><br></pre></td></tr></table></figure></p>
-<p>控制台会输出DEBUG信息<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEBUG - base_path=/fastdfs/client, connect_timeout=30, network_timeout=60, tracker_server_count=1, anti_steal_token=0, anti_steal_secret_key length=0, use_connection_pool=0, g_connection_pool_max_idle_time=3600s, use_storage_id=0, storage server id count: 0</span><br></pre></td></tr></table></figure></p>
-<p>表示storage已经成功的连上了我们的tracker.<br>之后尝试上传文件<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#fdfs_upload_file /etc/fdfs/client.conf **.txt</span><br><span class="line">group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt</span><br></pre></td></tr></table></figure></p>
-<p>这样fastdfs就搭建完成了</p>
-<h2 id="3-nginx-服务"><a href="#3-nginx-服务" class="headerlink" title="3.nginx 服务"></a>3.nginx 服务</h2><p>如果想要访问我们上传的文件 就需要启动nginx modual.拷贝出nginx配置文件 修改其中的location节点</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker cp storage:/etc/nginx/conf/nginx.conf /home/fastdfs/nginx/</span><br><span class="line"></span><br><span class="line">docker run -id --name fastdfs_nginx \</span><br><span class="line">--restart=always \</span><br><span class="line">-v /home/fastdfs/data/storage:/fastdfs/store_path \</span><br><span class="line">-v /home/fastdfs/nginx.conf:/etc/nginx/conf/nginx.conf \</span><br><span class="line">-p 80:80 \</span><br><span class="line">-e TRACKER_SERVER=192.168.3.134:22122 \</span><br><span class="line">season/fastdfs:1.2 nginx</span><br></pre></td></tr></table></figure>
-<p>这时候打开浏览器访问<a href="http://192.168.3.134/group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt" target="_blank" rel="noopener">http://192.168.3.134/group1/M00/00/00/wKgDhmECa5GAGpHOAAAABncc3SA469.txt</a><br>出现刚刚上传的文件信息.</p>
-<h2 id="4-spring-boo-集成"><a href="#4-spring-boo-集成" class="headerlink" title="4.spring boo 集成"></a>4.spring boo 集成</h2><p>增加maven 依赖<br><figure class="highlight hljs"><figcaption><span>pom.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.github.tobato&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;fastdfs-client&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.27.2&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
-<p>在Maven当中配置依赖以后，SpringBoot项目将会自动导入FastDFS依赖<br>添加config</p>
-<figure class="highlight java hljs"><figcaption><span>ComponetImport.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 导入FastDFS-Client组件</span></span><br><span class="line"><span class="hljs-comment"> * </span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> tobato</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-meta">@Configuration</span></span><br><span class="line"><span class="hljs-meta">@Import</span>(FdfsClientConfig.class)</span><br><span class="line"><span class="hljs-comment">// 解决jmx重复注册bean的问题</span></span><br><span class="line"><span class="hljs-meta">@EnableMBeanExport</span>(registration = RegistrationPolicy.IGNORE_EXISTING)</span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ComponetImport</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// 导入依赖组件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在application.yml当中配置Fdfs相关参数</p>
-<figure class="highlight java hljs"><figcaption><span>application.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fdfs:</span><br><span class="line">  connect-timeout: <span class="hljs-number">500</span></span><br><span class="line">  so-timeout: <span class="hljs-number">5000</span></span><br><span class="line">  thumb-image:</span><br><span class="line">    width: <span class="hljs-number">200</span></span><br><span class="line">    height: <span class="hljs-number">200</span></span><br><span class="line">  tracker-list:</span><br><span class="line">    - <span class="hljs-number">192.168</span>.3.134:<span class="hljs-number">22122</span></span><br><span class="line">  pool:</span><br><span class="line">    max-total: <span class="hljs-number">3</span></span><br><span class="line">    max-total-per-key: <span class="hljs-number">5</span></span><br><span class="line">    max-idle-per-key: <span class="hljs-number">3</span></span><br></pre></td></tr></table></figure>
-<p>编写上传接口</p>
-<figure class="highlight java hljs"><figcaption><span>FastDfsController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/dfs"</span>)</span><br><span class="line"><span class="hljs-meta">@RestController</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FastDfsController</span> </span>&#123;</span><br><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> FastFileStorageClient fastFileStorageClient;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FastDfsController</span><span class="hljs-params">(FastFileStorageClient fastFileStorageClient)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.fastFileStorageClient = fastFileStorageClient;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-meta">@PostMapping</span>(value = <span class="hljs-string">"/upload"</span>,consumes = &#123;MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.IMAGE_PNG_VALUE&#125;)</span><br><span class="line">        <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; upload(MultipartFile multipartFile) <span class="hljs-keyword">throws</span> IOException &#123;</span><br><span class="line">    </span><br><span class="line">            String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());</span><br><span class="line">            FastFile fastFile = <span class="hljs-keyword">new</span> FastFile(multipartFile.getInputStream(), multipartFile.getSize(), extension, <span class="hljs-keyword">new</span> HashSet&lt;&gt;());</span><br><span class="line">            StorePath storePath = fastFileStorageClient.uploadFile(fastFile);</span><br><span class="line">            <span class="hljs-keyword">return</span> ResponseEntity.ok(storePath.getFullPath());</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>调用我们的接口后便会返回对应的路径.</p>
+<h3 id="重试策略"><a href="#重试策略" class="headerlink" title="重试策略"></a>重试策略</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public interface RetryPolicy extends Serializable &#123;</span><br><span class="line">// 是否可以重试</span><br><span class="line">boolean canRetry(RetryContext context);</span><br><span class="line">// 开启重试的上下文 parent是父级上下文</span><br><span class="line">RetryContext open(RetryContext parent);</span><br><span class="line">// 关闭上下文</span><br><span class="line">void close(RetryContext context);</span><br><span class="line">// 每次尝试执行失败是都会调用 Called once per retry attempt, after the callback fails.</span><br><span class="line">void registerThrowable(RetryContext context, Throwable throwable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Targets</span><br><span class="line">    RetryPolicy</span><br><span class="line">Implementations of RetryPolicy  (11 usages found)</span><br><span class="line">    Value read  (11 usages found)</span><br><span class="line">        Maven: org.springframework.retry:spring-retry:1.3.3  (11 usages found)</span><br><span class="line">            org.springframework.retry.policy  (11 usages found)</span><br><span class="line">                AlwaysRetryPolicy.java  (1 usage found)</span><br><span class="line">                    30 public class AlwaysRetryPolicy extends NeverRetryPolicy &#123;</span><br><span class="line">                BinaryExceptionClassifierRetryPolicy.java  (1 usage found)</span><br><span class="line">                    32 public class BinaryExceptionClassifierRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                CircuitBreakerRetryPolicy.java  (1 usage found)</span><br><span class="line">                    33 public class CircuitBreakerRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                CompositeRetryPolicy.java  (1 usage found)</span><br><span class="line">                    36 public class CompositeRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                ExceptionClassifierRetryPolicy  (1 usage found)</span><br><span class="line">                    105 private static class ExceptionClassifierRetryContext extends RetryContextSupport implements RetryPolicy &#123;</span><br><span class="line">                ExceptionClassifierRetryPolicy.java  (1 usage found)</span><br><span class="line">                    38 public class ExceptionClassifierRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                ExpressionRetryPolicy.java  (1 usage found)</span><br><span class="line">                    44 public class ExpressionRetryPolicy extends SimpleRetryPolicy implements BeanFactoryAware &#123;</span><br><span class="line">                MaxAttemptsRetryPolicy.java  (1 usage found)</span><br><span class="line">                    37 public class MaxAttemptsRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                NeverRetryPolicy.java  (1 usage found)</span><br><span class="line">                    31 public class NeverRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                SimpleRetryPolicy.java  (1 usage found)</span><br><span class="line">                    58 public class SimpleRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                TimeoutRetryPolicy.java  (1 usage found)</span><br><span class="line">                    31 public class TimeoutRetryPolicy implements RetryPolicy &#123;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>SimpleRetryPolicy 默认最多重试3次 1.3版本后可以用CompositeRetryPolicy组合MaxAttemptsRetryPolicy 和 BinaryExceptionClassifierRetryPolicy</li>
+<li>TimeoutRetryPolicy 默认在1秒内失败都会重试</li>
+<li>ExpressionRetryPolicy 符合表达式就会重试</li>
+<li>CircuitBreakerRetryPolicy 增加了熔断的机制，如果不在熔断状态，则允许重试</li>
+<li>CompositeRetryPolicy 可以组合多个重试策略</li>
+<li>NeverRetryPolicy 从不重试（也是一种重试策略哈）</li>
+<li>AlwaysRetryPolicy 总是重试</li>
+<li>MaxAttemptsRetryPolicy 默认最多重试3次</li>
+</ul>
+<h3 id="退避策略"><a href="#退避策略" class="headerlink" title="退避策略"></a>退避策略</h3><p>退避是指怎么去做下一次的重试，在这里其实就是等待多长时间</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public interface BackOffPolicy &#123;  </span><br><span class="line">  </span><br><span class="line">   /**  </span><br><span class="line"> * Start a new block of back off operations. Implementations can choose to pause when * this method is called, but normally it returns immediately. * @param context the &#123;@link RetryContext&#125; context, which might contain information  </span><br><span class="line"> * that we can use to decide how to proceed. * @return the implementation-specific &#123;@link BackOffContext&#125; or &apos;&lt;code&gt;null&lt;/code&gt;&apos;.  </span><br><span class="line"> */  BackOffContext start(RetryContext context);  </span><br><span class="line">  </span><br><span class="line">  //怎么去做下一次的重试</span><br><span class="line">  /**  </span><br><span class="line"> * Back off/pause in an implementation-specific fashion. The passed in * &#123;@link BackOffContext&#125; corresponds to the one created by the call to &#123;@link #start&#125;  </span><br><span class="line"> * for a given retry operation set. * @param backOffContext the &#123;@link BackOffContext&#125;  </span><br><span class="line"> * @throws BackOffInterruptedException if the attempt at back off is interrupted.  </span><br><span class="line"> */  void backOff(BackOffContext backOffContext) throws BackOffInterruptedException;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Targets</span><br><span class="line">    BackOffPolicy</span><br><span class="line">Implementations of BackOffPolicy  (7 usages found)</span><br><span class="line">    Value read  (7 usages found)</span><br><span class="line">        Maven: org.springframework.retry:spring-retry:1.3.3  (7 usages found)</span><br><span class="line">            org.springframework.retry.backoff  (7 usages found)</span><br><span class="line">                ExponentialBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    43 public class ExponentialBackOffPolicy implements SleepingBackOffPolicy&lt;ExponentialBackOffPolicy&gt; &#123;</span><br><span class="line">                ExponentialRandomBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    48 public class ExponentialRandomBackOffPolicy extends ExponentialBackOffPolicy &#123;</span><br><span class="line">                FixedBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    31 public class FixedBackOffPolicy extends StatelessBackOffPolicy implements SleepingBackOffPolicy&lt;FixedBackOffPolicy&gt; &#123;</span><br><span class="line">                NoBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    26 public class NoBackOffPolicy extends StatelessBackOffPolicy &#123;</span><br><span class="line">                SleepingBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    25 public interface SleepingBackOffPolicy&lt;T extends SleepingBackOffPolicy&lt;T&gt;&gt; extends BackOffPolicy &#123;</span><br><span class="line">                StatelessBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    28 public abstract class StatelessBackOffPolicy implements BackOffPolicy &#123;</span><br><span class="line">                UniformRandomBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    33 public class UniformRandomBackOffPolicy extends StatelessBackOffPolicy</span><br></pre></td></tr></table></figure>
+<ul>
+<li>FixedBackOffPolicy 默认固定延迟1秒后执行下一次重试</li>
+<li>ExponentialBackOffPolicy 指数递增延迟执行重试，默认初始0.1秒，系数是2，那么下次延迟0.2秒，再下次就是延迟0.4秒，如此类推，最大30秒。</li>
+<li>ExponentialRandomBackOffPolicy 在上面那个策略上增加随机性</li>
+<li>UniformRandomBackOffPolicy 这个跟上面的区别就是，上面的延迟会不停递增，这个只会在固定的区间随机</li>
+<li>StatelessBackOffPolicy 这个说明是无状态的，所谓无状态就是对上次的退避无感知，从它下面的子类也能看出来 这个类在个抽象类 实现类是NoBackOffPolicy</li>
+</ul>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>@EnableRetry 这个注解主要使用了@EnableAspectJAutoProxy(proxyTargetClass = false)和@Import(RetryConfiguration.class)，就是打开Spring AOP功能和扫描了RetryConfiguration。</p>
+<p>RetryConfiguration是一个AbstractPointcutAdvisor，它有一个pointcut和一个advice。我们知道，在IOC过程中会根据PointcutAdvisor类来对Bean进行Pointcut的过滤，然后生成对应的AOP代理类，用advice来加强处理。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">@Override  </span><br><span class="line">public void afterPropertiesSet() throws Exception &#123;  </span><br><span class="line">   this.retryContextCache = findBean(RetryContextCache.class);  </span><br><span class="line"> this.methodArgumentsKeyGenerator = findBean(MethodArgumentsKeyGenerator.class);  </span><br><span class="line"> this.newMethodArgumentsIdentifier = findBean(NewMethodArgumentsIdentifier.class);  </span><br><span class="line"> this.retryListeners = findBeans(RetryListener.class);  </span><br><span class="line"> this.sleeper = findBean(Sleeper.class);  </span><br><span class="line">  Set&lt;Class&lt;? extends Annotation&gt;&gt; retryableAnnotationTypes = new LinkedHashSet&lt;Class&lt;? extends Annotation&gt;&gt;(1);  </span><br><span class="line">  // 查找基于Retryable注解的类或者方法</span><br><span class="line">  retryableAnnotationTypes.add(Retryable.class);  </span><br><span class="line"> this.pointcut = buildPointcut(retryableAnnotationTypes);  </span><br><span class="line"> this.advice = buildAdvice();  </span><br><span class="line"> if (this.advice instanceof BeanFactoryAware) &#123;  </span><br><span class="line">      ((BeanFactoryAware) this.advice).setBeanFactory(this.beanFactory);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protected Pointcut buildPointcut(Set&lt;Class&lt;? extends Annotation&gt;&gt; retryAnnotationTypes) &#123;  </span><br><span class="line">   ComposablePointcut result = null;  </span><br><span class="line"> for (Class&lt;? extends Annotation&gt; retryAnnotationType : retryAnnotationTypes) &#123;  </span><br><span class="line">      Pointcut filter = new AnnotationClassOrMethodPointcut(retryAnnotationType);  </span><br><span class="line"> if (result == null) &#123;  </span><br><span class="line">         result = new ComposablePointcut(filter);  </span><br><span class="line">  &#125;  </span><br><span class="line">      else &#123;  </span><br><span class="line">         result.union(filter);  </span><br><span class="line">  &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   return result;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protected Advice buildAdvice() &#123;  </span><br><span class="line">   AnnotationAwareRetryOperationsInterceptor interceptor = new AnnotationAwareRetryOperationsInterceptor();  </span><br><span class="line"> if (this.retryContextCache != null) &#123;  </span><br><span class="line">      interceptor.setRetryContextCache(this.retryContextCache);  </span><br><span class="line">  &#125;  </span><br><span class="line">   if (this.retryListeners != null) &#123;  </span><br><span class="line">      interceptor.setListeners(this.retryListeners);  </span><br><span class="line">  &#125;  </span><br><span class="line">   if (this.methodArgumentsKeyGenerator != null) &#123;  </span><br><span class="line">      interceptor.setKeyGenerator(this.methodArgumentsKeyGenerator);  </span><br><span class="line">  &#125;  </span><br><span class="line">   if (this.newMethodArgumentsIdentifier != null) &#123;  </span><br><span class="line">      interceptor.setNewItemIdentifier(this.newMethodArgumentsIdentifier);  </span><br><span class="line">  &#125;  </span><br><span class="line">   if (this.sleeper != null) &#123;  </span><br><span class="line">      interceptor.setSleeper(this.sleeper);  </span><br><span class="line">  &#125;  </span><br><span class="line">   return interceptor;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="AnnotationAwareRetryOperationsInterceptor"><a href="#AnnotationAwareRetryOperationsInterceptor" class="headerlink" title="AnnotationAwareRetryOperationsInterceptor"></a>AnnotationAwareRetryOperationsInterceptor</h3><p>AnnotationAwareRetryOperationsInterceptor实现了IntroductionInterceptor ，IntroductionInterceptor又继承了MethodInterceptor。他会对符合条件的方法做增强。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">@Override  </span><br><span class="line">public Object invoke(MethodInvocation invocation) throws Throwable &#123;  </span><br><span class="line">   MethodInterceptor delegate = getDelegate(invocation.getThis(), invocation.getMethod());  </span><br><span class="line"> if (delegate != null) &#123;  </span><br><span class="line">      return delegate.invoke(invocation);  </span><br><span class="line">  &#125;  </span><br><span class="line">   else &#123;  </span><br><span class="line">      return invocation.proceed();  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private MethodInterceptor getDelegate(Object target, Method method) &#123;  </span><br><span class="line">   ConcurrentMap&lt;Method, MethodInterceptor&gt; cachedMethods = this.delegates.get(target);  </span><br><span class="line"> if (cachedMethods == null) &#123;  </span><br><span class="line">      cachedMethods = new ConcurrentHashMap&lt;Method, MethodInterceptor&gt;();  </span><br><span class="line">  &#125;  </span><br><span class="line">   MethodInterceptor delegate = cachedMethods.get(method);  </span><br><span class="line"> if (delegate == null) &#123;  </span><br><span class="line">      MethodInterceptor interceptor = NULL_INTERCEPTOR;  </span><br><span class="line">  Retryable retryable = AnnotatedElementUtils.findMergedAnnotation(method, Retryable.class);  </span><br><span class="line"> if (retryable == null) &#123;  </span><br><span class="line">         retryable = AnnotatedElementUtils.findMergedAnnotation(method.getDeclaringClass(), Retryable.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      if (retryable == null) &#123;  </span><br><span class="line">         retryable = findAnnotationOnTarget(target, method, Retryable.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      if (retryable != null) &#123;  </span><br><span class="line">//支持自定义MethodInterceptor，而且优先级最高</span><br><span class="line">         if (StringUtils.hasText(retryable.interceptor())) &#123;  </span><br><span class="line">            interceptor = this.beanFactory.getBean(retryable.interceptor(), MethodInterceptor.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">         else if (retryable.stateful()) &#123;  </span><br><span class="line">            interceptor = getStatefulInterceptor(target, method, retryable);  </span><br><span class="line">  &#125;  </span><br><span class="line">         else &#123;  </span><br><span class="line">            interceptor = getStatelessInterceptor(target, method, retryable);  </span><br><span class="line">  &#125;  </span><br><span class="line">      &#125;  </span><br><span class="line">      cachedMethods.putIfAbsent(method, interceptor);  </span><br><span class="line">  delegate = cachedMethods.get(method);  </span><br><span class="line">  &#125;  </span><br><span class="line">   this.delegates.putIfAbsent(target, cachedMethods);  </span><br><span class="line"> return delegate == NULL_INTERCEPTOR ? null : delegate;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着看 getStatefulInterceptor方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">private MethodInterceptor getStatefulInterceptor(Object target, Method method, Retryable retryable) &#123;  </span><br><span class="line">   RetryTemplate template = createTemplate(retryable.listeners());  </span><br><span class="line">  template.setRetryContextCache(this.retryContextCache);  </span><br><span class="line">  </span><br><span class="line">  CircuitBreaker circuit = AnnotatedElementUtils.findMergedAnnotation(method, CircuitBreaker.class);  </span><br><span class="line"> if (circuit == null) &#123;  </span><br><span class="line">      circuit = findAnnotationOnTarget(target, method, CircuitBreaker.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">   if (circuit != null) &#123;  </span><br><span class="line">      RetryPolicy policy = getRetryPolicy(circuit);  </span><br><span class="line">  CircuitBreakerRetryPolicy breaker = new CircuitBreakerRetryPolicy(policy);  </span><br><span class="line">  breaker.setOpenTimeout(getOpenTimeout(circuit));  </span><br><span class="line">  breaker.setResetTimeout(getResetTimeout(circuit));  </span><br><span class="line">  template.setRetryPolicy(breaker);  </span><br><span class="line">  template.setBackOffPolicy(new NoBackOffPolicy());  </span><br><span class="line">  String label = circuit.label();  </span><br><span class="line"> if (!StringUtils.hasText(label)) &#123;  </span><br><span class="line">         label = method.toGenericString();  </span><br><span class="line">  &#125;  </span><br><span class="line">      return RetryInterceptorBuilder.circuitBreaker().keyGenerator(new FixedKeyGenerator(&quot;circuit&quot;))  </span><br><span class="line">            .retryOperations(template).recoverer(getRecoverer(target, method)).label(label).build();  </span><br><span class="line">  &#125;  </span><br><span class="line">   RetryPolicy policy = getRetryPolicy(retryable);  </span><br><span class="line">  template.setRetryPolicy(policy);  </span><br><span class="line">  template.setBackOffPolicy(getBackoffPolicy(retryable.backoff()));  </span><br><span class="line">  String label = retryable.label();  </span><br><span class="line"> return RetryInterceptorBuilder.stateful().keyGenerator(this.methodArgumentsKeyGenerator)  </span><br><span class="line">         .newMethodArgumentsIdentifier(this.newMethodArgumentsIdentifier).retryOperations(template).label(label)  </span><br><span class="line">         .recoverer(getRecoverer(target, method)).build();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里出现了一个CircuitBreaker注解，其实就是@Retryable(stateful = true)<br>方法最终返回了一个MethodInterceptor，这里假设stateful = true 那么最后就会返回一个StatefulRetryOperationsInterceptor，这个MethodInterceptor看一下他的invoke方法。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">@Override  </span><br><span class="line">public Object invoke(final MethodInvocation invocation) throws Throwable &#123;  </span><br><span class="line">  </span><br><span class="line">   if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">      this.logger.debug(&quot;Executing proxied method in stateful retry: &quot; + invocation.getStaticPart() + &quot;(&quot;  </span><br><span class="line">  + ObjectUtils.getIdentityHexString(invocation) + &quot;)&quot;);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">   Object[] args = invocation.getArguments();  </span><br><span class="line">  Object defaultKey = Arrays.asList(args);  </span><br><span class="line"> if (args.length == 1) &#123;  </span><br><span class="line">      defaultKey = args[0];  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">   Object key = createKey(invocation, defaultKey);  </span><br><span class="line">  RetryState retryState = new DefaultRetryState(key,  </span><br><span class="line"> this.newMethodArgumentsIdentifier != null &amp;&amp; this.newMethodArgumentsIdentifier.isNew(args),  </span><br><span class="line"> this.rollbackClassifier);  </span><br><span class="line">  </span><br><span class="line">  Object result = this.retryOperations.execute(new StatefulMethodInvocationRetryCallback(invocation, label),  </span><br><span class="line"> this.recoverer != null ? new ItemRecovererCallback(args, this.recoverer) : null, retryState);  </span><br><span class="line">  </span><br><span class="line"> if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">      this.logger.debug(&quot;Exiting proxied method in stateful retry with result: (&quot; + result + &quot;)&quot;);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">   return result;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后的结果是retryOperations的excute方法获取的，而这个retryOperations就是上面生成的RetryTemplate。这个excute 方法里就会根据我们设置的不同策略来执行<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line">protected &lt;T, E extends Throwable&gt; T doExecute(RetryCallback&lt;T, E&gt; retryCallback,  </span><br><span class="line">  RecoveryCallback&lt;T&gt; recoveryCallback, RetryState state) throws E, ExhaustedRetryException &#123;  </span><br><span class="line">  </span><br><span class="line">   RetryPolicy retryPolicy = this.retryPolicy;  </span><br><span class="line">  BackOffPolicy backOffPolicy = this.backOffPolicy;  </span><br><span class="line">  </span><br><span class="line">  // Allow the retry policy to initialise itself...  </span><br><span class="line">  RetryContext context = open(retryPolicy, state);  </span><br><span class="line"> if (this.logger.isTraceEnabled()) &#123;  </span><br><span class="line">      this.logger.trace(&quot;RetryContext retrieved: &quot; + context);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">   // Make sure the context is available globally for clients who need  </span><br><span class="line"> // it...  RetrySynchronizationManager.register(context);  </span><br><span class="line">  </span><br><span class="line">  Throwable lastException = null;  </span><br><span class="line">  </span><br><span class="line"> boolean exhausted = false;  </span><br><span class="line"> try &#123;  </span><br><span class="line">  </span><br><span class="line">      // Give clients a chance to enhance the context...  </span><br><span class="line">  boolean running = doOpenInterceptors(retryCallback, context);  </span><br><span class="line">  </span><br><span class="line"> if (!running) &#123;  </span><br><span class="line">         throw new TerminatedRetryException(&quot;Retry terminated abnormally by interceptor before first attempt&quot;);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">      // Get or Start the backoff context...  </span><br><span class="line">  BackOffContext backOffContext = null;  </span><br><span class="line">  Object resource = context.getAttribute(&quot;backOffContext&quot;);  </span><br><span class="line">  </span><br><span class="line"> if (resource instanceof BackOffContext) &#123;  </span><br><span class="line">         backOffContext = (BackOffContext) resource;  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">      if (backOffContext == null) &#123;  </span><br><span class="line">         backOffContext = backOffPolicy.start(context);  </span><br><span class="line"> if (backOffContext != null) &#123;  </span><br><span class="line">            context.setAttribute(&quot;backOffContext&quot;, backOffContext);  </span><br><span class="line">  &#125;  </span><br><span class="line">      &#125;  </span><br><span class="line">  </span><br><span class="line">      /*  </span><br><span class="line"> * We allow the whole loop to be skipped if the policy or context already * forbid the first try. This is used in the case of external retry to allow a * recovery in handleRetryExhausted without the callback processing (which * would throw an exception). */  while (canRetry(retryPolicy, context) &amp;&amp; !context.isExhaustedOnly()) &#123;  </span><br><span class="line">  </span><br><span class="line">         try &#123;  </span><br><span class="line">            if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">               this.logger.debug(&quot;Retry: count=&quot; + context.getRetryCount());  </span><br><span class="line">  &#125;  </span><br><span class="line">            // Reset the last exception, so if we are successful  </span><br><span class="line"> // the close interceptors will not think we failed...  lastException = null;  </span><br><span class="line"> return retryCallback.doWithRetry(context);  </span><br><span class="line">  &#125;  </span><br><span class="line">         catch (Throwable e) &#123;  </span><br><span class="line">  </span><br><span class="line">            lastException = e;  </span><br><span class="line">  </span><br><span class="line"> try &#123;  </span><br><span class="line">               registerThrowable(retryPolicy, state, context, e);  </span><br><span class="line">  &#125;  </span><br><span class="line">            catch (Exception ex) &#123;  </span><br><span class="line">               throw new TerminatedRetryException(&quot;Could not register throwable&quot;, ex);  </span><br><span class="line">  &#125;  </span><br><span class="line">            finally &#123;  </span><br><span class="line">               doOnErrorInterceptors(retryCallback, context, e);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">            if (canRetry(retryPolicy, context) &amp;&amp; !context.isExhaustedOnly()) &#123;  </span><br><span class="line">               try &#123;  </span><br><span class="line">                  backOffPolicy.backOff(backOffContext);  </span><br><span class="line">  &#125;  </span><br><span class="line">               catch (BackOffInterruptedException ex) &#123;  </span><br><span class="line">                  lastException = e;  </span><br><span class="line">  // back off was prevented by another thread - fail the retry  </span><br><span class="line">  if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">                     this.logger.debug(&quot;Abort retry because interrupted: count=&quot; + context.getRetryCount());  </span><br><span class="line">  &#125;  </span><br><span class="line">                  throw ex;  </span><br><span class="line">  &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">  </span><br><span class="line">            if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">               this.logger.debug(&quot;Checking for rethrow: count=&quot; + context.getRetryCount());  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">            if (shouldRethrow(retryPolicy, context, state)) &#123;  </span><br><span class="line">               if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">                  this.logger.debug(&quot;Rethrow in retry for policy: count=&quot; + context.getRetryCount());  </span><br><span class="line">  &#125;  </span><br><span class="line">               throw RetryTemplate.&lt;E&gt;wrapIfNecessary(e);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">         &#125;  </span><br><span class="line">  </span><br><span class="line">         /*  </span><br><span class="line"> * A stateful attempt that can retry may rethrow the exception before now, * but if we get this far in a stateful retry there&apos;s a reason for it, * like a circuit breaker or a rollback classifier. */  if (state != null &amp;&amp; context.hasAttribute(GLOBAL_STATE)) &#123;  </span><br><span class="line">            break;  </span><br><span class="line">  &#125;  </span><br><span class="line">      &#125;  </span><br><span class="line">  </span><br><span class="line">      if (state == null &amp;&amp; this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">         this.logger.debug(&quot;Retry failed last attempt: count=&quot; + context.getRetryCount());  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">      exhausted = true;  </span><br><span class="line"> return handleRetryExhausted(recoveryCallback, context, state);  </span><br><span class="line">  </span><br><span class="line">  &#125;  </span><br><span class="line">   catch (Throwable e) &#123;  </span><br><span class="line">      throw RetryTemplate.&lt;E&gt;wrapIfNecessary(e);  </span><br><span class="line">  &#125;  </span><br><span class="line">   finally &#123;  </span><br><span class="line">      close(retryPolicy, context, state, lastException == null || exhausted);  </span><br><span class="line">  doCloseInterceptors(retryCallback, context, lastException);  </span><br><span class="line">  RetrySynchronizationManager.clear();  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="getRetryPolicy-和getBackoffPolicy-策略类获取"><a href="#getRetryPolicy-和getBackoffPolicy-策略类获取" class="headerlink" title="getRetryPolicy 和getBackoffPolicy  策略类获取"></a>getRetryPolicy 和getBackoffPolicy  策略类获取</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">private RetryPolicy getRetryPolicy(Annotation retryable) &#123;  </span><br><span class="line">   Map&lt;String, Object&gt; attrs = AnnotationUtils.getAnnotationAttributes(retryable);  </span><br><span class="line">  @SuppressWarnings(&quot;unchecked&quot;)  </span><br><span class="line">   Class&lt;? extends Throwable&gt;[] includes = (Class&lt;? extends Throwable&gt;[]) attrs.get(&quot;value&quot;);  </span><br><span class="line">  String exceptionExpression = (String) attrs.get(&quot;exceptionExpression&quot;);  </span><br><span class="line"> boolean hasExpression = StringUtils.hasText(exceptionExpression);  </span><br><span class="line"> if (includes.length == 0) &#123;  </span><br><span class="line">      @SuppressWarnings(&quot;unchecked&quot;)  </span><br><span class="line">      Class&lt;? extends Throwable&gt;[] value = (Class&lt;? extends Throwable&gt;[]) attrs.get(&quot;include&quot;);  </span><br><span class="line">  includes = value;  </span><br><span class="line">  &#125;  </span><br><span class="line">   @SuppressWarnings(&quot;unchecked&quot;)  </span><br><span class="line">   Class&lt;? extends Throwable&gt;[] excludes = (Class&lt;? extends Throwable&gt;[]) attrs.get(&quot;exclude&quot;);  </span><br><span class="line">  Integer maxAttempts = (Integer) attrs.get(&quot;maxAttempts&quot;);  </span><br><span class="line">  String maxAttemptsExpression = (String) attrs.get(&quot;maxAttemptsExpression&quot;);  </span><br><span class="line"> if (StringUtils.hasText(maxAttemptsExpression)) &#123;  </span><br><span class="line">      if (ExpressionRetryPolicy.isTemplate(maxAttemptsExpression)) &#123;  </span><br><span class="line">         maxAttempts = PARSER.parseExpression(resolve(maxAttemptsExpression), PARSER_CONTEXT)  </span><br><span class="line">               .getValue(this.evaluationContext, Integer.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      else &#123;  </span><br><span class="line">         maxAttempts = PARSER.parseExpression(resolve(maxAttemptsExpression)).getValue(this.evaluationContext,  </span><br><span class="line">  Integer.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   if (includes.length == 0 &amp;&amp; excludes.length == 0) &#123;  </span><br><span class="line">      SimpleRetryPolicy simple = hasExpression  </span><br><span class="line">            ? new ExpressionRetryPolicy(resolve(exceptionExpression)).withBeanFactory(this.beanFactory)  </span><br><span class="line">            : new SimpleRetryPolicy();  </span><br><span class="line">  simple.setMaxAttempts(maxAttempts);  </span><br><span class="line"> return simple;  </span><br><span class="line">  &#125;  </span><br><span class="line">   Map&lt;Class&lt;? extends Throwable&gt;, Boolean&gt; policyMap = new HashMap&lt;Class&lt;? extends Throwable&gt;, Boolean&gt;();  </span><br><span class="line"> for (Class&lt;? extends Throwable&gt; type : includes) &#123;  </span><br><span class="line">      policyMap.put(type, true);  </span><br><span class="line">  &#125;  </span><br><span class="line">   for (Class&lt;? extends Throwable&gt; type : excludes) &#123;  </span><br><span class="line">      policyMap.put(type, false);  </span><br><span class="line">  &#125;  </span><br><span class="line">   boolean retryNotExcluded = includes.length == 0;  </span><br><span class="line"> if (hasExpression) &#123;  </span><br><span class="line">      return new ExpressionRetryPolicy(maxAttempts, policyMap, true, exceptionExpression, retryNotExcluded)  </span><br><span class="line">            .withBeanFactory(this.beanFactory);  </span><br><span class="line">  &#125;  </span><br><span class="line">   else &#123;  </span><br><span class="line">      return new SimpleRetryPolicy(maxAttempts, policyMap, true, retryNotExcluded);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">private BackOffPolicy getBackoffPolicy(Backoff backoff) &#123;  </span><br><span class="line">   Map&lt;String, Object&gt; attrs = AnnotationUtils.getAnnotationAttributes(backoff);  </span><br><span class="line"> long min = backoff.delay() == 0 ? backoff.value() : backoff.delay();  </span><br><span class="line">  String delayExpression = (String) attrs.get(&quot;delayExpression&quot;);  </span><br><span class="line"> if (StringUtils.hasText(delayExpression)) &#123;  </span><br><span class="line">      if (ExpressionRetryPolicy.isTemplate(delayExpression)) &#123;  </span><br><span class="line">         min = PARSER.parseExpression(resolve(delayExpression), PARSER_CONTEXT).getValue(this.evaluationContext,  </span><br><span class="line">  Long.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      else &#123;  </span><br><span class="line">         min = PARSER.parseExpression(resolve(delayExpression)).getValue(this.evaluationContext, Long.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   long max = backoff.maxDelay();  </span><br><span class="line">  String maxDelayExpression = (String) attrs.get(&quot;maxDelayExpression&quot;);  </span><br><span class="line"> if (StringUtils.hasText(maxDelayExpression)) &#123;  </span><br><span class="line">      if (ExpressionRetryPolicy.isTemplate(maxDelayExpression)) &#123;  </span><br><span class="line">         max = PARSER.parseExpression(resolve(maxDelayExpression), PARSER_CONTEXT)  </span><br><span class="line">               .getValue(this.evaluationContext, Long.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      else &#123;  </span><br><span class="line">         max = PARSER.parseExpression(resolve(maxDelayExpression)).getValue(this.evaluationContext, Long.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   double multiplier = backoff.multiplier();  </span><br><span class="line">  String multiplierExpression = (String) attrs.get(&quot;multiplierExpression&quot;);  </span><br><span class="line"> if (StringUtils.hasText(multiplierExpression)) &#123;  </span><br><span class="line">      if (ExpressionRetryPolicy.isTemplate(multiplierExpression)) &#123;  </span><br><span class="line">         multiplier = PARSER.parseExpression(resolve(multiplierExpression), PARSER_CONTEXT)  </span><br><span class="line">               .getValue(this.evaluationContext, Double.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      else &#123;  </span><br><span class="line">         multiplier = PARSER.parseExpression(resolve(multiplierExpression)).getValue(this.evaluationContext,  </span><br><span class="line">  Double.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   boolean isRandom = false;  </span><br><span class="line"> if (multiplier &gt; 0) &#123;  </span><br><span class="line">      isRandom = backoff.random();  </span><br><span class="line">  String randomExpression = (String) attrs.get(&quot;randomExpression&quot;);  </span><br><span class="line"> if (StringUtils.hasText(randomExpression)) &#123;  </span><br><span class="line">         if (ExpressionRetryPolicy.isTemplate(randomExpression)) &#123;  </span><br><span class="line">            isRandom = PARSER.parseExpression(resolve(randomExpression), PARSER_CONTEXT)  </span><br><span class="line">                  .getValue(this.evaluationContext, Boolean.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">         else &#123;  </span><br><span class="line">            isRandom = PARSER.parseExpression(resolve(randomExpression)).getValue(this.evaluationContext,  </span><br><span class="line">  Boolean.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   return BackOffPolicyBuilder.newBuilder().delay(min).maxDelay(max).multiplier(multiplier).random(isRandom)  </span><br><span class="line">         .sleeper(this.sleeper).build();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h4><p>Spring Retry通过AOP机制来实现对业务代码的重试”入侵“，RetryTemplate中包含了核心的重试逻辑，还提供了丰富的重试策略和退避策略。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><p><a href="http://www.10tiao.com/html/164/201705/2652898434/1.html" target="_blank" rel="noopener">http://www.10tiao.com/html/164/201705/2652898434/1.html</a> <a href="https://www.jianshu.com/p/58e753ca0151" target="_blank" rel="noopener">https://www.jianshu.com/p/58e753ca0151</a><br><a href="https://paper.tuisec.win/detail/90bd660fad9218" target="_blank" rel="noopener">https://paper.tuisec.win/detail/90bd660fad9218</a></p>
 
         </div>
         
@@ -546,371 +491,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-07-15T14:10:51.000Z">2021-07-15</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 读完 (大约 564 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/07/15/mysql8/">mysql8</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="mysql-8-新特性"><a href="#mysql-8-新特性" class="headerlink" title="mysql 8 新特性"></a>mysql 8 新特性</h1><p>mysql分库分表并不是一定从性能的角度上需求，大部分场景是为了更好的管理数据</p>
-<ol>
-<li>数据量大时需要对数据进行新加字段进行加以归类标记，DDL会锁表导致长时间堵塞。(mysql 8 特性会大幅度缩短这个时间，同时mysql 8增加了备份锁，减少备份的时间)</li>
-<li>当一张表或者一个库出现问题时不会导致整个应用不能访问db.</li>
-<li>灰度？数据库性能。</li>
-</ol>
-<h2 id="WHERE-语句内使用函数走索引"><a href="#WHERE-语句内使用函数走索引" class="headerlink" title="WHERE 语句内使用函数走索引"></a>WHERE 语句内使用函数走索引</h2><p>select * from x where YEAR(date) = 2021</p>
-<h2 id="降序索引"><a href="#降序索引" class="headerlink" title="降序索引 "></a>降序索引 </h2><p>mysql索引以前一直都是顺序，现在可以按降序存储。</p>
-<p>index idx_c1_c2(c1,c2 desc)<br>在索引反向扫描是 explain 语句extra中会显示Backward index scan</p>
-<h2 id="GROUP-BY-语句不在隐式排序"><a href="#GROUP-BY-语句不在隐式排序" class="headerlink" title="GROUP BY 语句不在隐式排序"></a>GROUP BY 语句不在隐式排序</h2><p>现在select group by 语句不会按照group by 字段进行隐式排序<br>mysql 5x 中explain 语句的extra 中有Using filesort</p>
-<h2 id="在高并发的情况下性能提升"><a href="#在高并发的情况下性能提升" class="headerlink" title="在高并发的情况下性能提升"></a>在高并发的情况下性能提升</h2><p>在高并发的情况下，只读和更新操作性能提升</p>
-<h2 id="默认字符集为utf8mb4"><a href="#默认字符集为utf8mb4" class="headerlink" title="默认字符集为utf8mb4"></a>默认字符集为utf8mb4</h2><p>修改默认字符集，同时查询性能增加</p>
-<h2 id="增加SKIP-LOCKED-和NOWAIT"><a href="#增加SKIP-LOCKED-和NOWAIT" class="headerlink" title="增加SKIP LOCKED 和NOWAIT"></a>增加SKIP LOCKED 和NOWAIT</h2><p>select <em> from x where id = 1 for update skip locked<br>select </em> from x where id = 1 for update skip nowait</p>
-<p>前者查询加锁的记录被其他线程持有锁时会直接返回空。<br>后者查询加锁的记录被其他线程持有锁时会直接报错。<br>在高并发下比如抢红包等场景下使用。</p>
-<h2 id="文档数据库"><a href="#文档数据库" class="headerlink" title="文档数据库"></a>文档数据库</h2><p>mysql 支持nosql的crud.同时提供了JSON函数</p>
-<h2 id="新增统计函数和GIS"><a href="#新增统计函数和GIS" class="headerlink" title="新增统计函数和GIS"></a>新增统计函数和GIS</h2><p>窗口函数。(不常用)<br>GIS 地理信息(不常用)</p>
-<h2 id="DDL-原子性"><a href="#DDL-原子性" class="headerlink" title="DDL 原子性"></a>DDL 原子性</h2><p>数据字典集中存储，增强crash safe能力。</p>
-<h2 id="MGR-增强"><a href="#MGR-增强" class="headerlink" title="MGR 增强"></a>MGR 增强</h2><p>MGR 集群的健壮和稳定性加强。</p>
-<h2 id="自增主键id存储-在删除一条数据后又新增一条数据"><a href="#自增主键id存储-在删除一条数据后又新增一条数据" class="headerlink" title="自增主键id存储 在删除一条数据后又新增一条数据"></a>自增主键id存储 在删除一条数据后又新增一条数据</h2><p>在mysql8之前,自增主键的最大值存储在内存中。mysql8将自增id在事务结束checkpoint时放到了redolog中。所以mysql8之前id会持续增大而8会使用之前的。</p>
-<p><img src="images/mysql8_id_inc.jpg" alt="mysql"></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-05-14T15:43:57.000Z">2021-05-14</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 473 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/05/14/ContextStartedEvent/">monotonous</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Spring-Event-关于ContextStartedEvent-使用"><a href="#Spring-Event-关于ContextStartedEvent-使用" class="headerlink" title="Spring Event 关于ContextStartedEvent 使用"></a>Spring Event 关于ContextStartedEvent 使用</h1><h2 id="问题"><a href="#问题" class="headerlink" title=" 问题"></a> 问题</h2><p> 在spring boot 中定义event listener 实现ContextStartedEventListener<contextstartedevent> 监听上下文启动实现.发现项目启动后项目并不会打印出我们所需要的日志</contextstartedevent></p>
-<figure class="highlight java hljs"><figcaption><span>ContextStartedEventListener.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ContextStartedEventListener</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ApplicationListener</span>&lt;<span class="hljs-title">ContextStartedEvent</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger log = LoggerFactory.getLogger(ContextStartedEventListener.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onApplicationEvent</span><span class="hljs-params">(ContextStartedEvent event)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="hljs-string">"ContextStartedEventListener : 项目启动"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p> 打开spring 源码发现在AbstractApplicationContext#start() 方法中调用了此方法。<br> ContextStoppedEvent同理也是stop方法。</p>
- <figure class="highlight java hljs"><figcaption><span>AbstractApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().start();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStartedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stop</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().stop();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStoppedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<pre><code>定位到调用该方法的地方为DefaultLifecycleProcessor#start(). 很明显是在生命周期的处理器中调用。再次定位调用这个start方法的来源。
-</code></pre> <figure class="highlight java hljs"><figcaption><span>AbstractApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> </span><br><span class="line"> <span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().start();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStartedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;	 </span><br><span class="line">	</span><br></pre></td></tr></table></figure>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我们一般启动spring boot 是使用AbstractApplicationContext#refresh方法而不是start()方法，所以这里只能使用abstractApplicationContext 的start方法启动上下文是才会产生这个事件。</p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>在DefaultLifecycleProcessor中使用spring boot 启动使用的是</p>
-<figure class="highlight java hljs"><figcaption><span>DefaultLifecycleProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onRefresh</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">		startBeans(<span class="hljs-keyword">true</span>);</span><br><span class="line">		<span class="hljs-keyword">this</span>.running = <span class="hljs-keyword">true</span>;</span><br><span class="line">	&#125; 	</span><br></pre></td></tr></table></figure>
-<p>他和刚刚的abstrctApplicationContext调用地start方法只有一个参数autoStartupOnly的区别。<br>这个参数为false时即我们abstrctApplicationContext.start时可以在我们的lifecycle bean 上使用注解@Phase 定义生命周期的阶段，从而自定义lifecycle bean 的start顺序。</p>
-<p>这个注解还和timeoutPerShutdownPhase这个产数有关，timeoutPerShutdownPhase定义了lifecycle bean stop的超时时间<br><figure class="highlight java hljs"><figcaption><span>DefaultLifecycleProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stop</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.members.isEmpty()) &#123;</span><br><span class="line">				<span class="hljs-keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">this</span>.members.sort(Collections.reverseOrder());</span><br><span class="line">			CountDownLatch latch = <span class="hljs-keyword">new</span> CountDownLatch(<span class="hljs-keyword">this</span>.smartMemberCount);</span><br><span class="line">			Set&lt;String&gt; countDownBeanNames = Collections.synchronizedSet(<span class="hljs-keyword">new</span> LinkedHashSet&lt;&gt;());</span><br><span class="line">			Set&lt;String&gt; lifecycleBeanNames = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(<span class="hljs-keyword">this</span>.lifecycleBeans.keySet());</span><br><span class="line">			<span class="hljs-keyword">for</span> (LifecycleGroupMember member : <span class="hljs-keyword">this</span>.members) &#123;</span><br><span class="line">				<span class="hljs-keyword">if</span> (lifecycleBeanNames.contains(member.name)) &#123;</span><br><span class="line">					doStop(<span class="hljs-keyword">this</span>.lifecycleBeans, member.name, latch, countDownBeanNames);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (member.bean <span class="hljs-keyword">instanceof</span> SmartLifecycle) &#123;</span><br><span class="line">					<span class="hljs-comment">// Already removed: must have been a dependent bean from another phase</span></span><br><span class="line">					latch.countDown();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">				latch.await(<span class="hljs-keyword">this</span>.timeout, TimeUnit.MILLISECONDS);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">				Thread.currentThread().interrupt();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">   」</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-14T12:19:56.000Z">2019-10-14</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 316 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/10/14/zsh/">zsh</a>
-            
-        </h1>
-        <div class="content">
-            <p>###zsh</p>
-<p>从 macOS Catalina 版开始，您的 Mac 将使用 zsh 作为默认登录 Shell 和交互式 Shell。您还可以在较低版本的 macOS 中将 zsh 设置为默认 Shell。</p>
-<p>默认情况下，您的 Mac 使用 zsh 或 bash 作为登录 Shell 和交互式 Shell 的命令行解释器：</p>
-<p>从 macOS Catalina Beta 版开始，zsh (Z shell) 是所有新建用户帐户的默认 Shell。<br>bash 是 macOS Mojave 及更低版本中的默认 Shell。<br>zsh 与 Bourne Shell (sh) 高度兼容，并且与 bash 基本兼容，但存在一些差别。要进一步了解 zsh 及其全面的命令行完成系统，请在“终端”中输入 man zsh。</p>
-<p>在mac中打卡控制台会出现<br>The default interactive shell is now zsh.<br>To update your account to use zsh, please run <code>chsh -s /bin/zsh</code>.<br>For more details, please visit <a href="https://support.apple.com/kb/HT208050" target="_blank" rel="noopener">https://support.apple.com/kb/HT208050</a>.</p>
-<p>打卡网址发现新添加了.zprofile 和 .zshrc<br>那已经有了bash 为什么需要zsh?</p>
-<p>######Licensing</p>
-<p>google了一下发现<a href="https://thenextweb.com/dd/2019/06/04/why-does-macos-catalina-use-zsh-instead-of-bash-licensing/" target="_blank" rel="noopener">https://thenextweb.com/dd/2019/06/04/why-does-macos-catalina-use-zsh-instead-of-bash-licensing/</a> 里提到苹果好像是为了更换里面的licensing。原来用的是GUN的bash，协议GPLv3。</p>
-<p>同时苹果可能会开始维护更新这个zsh了。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-05-07T08:09:33.000Z">2019-05-07</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/rocketmq/">rocketmq</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    12 分钟 读完 (大约 1745 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/05/07/rocketmq1/">rocketmq1</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="rocketmq-namesrv"><a href="#rocketmq-namesrv" class="headerlink" title="rocketmq namesrv"></a>rocketmq namesrv</h1><h2 id="Namesrv简介"><a href="#Namesrv简介" class="headerlink" title="Namesrv简介"></a>Namesrv简介</h2><p>namesrc 即 NameServer,类似于服务注册中心，它是RocketMq的调度中心，它提供了路由管理，服务注册及服务发现，服务剔除等服务。正是由于它，系统可以迅速地感知消息服务器的健康状况，对消息服务器的单点故障做出反应防止整个系统瘫痪。它还可以对消息进行负载均衡处理防止Broker宕机。<br></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/05/07/rocketmq1/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-05-06T12:49:57.000Z">2019-05-06</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 817 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/05/06/monotonous/">monotonous</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="单调栈结构"><a href="#单调栈结构" class="headerlink" title="单调栈结构"></a>单调栈结构</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>给定一个不含有重复值的数组arr,找到每一个i位置左边和右边离i位置最近且值比arr[i]小的位置，返回所有位置相应的信息。<br>时间复杂度 O（N）。<br></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/05/06/monotonous/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-    
-<div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/">上一页</a>
-        </div>
-        <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/page/3/">下一页</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/">1</a></li>
-            
-            <li><a class="pagination-link is-current" href="/page/2/">2</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/page/3/">3</a></li>
-            
-        </ul>
-    </nav>
-</div>
 </div>
                 
 

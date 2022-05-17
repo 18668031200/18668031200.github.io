@@ -2,22 +2,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>ygdxd blog!</title>
+<title>k8s_svc笔记 - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="java and go">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ygdxd blog!">
-<meta property="og:url" content="http://github.com/18668031200.github.io/page/3/index.html">
+    <meta name="description" content="K8S service 对象笔记(1)1.loadbalance 作用loadbalance 对象主要作用是将pod服务暴露出来，并提供负载均衡的作用。loadbalance不像NodePort那样在每个集群的节点上打开一个端口那样访问，他拥有自己独一无二的可公开访问的IP地址，在使用kubectl get svc 的EXTERNAL-IP那一列可以看到，可以通过这些ip访问服务。 如果k8s在不">
+<meta name="keywords" content="k8s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s_svc笔记">
+<meta property="og:url" content="http://github.com/18668031200.github.io/2022/04/26/k8s-svc1/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
-<meta property="og:description" content="java and go">
+<meta property="og:description" content="K8S service 对象笔记(1)1.loadbalance 作用loadbalance 对象主要作用是将pod服务暴露出来，并提供负载均衡的作用。loadbalance不像NodePort那样在每个集群的节点上打开一个端口那样访问，他拥有自己独一无二的可公开访问的IP地址，在使用kubectl get svc 的EXTERNAL-IP那一列可以看到，可以通过这些ip访问服务。 如果k8s在不">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://github.com/images/og_image.png">
+<meta property="og:updated_time" content="2022-04-26T15:23:14.301Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ygdxd blog!">
-<meta name="twitter:description" content="java and go">
+<meta name="twitter:title" content="k8s_svc笔记">
+<meta name="twitter:description" content="K8S service 对象笔记(1)1.loadbalance 作用loadbalance 对象主要作用是将pod服务暴露出来，并提供负载均衡的作用。loadbalance不像NodePort那样在每个集群的节点上打开一个端口那样访问，他拥有自己独一无二的可公开访问的IP地址，在使用kubectl get svc 的EXTERNAL-IP那一列可以看到，可以通过这些ip访问服务。 如果k8s在不">
 <meta name="twitter:image" content="http://github.com/images/og_image.png">
 
 
@@ -92,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                <img src="/images/logo.svg" alt="k8s_svc笔记" height="28">
             
             </a>
         </div>
@@ -137,15 +139,12 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-    <div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
 <!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
     
     <!-- 原创转载结束 -->
     
@@ -156,16 +155,22 @@
     <!-- 作者信息结束 -->
     
     
+        <i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv">*</span>次
+                        
 
            
  <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-28T07:09:41.000Z">2019-04-28</time>
+                <time class="level-item has-text-grey" datetime="2022-04-26T15:21:10.000Z">2022-04-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1131 个字)
+                    5 分钟 读完 (大约 688 个字)
                 </span>
                 
                 
@@ -174,22 +179,33 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/04/28/DirectByteBuffer/">DirectByteBuffer</a>
+                k8s_svc笔记
             
         </h1>
         <div class="content">
-            <h3 id="堆外内存DirectByteBuffer"><a href="#堆外内存DirectByteBuffer" class="headerlink" title="堆外内存DirectByteBuffer"></a>堆外内存DirectByteBuffer</h3><p>DirectByteBuffer是jdk提供的访问对外内存的一种实现，堆外内存的优势在于，1.使用socket网络传输时，它能够节省堆内存到堆外内存的复制消耗。2.对于磁盘io,可以使用内存映射，提高效率。3.不需要考虑gc问题。它并不受jvm内存管理,所有当对外内存不足时，系统会显式地调用一次System.gc()，如果还是不能申请到足够内存，系统就会报出</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: Direct buffer memory</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+            <h1 id="K8S-service-对象笔记-1"><a href="#K8S-service-对象笔记-1" class="headerlink" title="K8S service 对象笔记(1)"></a>K8S service 对象笔记(1)</h1><h2 id="1-loadbalance-作用"><a href="#1-loadbalance-作用" class="headerlink" title="1.loadbalance 作用"></a>1.loadbalance 作用</h2><pre><code>loadbalance 对象主要作用是将pod服务暴露出来，并提供负载均衡的作用。loadbalance不像NodePort那样在每个集群的节点上打开一个端口那样访问，他拥有自己独一无二的可公开访问的IP地址，在使用kubectl get svc 的EXTERNAL-IP那一列可以看到，可以通过这些ip访问服务。
+如果k8s在不支持loadbalance环境中运行，则不会调配负责平衡器，但该服务仍将表现得像一个NodePort服务，loadbalance是NodePort服务的扩展。
+</code></pre><h2 id="浏览器会话亲和性"><a href="#浏览器会话亲和性" class="headerlink" title="浏览器会话亲和性"></a>浏览器会话亲和性</h2><pre><code>由于浏览器使用keep-alive连接，当浏览器首次与服务连接时，第一次会随机选择一个集群，然后会将属于该连接的所有请求都会发往第一次建立连接的集群，即使会话亲和性设置成None，用户也会使用相同的pod直到连接关闭。
+</code></pre><h2 id="不必要的网络跳数"><a href="#不必要的网络跳数" class="headerlink" title="不必要的网络跳数"></a>不必要的网络跳数</h2><pre><code>当外部浏览器通过端口连接服务时，随机选择的pod并不一定在接收连接的同一节点上，这就可能需要额外的网路跳。同时这会可能导致对数据包执行源网络地址转换（SNAP）, 数据包的源ip就会发生变化，会影响后端服务获取客户端的ip地址。
+这时候可以在服务的spec中设置externalTrafficPolicy为Local来避免这种情况。
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  externalTrafficPolicy: Local</span><br></pre></td></tr></table></figure>
+
+如果服务使用了该设置，并且通过服务的节点端口打开外部连接时，服务代理会选择本地运行的pod，如果没有本地pod，就将连接挂起(并不会像不使用那样转发到全局随机pod),所以需要确保负载均衡到一个有pod服务的节点。
+同时该设置会导致如果节点上pod的数量不相等，使用Local外部流量策略会导致pod的负载分布不均衡。
+</code></pre><h2 id="ingress工作原理"><a href="#ingress工作原理" class="headerlink" title="ingress工作原理"></a>ingress工作原理</h2><pre><code>客户端先对要访问的域名做DNS查找，DNS服务器返回ingress控制器的ip地址（可以通过kubectl get ingresses 命令的ADDRESS一列中找到对应的ip）。然后客户端向控制器发送请求并在Host头中指定要访问的域名，控制器从该头部中确定访问具体的哪个服务，通过与该服务相关联的Endpoint对象查看ip，然后向其中的一个pod转发。
+</code></pre><p>参考 《Kubernetes in action》</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/28/DirectByteBuffer/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/k8s/">k8s</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -197,236 +213,65 @@
 
 
 
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-22T08:00:25.000Z">2019-04-22</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 453 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
             
-                <a class="has-link-black-ter" href="/2019/04/22/ss-config1/">spring security 1 配置类加载</a>
-            
-        </h1>
-        <div class="content">
-            <p>##spring security 配置类加载</p>
-<p>####WebSecurityConfigurerAdapter</p>
-<p>一般我们在使用spring security作为我们安全验证的时候经常会编写配置类继承WebSecurityConfigurerAdapter，通过重写其中的config()类来自定义自己的安全验证流程。而HttpSecurity类则是其中非常重要的一个配置类，通过它你可以集成其他第三方的生态来满足自己的业务需求。</p>
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
         </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/22/ss-config1/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
     </div>
 </div>
 
 
 
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-18T07:56:47.000Z">2019-04-18</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 219 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/04/18/icarus-bug/">icarus-bug</a>
-            
-        </h1>
-        <div class="content">
-            <p>##记一次hexo切换主题icarus排版混乱的bug</p>
-<p>######起因</p>
-<p>第一次使用hexo搭建blog,看到icarus主题漂亮就入了坑，本地运行完美。<br>仿照国内教程各种详细的配置。</p>
-<p><a href="http://blog.kimzing.com/" target="_blank" rel="noopener">http://blog.kimzing.com/</a></p>
-<p>准备remote上传</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo hexo d -g</span><br></pre></td></tr></table></figure>
-<p>一切ok,打开网站却发现左边的介绍去了中间，样式全无。按F12查看控制台发现并没有脚本或者css报错信息，只能google. 搜索内容如下</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/18/icarus-bug/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-18T05:53:01.000Z">2019-04-18</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    10 分钟 读完 (大约 1552 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/04/18/year-month-day-LinuxIO-md/">LINUX I/O 简介</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="LINUX-I-O-简介"><a href="#LINUX-I-O-简介" class="headerlink" title="LINUX I/O 简介"></a>LINUX I/O 简介</h2><p>在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。</p>
-<p>####基本I/O与标准I/O</p>
-<p>类unix系统中有直接对文件进行的操作函数read()/write()，<br>这些被称为不带缓冲的I/O；标准I/O在基本的I/O函数基础上增加了流和缓冲的概念，常用的函数有fopen/getc()/putc()等，标准I/O使用了缓冲的机制，缓冲又分为全缓冲和行缓冲，引入缓冲机制主要是为了提供文件读写的性能和效率。</p>
-<p>读文件调用getc()时,操作系统底层会使用read()函数，并从用户空间切换到内核空间，执行系统调用。首先将文件页从磁盘拷贝到页缓存中，由于页缓存处在内核空间，不能被用户进程直接寻址，所以还需要将页缓存中数据页再次拷贝到内存对应的用户空间中。这样，经过两次数据拷贝过程，进程才能获取到文件内容。写操作也是一样，用户态写数据时，待发送数据所在的缓冲区处于内核空间，用户态不能直接访问，必须先拷贝至内核空间对应的主存，才能写回磁盘中（延迟写回），因此写入也是需要两次数据拷贝。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/18/year-month-day-LinuxIO-md/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-    
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/page/2/">上一页</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2022/04/27/docker_cmd/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Dockerfile ENTRYPOINT和CMD</span>
+            </a>
         </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/page/4/">下一页</a>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/09/19/linux-virtual-addr/">
+                <span class="level-item">虚拟地址转换流程</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/">1</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/page/2/">2</a></li>
-            
-            <li><a class="pagination-link is-current" href="/page/3/">3</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
 </div>
+
+
+
 </div>
                 
 
@@ -1368,7 +1213,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                    <img src="/images/logo.svg" alt="k8s_svc笔记" height="28">
                 
                 </a>
                 <p class="is-size-7">

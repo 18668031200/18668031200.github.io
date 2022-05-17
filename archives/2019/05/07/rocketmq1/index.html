@@ -2,22 +2,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>ygdxd blog!</title>
+<title>rocketmq1 - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="java and go">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ygdxd blog!">
-<meta property="og:url" content="http://github.com/18668031200.github.io/page/3/index.html">
+    <meta name="description" content="rocketmq namesrvNamesrv简介namesrc 即 NameServer,类似于服务注册中心，它是RocketMq的调度中心，它提供了路由管理，服务注册及服务发现，服务剔除等服务。正是由于它，系统可以迅速地感知消息服务器的健康状况，对消息服务器的单点故障做出反应防止整个系统瘫痪。它还可以对消息进行负载均衡处理防止Broker宕机。">
+<meta name="keywords" content="rocketmq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rocketmq1">
+<meta property="og:url" content="http://github.com/18668031200.github.io/2019/05/07/rocketmq1/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
-<meta property="og:description" content="java and go">
+<meta property="og:description" content="rocketmq namesrvNamesrv简介namesrc 即 NameServer,类似于服务注册中心，它是RocketMq的调度中心，它提供了路由管理，服务注册及服务发现，服务剔除等服务。正是由于它，系统可以迅速地感知消息服务器的健康状况，对消息服务器的单点故障做出反应防止整个系统瘫痪。它还可以对消息进行负载均衡处理防止Broker宕机。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://github.com/images/og_image.png">
+<meta property="og:updated_time" content="2022-04-26T12:19:33.216Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ygdxd blog!">
-<meta name="twitter:description" content="java and go">
+<meta name="twitter:title" content="rocketmq1">
+<meta name="twitter:description" content="rocketmq namesrvNamesrv简介namesrc 即 NameServer,类似于服务注册中心，它是RocketMq的调度中心，它提供了路由管理，服务注册及服务发现，服务剔除等服务。正是由于它，系统可以迅速地感知消息服务器的健康状况，对消息服务器的单点故障做出反应防止整个系统瘫痪。它还可以对消息进行负载均衡处理防止Broker宕机。">
 <meta name="twitter:image" content="http://github.com/images/og_image.png">
 
 
@@ -92,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                <img src="/images/logo.svg" alt="rocketmq1" height="28">
             
             </a>
         </div>
@@ -137,8 +139,7 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-    <div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
     <div class="card-content article ">
         
@@ -156,16 +157,22 @@
     <!-- 作者信息结束 -->
     
     
+        <i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv">*</span>次
+                        
 
            
  <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-28T07:09:41.000Z">2019-04-28</time>
+                <time class="level-item has-text-grey" datetime="2019-05-07T08:09:33.000Z">2019-05-07</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/rocketmq/">rocketmq</a>
+                </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1131 个字)
+                    12 分钟 读完 (大约 1745 个字)
                 </span>
                 
                 
@@ -174,22 +181,47 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/04/28/DirectByteBuffer/">DirectByteBuffer</a>
+                rocketmq1
             
         </h1>
         <div class="content">
-            <h3 id="堆外内存DirectByteBuffer"><a href="#堆外内存DirectByteBuffer" class="headerlink" title="堆外内存DirectByteBuffer"></a>堆外内存DirectByteBuffer</h3><p>DirectByteBuffer是jdk提供的访问对外内存的一种实现，堆外内存的优势在于，1.使用socket网络传输时，它能够节省堆内存到堆外内存的复制消耗。2.对于磁盘io,可以使用内存映射，提高效率。3.不需要考虑gc问题。它并不受jvm内存管理,所有当对外内存不足时，系统会显式地调用一次System.gc()，如果还是不能申请到足够内存，系统就会报出</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: Direct buffer memory</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+            <h1 id="rocketmq-namesrv"><a href="#rocketmq-namesrv" class="headerlink" title="rocketmq namesrv"></a>rocketmq namesrv</h1><h2 id="Namesrv简介"><a href="#Namesrv简介" class="headerlink" title="Namesrv简介"></a>Namesrv简介</h2><p>namesrc 即 NameServer,类似于服务注册中心，它是RocketMq的调度中心，它提供了路由管理，服务注册及服务发现，服务剔除等服务。正是由于它，系统可以迅速地感知消息服务器的健康状况，对消息服务器的单点故障做出反应防止整个系统瘫痪。它还可以对消息进行负载均衡处理防止Broker宕机。<br><a id="more"></a></p>
+<h2 id="启动Namesrv"><a href="#启动Namesrv" class="headerlink" title="启动Namesrv"></a>启动Namesrv</h2><figure class="highlight java hljs"><figcaption><span>NamesrvStartup.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> NamesrvController <span class="hljs-title">main0</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            NamesrvController controller = createNamesrvController(args);</span><br><span class="line">            start(controller);</span><br><span class="line">            String tip = <span class="hljs-string">"The Name Server boot success. serializeType="</span> + RemotingCommand.getSerializeTypeConfigInThisServer();</span><br><span class="line">            log.info(tip);</span><br><span class="line">            System.out.printf(<span class="hljs-string">"%s%n"</span>, tip);</span><br><span class="line">            <span class="hljs-keyword">return</span> controller;</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.exit(-<span class="hljs-number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p>第一行createNamesrvController(args)根据参数创建一个NamesrvController实例，然后就这个实例当做参数调用start()方法，最后输出日志。先看start(final NamesrvController controller)方法</p>
+<figure class="highlight java hljs"><figcaption><span>NamesrvStartup.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> NamesrvController <span class="hljs-title">start</span><span class="hljs-params">(<span class="hljs-keyword">final</span> NamesrvController controller)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">...</span><br><span class="line"><span class="hljs-keyword">boolean</span> initResult = controller.initialize();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">Runtime.getRuntime().addShutdownHook(<span class="hljs-keyword">new</span> ShutdownHookThread(log, <span class="hljs-keyword">new</span> Callable&lt;Void&gt;() &#123;</span><br><span class="line">            <span class="hljs-meta">@Override</span></span><br><span class="line">            <span class="hljs-function"><span class="hljs-keyword">public</span> Void <span class="hljs-title">call</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                controller.shutdown();</span><br><span class="line">                <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;));</span><br><span class="line"></span><br><span class="line">        controller.start();</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">return</span> controller;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>可以看到它先调用了controller.initialize();这个条语句。然后给系统增加了一个关闭的钩子 在系统关闭之前回去调用controller的shutdown()方法。最后调用controller.start().</p>
+<p>可以看出这个NamesrvController就是整个启动过程关键类，而createNamesrvController(args)是生成它的方法。</p>
+<figure class="highlight java hljs"><figcaption><span>NamesrvStartup.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="hljs-comment">//首先解析命令</span></span><br><span class="line">Options options = ServerUtil.buildCommandlineOptions(<span class="hljs-keyword">new</span> Options());</span><br><span class="line">        commandLine = ServerUtil.parseCmdLine(<span class="hljs-string">"mqnamesrv"</span>, args, buildCommandlineOptions(options), <span class="hljs-keyword">new</span> PosixParser());       </span><br><span class="line">...</span><br><span class="line"><span class="hljs-comment">//生成业务配置实例</span></span><br><span class="line"><span class="hljs-keyword">final</span> NamesrvConfig namesrvConfig = <span class="hljs-keyword">new</span> NamesrvConfig();</span><br><span class="line"><span class="hljs-comment">//生成netty远程通信配置实例</span></span><br><span class="line"><span class="hljs-keyword">final</span> NettyServerConfig nettyServerConfig = <span class="hljs-keyword">new</span> NettyServerConfig();</span><br><span class="line">...</span><br><span class="line"><span class="hljs-comment">//命令上-c 参数 系统会去读取配置文件并设置到NamesrvConfig中</span></span><br><span class="line"><span class="hljs-keyword">if</span> (commandLine.hasOption(<span class="hljs-string">'c'</span>)) &#123;</span><br><span class="line">InputStream in = <span class="hljs-keyword">new</span> BufferedInputStream(<span class="hljs-keyword">new</span> FileInputStream(file));</span><br><span class="line">...</span><br><span class="line">namesrvConfig.setConfigStorePath(file);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">//-p 参数也会设置</span></span><br><span class="line"><span class="hljs-keyword">if</span> (commandLine.hasOption(<span class="hljs-string">'p'</span>)) &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line"><span class="hljs-comment">//logback 设置</span></span><br><span class="line">JoranConfigurator configurator = <span class="hljs-keyword">new</span> JoranConfigurator();</span><br><span class="line"></span><br><span class="line">configurator.doConfigure(namesrvConfig.getRocketmqHome() + <span class="hljs-string">"/conf/logback_namesrv.xml"</span>);</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">最后生成NamesrvController 实例</span><br><span class="line"><span class="hljs-keyword">final</span> NamesrvController controller = <span class="hljs-keyword">new</span> NamesrvController(namesrvConfig, nettyServerConfig);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// remember all configs to prevent discard</span></span><br><span class="line">controller.getConfiguration().registerConfig(properties);</span><br></pre></td></tr></table></figure>
+<p>可以看到NamesrvController 中有2个关键的配置类。</p>
+<h2 id="NamesrvConfig和NettyServerConfig"><a href="#NamesrvConfig和NettyServerConfig" class="headerlink" title="NamesrvConfig和NettyServerConfig"></a>NamesrvConfig和NettyServerConfig</h2><p>NamesrvConfig。一个业务配置类，在类中有rocketmqHome（根目录，通过读取环境变量来设置）<br>kvConfigPath 对应 kvConfig.json，NameServer存储KV配置属性的持久化路径。<br>configStorePath 对应namesrv.properties，nameServer默认配置文件路径。<br>orderMessageEnable，是否支持顺序消息，默认不支持。<br>productEnvName 生产环境名称</p>
+<p>NettyServerConfig。通信配置类<br>listenPort：netty监听端口<br>serverWorkerThreads： netty业务线程池数量<br>serverCallbackExecutorThreads： netty public 任务线程池线程个数，默认为4个。用于处理消息发送，心跳检测等。<br>serverSelectorThreads： IO线程池线程个数，主要是NameServer、Broker端解析请求的线程个数，这类线程主要是处理网络请求，解析请求包，然后转发到个业务线池完成具体的业务操作，然后将结果返回调用方。<br>serverOnewaySemaphoreValue：send oneway 消息请求并发度（Broker端参数）<br>serverAsyncSemaphoreValue：异步消息发送最大并发度（Boreker端参数）<br>serverChannelMaxIdleTimeSeconds：网络连接最大空闲时间，默认120s。如果连接空闲时间超过该参数设置的值，连接将关闭。<br>serverSocketSndBufSize：网络socket发送缓冲区大小，默认64k。<br>serverSocketRcvBufSize：网络socket接受缓冲区大小，默认64k。<br>serverPooledByteBufAllocatorEnable： ByteBuffer是否开启缓存，建议开启<br>useEpollNativeSelector：是否启用Epoll IO模型，Linux环境建议开启。</p>
+<h2 id="NamesrvController"><a href="#NamesrvController" class="headerlink" title="NamesrvController"></a>NamesrvController</h2><p>NameServer控制类。里面包含了很多重要的配置和管理信息。前面通过namesrvConfig 和nettyServerConfig 初始化了一个NamesrvController实例。</p>
+<figure class="highlight java hljs"><figcaption><span>NamesrvController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">this</span>.namesrvConfig = namesrvConfig;</span><br><span class="line">        <span class="hljs-keyword">this</span>.nettyServerConfig = nettyServerConfig;</span><br><span class="line">        <span class="hljs-keyword">this</span>.kvConfigManager = <span class="hljs-keyword">new</span> KVConfigManager(<span class="hljs-keyword">this</span>);</span><br><span class="line">        <span class="hljs-keyword">this</span>.routeInfoManager = <span class="hljs-keyword">new</span> RouteInfoManager();</span><br><span class="line">        <span class="hljs-keyword">this</span>.brokerHousekeepingService = <span class="hljs-keyword">new</span> BrokerHousekeepingService(<span class="hljs-keyword">this</span>);</span><br><span class="line">        <span class="hljs-keyword">this</span>.configuration = <span class="hljs-keyword">new</span> Configuration(</span><br><span class="line">            log,</span><br><span class="line">            <span class="hljs-keyword">this</span>.namesrvConfig, <span class="hljs-keyword">this</span>.nettyServerConfig</span><br><span class="line">        );</span><br><span class="line">        <span class="hljs-keyword">this</span>.configuration.setStorePathFromConfig(<span class="hljs-keyword">this</span>.namesrvConfig, <span class="hljs-string">"configStorePath"</span>);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这里还生成了一个路由信息管理类，一个broker下线的监听业务类BrokerHousekeepingService，用于连接改变时去更改this.routeInfoManager的路由信息。</p>
+<p>######RouteInfoManager的路由信息</p>
+<figure class="highlight java hljs"><figcaption><span>RouteInfoManager.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> HashMap&lt;String<span class="hljs-comment">/* topic */</span>, List&lt;QueueData&gt;&gt; topicQueueTable;</span><br><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> HashMap&lt;String<span class="hljs-comment">/* brokerName */</span>, BrokerData&gt; brokerAddrTable;</span><br><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> HashMap&lt;String<span class="hljs-comment">/* clusterName */</span>, Set&lt;String<span class="hljs-comment">/* brokerName */</span>&gt;&gt; clusterAddrTable;</span><br><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> HashMap&lt;String<span class="hljs-comment">/* brokerAddr */</span>, BrokerLiveInfo&gt; brokerLiveTable;</span><br><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> HashMap&lt;String<span class="hljs-comment">/* brokerAddr */</span>, List&lt;String&gt;<span class="hljs-comment">/* Filter Server */</span>&gt; filterServerTable;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>topicQueueTable：Topic消息队列路由信息，消息发送时根据路由表进行负载均衡。<br>brokerAddrTable：Broker基础信息，包含brokerName,所属集群名称，主备broker地址。<br>clusterAddrTable：Broker集群信息，存储集群中所有的Broker名称。<br>brokerLiveTable：Broker存活信息，NameServer每次收到心跳包时都会更新该信息。<br>filterServerTable：过滤器列表。</p>
+<p>而RouteInfoManager还拥有BrokerHousekeepingService的具体实现。</p>
+<p>比如关闭连接</p>
+<figure class="highlight java hljs"><figcaption><span>BrokerHousekeepingService.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onChannelClose</span><span class="hljs-params">(String remoteAddr, Channel channel)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.namesrvController.getRouteInfoManager().onChannelDestroy(remoteAddr, channel);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><figcaption><span>RouteInfoManager.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onChannelDestroy</span><span class="hljs-params">(String remoteAddr, Channel channel)</span> </span>&#123;</span><br><span class="line">        String brokerAddrFound = <span class="hljs-keyword">null</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span> (channel != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                		<span class="hljs-comment">//获取读锁找到具体的broker信息</span></span><br><span class="line">                    <span class="hljs-keyword">this</span>.lock.readLock().lockInterruptibly();</span><br><span class="line">                    Iterator&lt;Entry&lt;String, BrokerLiveInfo&gt;&gt; itBrokerLiveTable =</span><br><span class="line">                        <span class="hljs-keyword">this</span>.brokerLiveTable.entrySet().iterator();</span><br><span class="line">                    <span class="hljs-keyword">while</span> (itBrokerLiveTable.hasNext()) &#123;</span><br><span class="line">                        Entry&lt;String, BrokerLiveInfo&gt; entry = itBrokerLiveTable.next();</span><br><span class="line">                        <span class="hljs-comment">//找到</span></span><br><span class="line">                        <span class="hljs-keyword">if</span> (entry.getValue().getChannel() == channel) &#123;</span><br><span class="line">                            brokerAddrFound = entry.getKey();</span><br><span class="line">                            <span class="hljs-keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">                    <span class="hljs-comment">//解锁</span></span><br><span class="line">                    <span class="hljs-keyword">this</span>.lock.readLock().unlock();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                log.error(<span class="hljs-string">"onChannelDestroy Exception"</span>, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == brokerAddrFound) &#123;</span><br><span class="line">            brokerAddrFound = remoteAddr;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            log.info(<span class="hljs-string">"the broker's channel destroyed, &#123;&#125;, clean it's data structure at once"</span>, brokerAddrFound);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span> (brokerAddrFound != <span class="hljs-keyword">null</span> &amp;&amp; brokerAddrFound.length() &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                    <span class="hljs-comment">//加写锁，此时只有其余线程阻塞</span></span><br><span class="line">                    <span class="hljs-keyword">this</span>.lock.writeLock().lockInterruptibly();</span><br><span class="line">                    <span class="hljs-comment">//删除存活信息和对应的过滤器</span></span><br><span class="line">                    <span class="hljs-keyword">this</span>.brokerLiveTable.remove(brokerAddrFound);</span><br><span class="line">                    <span class="hljs-keyword">this</span>.filterServerTable.remove(brokerAddrFound);</span><br><span class="line">                    String brokerNameFound = <span class="hljs-keyword">null</span>;</span><br><span class="line">                    <span class="hljs-keyword">boolean</span> removeBrokerName = <span class="hljs-keyword">false</span>;</span><br><span class="line">                    <span class="hljs-comment">//寻找对应的基础信息</span></span><br><span class="line">                    Iterator&lt;Entry&lt;String, BrokerData&gt;&gt; itBrokerAddrTable =</span><br><span class="line">                        <span class="hljs-keyword">this</span>.brokerAddrTable.entrySet().iterator();</span><br><span class="line">                    <span class="hljs-keyword">while</span> (itBrokerAddrTable.hasNext() &amp;&amp; (<span class="hljs-keyword">null</span> == brokerNameFound)) &#123;</span><br><span class="line">                        BrokerData brokerData = itBrokerAddrTable.next().getValue();</span><br><span class="line"></span><br><span class="line">                        Iterator&lt;Entry&lt;Long, String&gt;&gt; it = brokerData.getBrokerAddrs().entrySet().iterator();</span><br><span class="line">                        <span class="hljs-keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">                            Entry&lt;Long, String&gt; entry = it.next();</span><br><span class="line">                            Long brokerId = entry.getKey();</span><br><span class="line">                            String brokerAddr = entry.getValue();</span><br><span class="line">                            <span class="hljs-keyword">if</span> (brokerAddr.equals(brokerAddrFound)) &#123;</span><br><span class="line">                                brokerNameFound = brokerData.getBrokerName();</span><br><span class="line">                                <span class="hljs-comment">//删除</span></span><br><span class="line">                                it.remove();</span><br><span class="line">                                log.info(<span class="hljs-string">"remove brokerAddr[&#123;&#125;, &#123;&#125;] from brokerAddrTable, because channel destroyed"</span>,</span><br><span class="line">                                    brokerId, brokerAddr);</span><br><span class="line">                                <span class="hljs-keyword">break</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        <span class="hljs-keyword">if</span> (brokerData.getBrokerAddrs().isEmpty()) &#123;</span><br><span class="line">                            removeBrokerName = <span class="hljs-keyword">true</span>;</span><br><span class="line">                            itBrokerAddrTable.remove();</span><br><span class="line">                            log.info(<span class="hljs-string">"remove brokerName[&#123;&#125;] from brokerAddrTable, because channel destroyed"</span>,</span><br><span class="line">                                brokerData.getBrokerName());</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="hljs-keyword">if</span> (brokerNameFound != <span class="hljs-keyword">null</span> &amp;&amp; removeBrokerName) &#123;</span><br><span class="line">                        Iterator&lt;Entry&lt;String, Set&lt;String&gt;&gt;&gt; it = <span class="hljs-keyword">this</span>.clusterAddrTable.entrySet().iterator();</span><br><span class="line">                        <span class="hljs-keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">                            Entry&lt;String, Set&lt;String&gt;&gt; entry = it.next();</span><br><span class="line">                            String clusterName = entry.getKey();</span><br><span class="line">                            Set&lt;String&gt; brokerNames = entry.getValue();</span><br><span class="line">                            <span class="hljs-keyword">boolean</span> removed = brokerNames.remove(brokerNameFound);</span><br><span class="line">                            <span class="hljs-keyword">if</span> (removed) &#123;</span><br><span class="line">                                log.info(<span class="hljs-string">"remove brokerName[&#123;&#125;], clusterName[&#123;&#125;] from clusterAddrTable, because channel destroyed"</span>,</span><br><span class="line">                                    brokerNameFound, clusterName);</span><br><span class="line"></span><br><span class="line">                                <span class="hljs-keyword">if</span> (brokerNames.isEmpty()) &#123;</span><br><span class="line">                                    log.info(<span class="hljs-string">"remove the clusterName[&#123;&#125;] from clusterAddrTable, because channel destroyed and no broker in this cluster"</span>,</span><br><span class="line">                                        clusterName);</span><br><span class="line">                                    it.remove();</span><br><span class="line">                                &#125;</span><br><span class="line"></span><br><span class="line">                                <span class="hljs-keyword">break</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">						<span class="hljs-comment">//在topick路由表进行更新</span></span><br><span class="line">                    <span class="hljs-keyword">if</span> (removeBrokerName) &#123;</span><br><span class="line">                        Iterator&lt;Entry&lt;String, List&lt;QueueData&gt;&gt;&gt; itTopicQueueTable =</span><br><span class="line">                            <span class="hljs-keyword">this</span>.topicQueueTable.entrySet().iterator();</span><br><span class="line">                        <span class="hljs-keyword">while</span> (itTopicQueueTable.hasNext()) &#123;</span><br><span class="line">                            Entry&lt;String, List&lt;QueueData&gt;&gt; entry = itTopicQueueTable.next();</span><br><span class="line">                            String topic = entry.getKey();</span><br><span class="line">                            List&lt;QueueData&gt; queueDataList = entry.getValue();</span><br><span class="line"></span><br><span class="line">                            Iterator&lt;QueueData&gt; itQueueData = queueDataList.iterator();</span><br><span class="line">                            <span class="hljs-keyword">while</span> (itQueueData.hasNext()) &#123;</span><br><span class="line">                                QueueData queueData = itQueueData.next();</span><br><span class="line">                                <span class="hljs-keyword">if</span> (queueData.getBrokerName().equals(brokerNameFound)) &#123;</span><br><span class="line">                                    itQueueData.remove();</span><br><span class="line">                                    log.info(<span class="hljs-string">"remove topic[&#123;&#125; &#123;&#125;], from topicQueueTable, because channel destroyed"</span>,</span><br><span class="line">                                        topic, queueData);</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line"></span><br><span class="line">                            <span class="hljs-keyword">if</span> (queueDataList.isEmpty()) &#123;</span><br><span class="line">                                itTopicQueueTable.remove();</span><br><span class="line">                                log.info(<span class="hljs-string">"remove topic[&#123;&#125;] all queue, from topicQueueTable, because channel destroyed"</span>,</span><br><span class="line">                                    topic);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">                    <span class="hljs-comment">//最后进行解锁操作</span></span><br><span class="line">                    <span class="hljs-keyword">this</span>.lock.writeLock().unlock();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                log.error(<span class="hljs-string">"onChannelDestroy Exception"</span>, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<p>   可以看到每当有broker下线时，整个路由信息都会通过加锁的方式进行实时更新。</p>
+<p>   在初始化了NamesrvController实例以后，下面就是调用它的初始化方法initialize()。</p>
+   <figure class="highlight java hljs"><figcaption><span>NamesrvController.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line">   <span class="hljs-comment">//读取KV配置</span></span><br><span class="line">   <span class="hljs-keyword">this</span>.kvConfigManager.load();</span><br><span class="line">   <span class="hljs-comment">//生成netty远程服务</span></span><br><span class="line">   <span class="hljs-keyword">this</span>.remotingServer = <span class="hljs-keyword">new</span> NettyRemotingServer(<span class="hljs-keyword">this</span>.nettyServerConfig, <span class="hljs-keyword">this</span>.brokerHousekeepingService);</span><br><span class="line">    <span class="hljs-comment">//线程池初始化</span></span><br><span class="line">    <span class="hljs-keyword">this</span>.remotingExecutor =</span><br><span class="line">            Executors.newFixedThreadPool(nettyServerConfig.getServerWorkerThreads(), <span class="hljs-keyword">new</span> ThreadFactoryImpl(<span class="hljs-string">"RemotingExecutorThread_"</span>));</span><br><span class="line"><span class="hljs-comment">//注册处理类</span></span><br><span class="line"><span class="hljs-keyword">this</span>.registerProcessor();</span><br><span class="line"><span class="hljs-comment">//跳过定时线程初始化和ssl</span></span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line">   </span><br></pre></td></tr></table></figure>
+<p>   最后调用start()方法，其实就是netty的启动。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>《rocketmq技术内幕》</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/28/DirectByteBuffer/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/rocketmq/">rocketmq</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -197,236 +229,65 @@
 
 
 
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-22T08:00:25.000Z">2019-04-22</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 453 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
             
-                <a class="has-link-black-ter" href="/2019/04/22/ss-config1/">spring security 1 配置类加载</a>
-            
-        </h1>
-        <div class="content">
-            <p>##spring security 配置类加载</p>
-<p>####WebSecurityConfigurerAdapter</p>
-<p>一般我们在使用spring security作为我们安全验证的时候经常会编写配置类继承WebSecurityConfigurerAdapter，通过重写其中的config()类来自定义自己的安全验证流程。而HttpSecurity类则是其中非常重要的一个配置类，通过它你可以集成其他第三方的生态来满足自己的业务需求。</p>
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
         </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/22/ss-config1/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
     </div>
 </div>
 
 
 
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-18T07:56:47.000Z">2019-04-18</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 219 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/04/18/icarus-bug/">icarus-bug</a>
-            
-        </h1>
-        <div class="content">
-            <p>##记一次hexo切换主题icarus排版混乱的bug</p>
-<p>######起因</p>
-<p>第一次使用hexo搭建blog,看到icarus主题漂亮就入了坑，本地运行完美。<br>仿照国内教程各种详细的配置。</p>
-<p><a href="http://blog.kimzing.com/" target="_blank" rel="noopener">http://blog.kimzing.com/</a></p>
-<p>准备remote上传</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo hexo d -g</span><br></pre></td></tr></table></figure>
-<p>一切ok,打开网站却发现左边的介绍去了中间，样式全无。按F12查看控制台发现并没有脚本或者css报错信息，只能google. 搜索内容如下</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/18/icarus-bug/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-18T05:53:01.000Z">2019-04-18</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    10 分钟 读完 (大约 1552 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/04/18/year-month-day-LinuxIO-md/">LINUX I/O 简介</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="LINUX-I-O-简介"><a href="#LINUX-I-O-简介" class="headerlink" title="LINUX I/O 简介"></a>LINUX I/O 简介</h2><p>在linux中所有外部设备，进程，网络都可以看成一个文件来操作，对一个文件的读写操作会调用内核提供的系统命令，返回一个file descriptor(fd,文件描述符)。对一个socket的读写也会有相应的描述符，称为socketfd(socket描述符)，描述符就是一个数字，它指向内核中的一个结构体（文件路径，数据区等一些属性）。</p>
-<p>####基本I/O与标准I/O</p>
-<p>类unix系统中有直接对文件进行的操作函数read()/write()，<br>这些被称为不带缓冲的I/O；标准I/O在基本的I/O函数基础上增加了流和缓冲的概念，常用的函数有fopen/getc()/putc()等，标准I/O使用了缓冲的机制，缓冲又分为全缓冲和行缓冲，引入缓冲机制主要是为了提供文件读写的性能和效率。</p>
-<p>读文件调用getc()时,操作系统底层会使用read()函数，并从用户空间切换到内核空间，执行系统调用。首先将文件页从磁盘拷贝到页缓存中，由于页缓存处在内核空间，不能被用户进程直接寻址，所以还需要将页缓存中数据页再次拷贝到内存对应的用户空间中。这样，经过两次数据拷贝过程，进程才能获取到文件内容。写操作也是一样，用户态写数据时，待发送数据所在的缓冲区处于内核空间，用户态不能直接访问，必须先拷贝至内核空间对应的主存，才能写回磁盘中（延迟写回），因此写入也是需要两次数据拷贝。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/18/year-month-day-LinuxIO-md/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-    
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/page/2/">上一页</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/10/14/zsh/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">zsh</span>
+            </a>
         </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/page/4/">下一页</a>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/05/06/monotonous/">
+                <span class="level-item">monotonous</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/">1</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/page/2/">2</a></li>
-            
-            <li><a class="pagination-link is-current" href="/page/3/">3</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
 </div>
+
+
+
 </div>
                 
 
@@ -1368,7 +1229,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                    <img src="/images/logo.svg" alt="rocketmq1" height="28">
                 
                 </a>
                 <p class="is-size-7">
