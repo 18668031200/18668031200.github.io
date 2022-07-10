@@ -145,6 +145,147 @@
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
 <!-- 原创转载开始 -->
     
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-08-10T07:56:44.000Z">2021-08-10</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 635 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/08/10/docker-exec/">docker exec 是怎么做到进入容器里的</a>
+            
+        </h1>
+        <div class="content">
+            <p>转自极客时间深入剖析k8s</p>
+<h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h2><p>Linux Namespace 创建的隔离空间虽然看不见摸不着，但一个进程的 Namespace 信息在宿主机上是确确实实存在的，并且是以一个文件的方式存在。<br>我们可以通过docker inspect 命令获取到正在运行的 Docker 容器的进程号（PID）。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect --format <span class="hljs-string">'&#123;&#123; .State.Pid &#125;&#125;'</span> <span class="hljs-variable">$&#123;container id&#125;</span></span><br><span class="line"></span><br><span class="line">$ ls -l /proc/<span class="hljs-variable">$&#123;Pid&#125;</span>/ns</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，一个进程的每种 Linux Namespace，都在它对应的 /proc/[进程号]/ns 下有一个对应的虚拟文件，并且链接到一个真实的 Namespace 文件上。<br>这也就意味着：一个进程，可以选择加入到某个进程已有的 Namespace 当中，从而达到“进入”这个进程所在容器的目的，这正是 docker exec 的实现原理。<br>而这个操作所依赖的，乃是一个名叫 setns() 的 Linux 系统调用。<br><figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> _GNU_SOURCE</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sched.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> errExit(msg) do &#123; perror(msg); exit(EXIT_FAILURE);&#125; while (0)</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> fd;</span><br><span class="line">    </span><br><span class="line">    fd = open(argv[<span class="hljs-number">1</span>], O_RDONLY);</span><br><span class="line">    <span class="hljs-keyword">if</span> (setns(fd, <span class="hljs-number">0</span>) == <span class="hljs-number">-1</span>) &#123;</span><br><span class="line">        errExit(<span class="hljs-string">"setns"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    execvp(argv[<span class="hljs-number">2</span>], &amp;argv[<span class="hljs-number">2</span>]); </span><br><span class="line">    errExit(<span class="hljs-string">"execvp"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码功能非常简单：它一共接收两个参数，第一个参数是 argv[1]，即当前进程要加入的 Namespace 文件的路径，比如 /proc/[进程号]/ns/net；<br>而第二个参数，则是你要在这个 Namespace 里运行的进程，比如 /bin/bash。<br>这段代码的核心操作，则是通过 open() 系统调用打开了指定的 Namespace 文件，并把这个文件的描述符 fd 交给 setns() 使用。<br>在 setns() 执行后，当前进程就加入了这个文件对应的 Linux Namespace 当中了。</p>
+<p>同时，一旦一个进程加入到了另一个 Namespace 当中，在宿主机的 Namespace 文件上，也会有所体现。<br>你可以用 ps 指令找到这个 set_ns 程序执行的 /bin/bash 进程。查看一下这个 程序对应的进程的 Namespace。<br>2个进程指向的Network Namespace 文件完全一样。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ps aux | grep /bin/bash</span><br><span class="line">$ ls -l /proc/[进程1]/ns/net</span><br><span class="line">$ ls -l /proc/[进程2]/ns/net</span><br></pre></td></tr></table></figure></p>
+<p>我们可以在dockers 启动命令行中增加参数–net container:XXX来加入到另外一个容器的Network Namespace 中。</p>
+<h2 id="2-获取root-权限"><a href="#2-获取root-权限" class="headerlink" title="2.获取root 权限"></a>2.获取root 权限</h2><p>在公司执行了set_ns脚本后，竟然发现原有的用户变成了root。<br>执行id命令后<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ id</span><br><span class="line">uid=0(root) gid=0(root) 组=0(root)</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-08-08T13:42:09.000Z">2021-08-08</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 514 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/08/08/sql-group-by/">GROUP BY分组查询与SQL执行顺序</a>
+            
+        </h1>
+        <div class="content">
+            <p>转自：<a href="http://blog.163.com/shexinyang@126/blog/static/1367393122013526113822666/" target="_blank" rel="noopener">http://blog.163.com/shexinyang@126/blog/static/1367393122013526113822666/</a> </p>
+<h2 id="1-SELECT语句使用GROUP-BY的一些规定"><a href="#1-SELECT语句使用GROUP-BY的一些规定" class="headerlink" title="1.SELECT语句使用GROUP BY的一些规定"></a>1.SELECT语句使用GROUP BY的一些规定</h2><ul>
+<li>GROUP BY子句可以包含任意数目的列。也就是说可以在组里再分组，为数据分组提供更细致的控制。</li>
+<li>如果在GROUP BY子句中指定多个分组，数据将在最后指定的分组上汇总。</li>
+<li>GROUP BY子句中列出的每个列都必须是检索列或有效的表达式（但不能是聚集函数）。如果在SELECT中使用了表达式，则必须在GROUP BY子句中指定相同的表达式。不能使用别名。</li>
+<li>除了聚集计算语句外，GROUP BY子句中的每一列都必须在SELECT语句给出。</li>
+<li>如果分组列中有NULL值，则NULL将作为一个分组返回。如果有多行NULL值，它们将分为一组。</li>
+<li>GROUP BY子句必须在WHERE子句之后，ORDER BY之前。</li>
+</ul>
+<h2 id="2-过滤分组"><a href="#2-过滤分组" class="headerlink" title="2.过滤分组"></a>2.过滤分组</h2><p>对分组过于采用HAVING子句。HAVING子句支持所有WHERE的操作。HAVING与WHERE的区别在于WHERE是过滤行的，而HAVING是用来过滤分组。</p>
+<p>另一种理解WHERE与HAVING的区别的方法是，WHERE在分组之前过滤，而HAVING在分组之后以每组为单位过滤。</p>
+<h2 id="3-分组与排序"><a href="#3-分组与排序" class="headerlink" title="3.分组与排序"></a>3.分组与排序</h2><p>一般在使用GROUP BY子句时，也应该使用ORDER BY子句。这是保证数据正确排序的唯一方法。</p>
+<p>SQL SELECT语句的执行顺序：</p>
+<p>from子句组装来自不同数据源的数据(若有join，则先执行on后条件，再连接数据源)；<br>where子句基于指定的条件对记录行进行筛选；<br>group by子句将数据划分为多个分组；<br>使用聚集函数进行计算；<br>使用having子句筛选分组；<br>计算所有的表达式；<br>使用order by对结果集进行排序；<br>select 集合输出。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
     <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
     
     <!-- 原创转载结束 -->
@@ -752,135 +893,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-05-06T12:49:57.000Z">2019-05-06</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 817 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/05/06/monotonous/">monotonous</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="单调栈结构"><a href="#单调栈结构" class="headerlink" title="单调栈结构"></a>单调栈结构</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>给定一个不含有重复值的数组arr,找到每一个i位置左边和右边离i位置最近且值比arr[i]小的位置，返回所有位置相应的信息。<br>时间复杂度 O（N）。<br></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/05/06/monotonous/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-28T07:09:41.000Z">2019-04-28</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    8 分钟 读完 (大约 1131 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/04/28/DirectByteBuffer/">DirectByteBuffer</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="堆外内存DirectByteBuffer"><a href="#堆外内存DirectByteBuffer" class="headerlink" title="堆外内存DirectByteBuffer"></a>堆外内存DirectByteBuffer</h3><p>DirectByteBuffer是jdk提供的访问对外内存的一种实现，堆外内存的优势在于，1.使用socket网络传输时，它能够节省堆内存到堆外内存的复制消耗。2.对于磁盘io,可以使用内存映射，提高效率。3.不需要考虑gc问题。它并不受jvm内存管理,所有当对外内存不足时，系统会显式地调用一次System.gc()，如果还是不能申请到足够内存，系统就会报出</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: Direct buffer memory</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/04/28/DirectByteBuffer/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -945,7 +957,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        25
                     </p>
                 </div>
             </div>
@@ -1108,7 +1120,7 @@
                 <span class="level-item">k8s</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">1</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/linux/">
@@ -1154,7 +1166,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 10px;">k8s</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 16.67px;">k8s</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mysql/" style="font-size: 13.33px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -1168,6 +1180,44 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2022/07/10/k8s-rest-api/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_rest_api">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-10T07:17:20.000Z">2022-07-10</time></div>
+                    <a href="/2022/07/10/k8s-rest-api/" class="has-link-black-ter is-size-6">k8s_rest_api</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/05/17/k8s_pod/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s pod 属性">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-17T13:40:37.000Z">2022-05-17</time></div>
+                    <a href="/2022/05/17/k8s_pod/" class="has-link-black-ter is-size-6">k8s pod 属性</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1226,44 +1276,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/09/19/linux-virtual-addr/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="虚拟地址转换流程">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-19T13:28:51.000Z">2021-09-19</time></div>
-                    <a href="/2021/09/19/linux-virtual-addr/" class="has-link-black-ter is-size-6">虚拟地址转换流程</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/linux/">linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/09/14/dubbo-net/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="研究 Dubbo 网卡地址注册时的一点思考">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-14T13:34:50.000Z">2021-09-14</time></div>
-                    <a href="/2021/09/14/dubbo-net/" class="has-link-black-ter is-size-6">研究 Dubbo 网卡地址注册时的一点思考</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/dubbo/">dubbo</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1277,12 +1289,23 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2022/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2022/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1433,7 +1456,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -1511,6 +1534,44 @@
         
         <article class="media">
             
+            <a href="/2022/07/10/k8s-rest-api/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_rest_api">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-10T07:17:20.000Z">2022-07-10</time></div>
+                    <a href="/2022/07/10/k8s-rest-api/" class="has-link-black-ter is-size-6">k8s_rest_api</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/05/17/k8s_pod/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s pod 属性">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-17T13:40:37.000Z">2022-05-17</time></div>
+                    <a href="/2022/05/17/k8s_pod/" class="has-link-black-ter is-size-6">k8s pod 属性</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2022/05/07/spring_retry/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="spring_retry">
@@ -1566,44 +1627,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/09/19/linux-virtual-addr/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="虚拟地址转换流程">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-19T13:28:51.000Z">2021-09-19</time></div>
-                    <a href="/2021/09/19/linux-virtual-addr/" class="has-link-black-ter is-size-6">虚拟地址转换流程</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/linux/">linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/09/14/dubbo-net/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="研究 Dubbo 网卡地址注册时的一点思考">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-14T13:34:50.000Z">2021-09-14</time></div>
-                    <a href="/2021/09/14/dubbo-net/" class="has-link-black-ter is-size-6">研究 Dubbo 网卡地址注册时的一点思考</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/dubbo/">dubbo</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1617,12 +1640,23 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2022/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2022/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1773,7 +1807,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 

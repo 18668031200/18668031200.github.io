@@ -2,7 +2,7 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>ygdxd blog!</title>
+<title>归档 - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
@@ -10,7 +10,7 @@
     <meta name="description" content="java and go">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ygdxd blog!">
-<meta property="og:url" content="http://github.com/18668031200.github.io/index.html">
+<meta property="og:url" content="http://github.com/18668031200.github.io/archives/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
 <meta property="og:description" content="java and go">
 <meta property="og:locale" content="zh-CN">
@@ -100,9 +100,9 @@
             
             <div class="navbar-start">
                 
-                <a class="navbar-item is-active" href="/">Home</a>
+                <a class="navbar-item" href="/">Home</a>
                 
-                <a class="navbar-item" href="/archives">Archives</a>
+                <a class="navbar-item is-active" href="/archives">Archives</a>
                 
                 <a class="navbar-item" href="/categories">Categories</a>
                 
@@ -138,823 +138,235 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-    <div class="card">
-    
-    <div class="card-content article ">
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2022-05-17T13:40:37.000Z">2022-05-17</time>
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="tag is-link">
+        2022
+        </h3>
+        <div class="timeline">
+        
+            <article class="media">
                 
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2022-07-10T07:17:20.000Z">2022-07-10</time>
+                        <a href="/2022/07/10/k8s-rest-api/" class="has-link-black-ter is-size-6">k8s_rest_api</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 451 个字)
-                </span>
-                
-                
-            </div>
-        </div>
+            </article>
         
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2022/05/17/k8s_pod/">k8s pod 属性</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="k8s-pod-属性"><a href="#k8s-pod-属性" class="headerlink" title="k8s pod 属性"></a>k8s pod 属性</h1><h3 id="健康检查指针"><a href="#健康检查指针" class="headerlink" title="健康检查指针"></a>健康检查指针</h3><ul>
-<li>livenessProbe  探活，当检查失败时，意味着当前应用挂了，kubelet会kill进程并按照restartPolicy来决定是否重启pod。</li>
-<li>readinessProbe 就绪状态检测，当检查失败时，意味着容器进程正在运行，但因为某些原因不能提供服务，pod状态被标记为notReady。并不会去kill。</li>
-<li>startupProbe 在初始化阶段之前（ready之前）进行的健康检查，通常用来避免过于频繁的检测影响应用启动。</li>
-</ul>
-<h3 id="探测方法"><a href="#探测方法" class="headerlink" title="探测方法"></a>探测方法</h3><ul>
-<li>ExecAction:在容器内部运行指定命令，当返回码为0时，结果为成功</li>
-<li>TCPSocketAction:用kubelet发起，通过TCP协议检查ip和端口，当ip和端口可达时，表示成功。</li>
-<li><p>HTTPGetAction:用kubelet发起，发送http get请求，返回状态码200-400之间为成功。    </p>
-<h3 id="startupProbe和initialDelaySecond的区别"><a href="#startupProbe和initialDelaySecond的区别" class="headerlink" title="startupProbe和initialDelaySecond的区别"></a>startupProbe和initialDelaySecond的区别</h3><p>  initialDelaySecond只能是一个固定的数字，不能够根据具体应用的状态来判断pod是否启动成功。startupProbe可以设置initialDelaySecond，并且成功后就不再执行对应的探活操作。</p>
-</li>
-</ul>
-<h3 id="qosclass和priority的区别"><a href="#qosclass和priority的区别" class="headerlink" title="qosclass和priority的区别"></a>qosclass和priority的区别</h3><ul>
-<li>qosclass发生在资源不够用的情况下，而priority发生在pod调度阶段。</li>
-</ul>
-<h3 id="postStart"><a href="#postStart" class="headerlink" title="postStart"></a>postStart</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">    lifecycle:</span><br><span class="line">      postStart:</span><br><span class="line">        exec:</span><br></pre></td></tr></table></figure>
-<p><img src="/images/postStart" alt="postStart"><br>无法保证postStart脚本和容器的Entrypoint哪个先执行<br>postStart 结束之前，容器不会被标记为running状态。</p>
-<h3 id="preStop"><a href="#preStop" class="headerlink" title="preStop"></a>preStop</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  terminationGracePeriodSeconds: 30</span><br></pre></td></tr></table></figure>
-<p><img src="/images/preStop" alt="postStart"><br>    terminationGracePeriodSeconds 当preStop和kill -SIGTERM多少秒之后才执行kill -SIGKILL。<br>    只用当pod被终止时，k8s才会执行preStop脚本，这意味着当pod容器完成或退出时，preStop脚本不会被执行。<br>    sh命令不能相应SIGTERM信号。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2022-05-07T12:18:54.000Z">2022-05-07</time>
+            <article class="media">
                 
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/spring/">spring</a>
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2022-05-17T13:40:37.000Z">2022-05-17</time>
+                        <a href="/2022/05/17/k8s_pod/" class="has-link-black-ter is-size-6">k8s pod 属性</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    17 分钟 读完 (大约 2584 个字)
-                </span>
-                
-                
-            </div>
-        </div>
+            </article>
         
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2022/05/07/spring_retry/">spring_retry</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="spring-retry原理"><a href="#spring-retry原理" class="headerlink" title="spring retry原理"></a>spring retry原理</h1><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><pre><code>spring retry可以帮助我们简化重复调用代码，不必要给每个方法编写对应的重试逻辑，避免下次维护和扩展时带来困难。
-</code></pre><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><pre><code>使用spring retry就必须要捆版使用spring aop, 你只想在某个工具类里重试时明显使用自己的代码更加轻量，自己把重试逻辑抽离出来，完全可以按照自己想要地参数进行重试。
-</code></pre><h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 自己的包 --&gt;</span><br><span class="line">&lt;dependency&gt;  </span><br><span class="line"> &lt;groupId&gt;org.springframework.retry&lt;/groupId&gt;  </span><br><span class="line"> &lt;artifactId&gt;spring-retry&lt;/artifactId&gt;  </span><br><span class="line"> &lt;version&gt;1.3.3&lt;/version&gt;  </span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 使用了aop --&gt;</span><br><span class="line">&lt;dependency&gt;  </span><br><span class="line"> &lt;groupId&gt;org.springframework&lt;/groupId&gt;  </span><br><span class="line"> &lt;artifactId&gt;spring-aspects&lt;/artifactId&gt;  </span><br><span class="line"> &lt;version&gt;5.2.8.RELEASE&lt;/version&gt;  </span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableRetry  </span><br><span class="line">public class RetryDemo &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public interface RetryService &#123;  </span><br><span class="line">  </span><br><span class="line">    @Retryable(value = RuntimeException.class, maxAttempts = 3,  </span><br><span class="line">  backoff= @Backoff(value = 1500, maxDelay = 100000, multiplier = 1.2))  </span><br><span class="line">    String service(String s);  </span><br><span class="line">  </span><br><span class="line">  @Recover  </span><br><span class="line">  String recover(RuntimeException e, String s);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>@EnableRetry - 表示开启重试机制 </li>
-<li>@Retryable - 表示这个方法需要重试</li>
-<li>@Backoff - 表示重试中的退避策略,即失败的时候应该如何等待还是直接到recover</li>
-<li>@Recover - 兜底方法，即多次重试后还是失败就会执行这个方法</li>
-</ul>
-<h3 id="重试策略"><a href="#重试策略" class="headerlink" title="重试策略"></a>重试策略</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public interface RetryPolicy extends Serializable &#123;</span><br><span class="line">// 是否可以重试</span><br><span class="line">boolean canRetry(RetryContext context);</span><br><span class="line">// 开启重试的上下文 parent是父级上下文</span><br><span class="line">RetryContext open(RetryContext parent);</span><br><span class="line">// 关闭上下文</span><br><span class="line">void close(RetryContext context);</span><br><span class="line">// 每次尝试执行失败是都会调用 Called once per retry attempt, after the callback fails.</span><br><span class="line">void registerThrowable(RetryContext context, Throwable throwable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Targets</span><br><span class="line">    RetryPolicy</span><br><span class="line">Implementations of RetryPolicy  (11 usages found)</span><br><span class="line">    Value read  (11 usages found)</span><br><span class="line">        Maven: org.springframework.retry:spring-retry:1.3.3  (11 usages found)</span><br><span class="line">            org.springframework.retry.policy  (11 usages found)</span><br><span class="line">                AlwaysRetryPolicy.java  (1 usage found)</span><br><span class="line">                    30 public class AlwaysRetryPolicy extends NeverRetryPolicy &#123;</span><br><span class="line">                BinaryExceptionClassifierRetryPolicy.java  (1 usage found)</span><br><span class="line">                    32 public class BinaryExceptionClassifierRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                CircuitBreakerRetryPolicy.java  (1 usage found)</span><br><span class="line">                    33 public class CircuitBreakerRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                CompositeRetryPolicy.java  (1 usage found)</span><br><span class="line">                    36 public class CompositeRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                ExceptionClassifierRetryPolicy  (1 usage found)</span><br><span class="line">                    105 private static class ExceptionClassifierRetryContext extends RetryContextSupport implements RetryPolicy &#123;</span><br><span class="line">                ExceptionClassifierRetryPolicy.java  (1 usage found)</span><br><span class="line">                    38 public class ExceptionClassifierRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                ExpressionRetryPolicy.java  (1 usage found)</span><br><span class="line">                    44 public class ExpressionRetryPolicy extends SimpleRetryPolicy implements BeanFactoryAware &#123;</span><br><span class="line">                MaxAttemptsRetryPolicy.java  (1 usage found)</span><br><span class="line">                    37 public class MaxAttemptsRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                NeverRetryPolicy.java  (1 usage found)</span><br><span class="line">                    31 public class NeverRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                SimpleRetryPolicy.java  (1 usage found)</span><br><span class="line">                    58 public class SimpleRetryPolicy implements RetryPolicy &#123;</span><br><span class="line">                TimeoutRetryPolicy.java  (1 usage found)</span><br><span class="line">                    31 public class TimeoutRetryPolicy implements RetryPolicy &#123;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>SimpleRetryPolicy 默认最多重试3次 1.3版本后可以用CompositeRetryPolicy组合MaxAttemptsRetryPolicy 和 BinaryExceptionClassifierRetryPolicy</li>
-<li>TimeoutRetryPolicy 默认在1秒内失败都会重试</li>
-<li>ExpressionRetryPolicy 符合表达式就会重试</li>
-<li>CircuitBreakerRetryPolicy 增加了熔断的机制，如果不在熔断状态，则允许重试</li>
-<li>CompositeRetryPolicy 可以组合多个重试策略</li>
-<li>NeverRetryPolicy 从不重试（也是一种重试策略哈）</li>
-<li>AlwaysRetryPolicy 总是重试</li>
-<li>MaxAttemptsRetryPolicy 默认最多重试3次</li>
-</ul>
-<h3 id="退避策略"><a href="#退避策略" class="headerlink" title="退避策略"></a>退避策略</h3><p>退避是指怎么去做下一次的重试，在这里其实就是等待多长时间</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public interface BackOffPolicy &#123;  </span><br><span class="line">  </span><br><span class="line">   /**  </span><br><span class="line"> * Start a new block of back off operations. Implementations can choose to pause when * this method is called, but normally it returns immediately. * @param context the &#123;@link RetryContext&#125; context, which might contain information  </span><br><span class="line"> * that we can use to decide how to proceed. * @return the implementation-specific &#123;@link BackOffContext&#125; or &apos;&lt;code&gt;null&lt;/code&gt;&apos;.  </span><br><span class="line"> */  BackOffContext start(RetryContext context);  </span><br><span class="line">  </span><br><span class="line">  //怎么去做下一次的重试</span><br><span class="line">  /**  </span><br><span class="line"> * Back off/pause in an implementation-specific fashion. The passed in * &#123;@link BackOffContext&#125; corresponds to the one created by the call to &#123;@link #start&#125;  </span><br><span class="line"> * for a given retry operation set. * @param backOffContext the &#123;@link BackOffContext&#125;  </span><br><span class="line"> * @throws BackOffInterruptedException if the attempt at back off is interrupted.  </span><br><span class="line"> */  void backOff(BackOffContext backOffContext) throws BackOffInterruptedException;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Targets</span><br><span class="line">    BackOffPolicy</span><br><span class="line">Implementations of BackOffPolicy  (7 usages found)</span><br><span class="line">    Value read  (7 usages found)</span><br><span class="line">        Maven: org.springframework.retry:spring-retry:1.3.3  (7 usages found)</span><br><span class="line">            org.springframework.retry.backoff  (7 usages found)</span><br><span class="line">                ExponentialBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    43 public class ExponentialBackOffPolicy implements SleepingBackOffPolicy&lt;ExponentialBackOffPolicy&gt; &#123;</span><br><span class="line">                ExponentialRandomBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    48 public class ExponentialRandomBackOffPolicy extends ExponentialBackOffPolicy &#123;</span><br><span class="line">                FixedBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    31 public class FixedBackOffPolicy extends StatelessBackOffPolicy implements SleepingBackOffPolicy&lt;FixedBackOffPolicy&gt; &#123;</span><br><span class="line">                NoBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    26 public class NoBackOffPolicy extends StatelessBackOffPolicy &#123;</span><br><span class="line">                SleepingBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    25 public interface SleepingBackOffPolicy&lt;T extends SleepingBackOffPolicy&lt;T&gt;&gt; extends BackOffPolicy &#123;</span><br><span class="line">                StatelessBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    28 public abstract class StatelessBackOffPolicy implements BackOffPolicy &#123;</span><br><span class="line">                UniformRandomBackOffPolicy.java  (1 usage found)</span><br><span class="line">                    33 public class UniformRandomBackOffPolicy extends StatelessBackOffPolicy</span><br></pre></td></tr></table></figure>
-<ul>
-<li>FixedBackOffPolicy 默认固定延迟1秒后执行下一次重试</li>
-<li>ExponentialBackOffPolicy 指数递增延迟执行重试，默认初始0.1秒，系数是2，那么下次延迟0.2秒，再下次就是延迟0.4秒，如此类推，最大30秒。</li>
-<li>ExponentialRandomBackOffPolicy 在上面那个策略上增加随机性</li>
-<li>UniformRandomBackOffPolicy 这个跟上面的区别就是，上面的延迟会不停递增，这个只会在固定的区间随机</li>
-<li>StatelessBackOffPolicy 这个说明是无状态的，所谓无状态就是对上次的退避无感知，从它下面的子类也能看出来 这个类在个抽象类 实现类是NoBackOffPolicy</li>
-</ul>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>@EnableRetry 这个注解主要使用了@EnableAspectJAutoProxy(proxyTargetClass = false)和@Import(RetryConfiguration.class)，就是打开Spring AOP功能和扫描了RetryConfiguration。</p>
-<p>RetryConfiguration是一个AbstractPointcutAdvisor，它有一个pointcut和一个advice。我们知道，在IOC过程中会根据PointcutAdvisor类来对Bean进行Pointcut的过滤，然后生成对应的AOP代理类，用advice来加强处理。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">@Override  </span><br><span class="line">public void afterPropertiesSet() throws Exception &#123;  </span><br><span class="line">   this.retryContextCache = findBean(RetryContextCache.class);  </span><br><span class="line"> this.methodArgumentsKeyGenerator = findBean(MethodArgumentsKeyGenerator.class);  </span><br><span class="line"> this.newMethodArgumentsIdentifier = findBean(NewMethodArgumentsIdentifier.class);  </span><br><span class="line"> this.retryListeners = findBeans(RetryListener.class);  </span><br><span class="line"> this.sleeper = findBean(Sleeper.class);  </span><br><span class="line">  Set&lt;Class&lt;? extends Annotation&gt;&gt; retryableAnnotationTypes = new LinkedHashSet&lt;Class&lt;? extends Annotation&gt;&gt;(1);  </span><br><span class="line">  // 查找基于Retryable注解的类或者方法</span><br><span class="line">  retryableAnnotationTypes.add(Retryable.class);  </span><br><span class="line"> this.pointcut = buildPointcut(retryableAnnotationTypes);  </span><br><span class="line"> this.advice = buildAdvice();  </span><br><span class="line"> if (this.advice instanceof BeanFactoryAware) &#123;  </span><br><span class="line">      ((BeanFactoryAware) this.advice).setBeanFactory(this.beanFactory);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protected Pointcut buildPointcut(Set&lt;Class&lt;? extends Annotation&gt;&gt; retryAnnotationTypes) &#123;  </span><br><span class="line">   ComposablePointcut result = null;  </span><br><span class="line"> for (Class&lt;? extends Annotation&gt; retryAnnotationType : retryAnnotationTypes) &#123;  </span><br><span class="line">      Pointcut filter = new AnnotationClassOrMethodPointcut(retryAnnotationType);  </span><br><span class="line"> if (result == null) &#123;  </span><br><span class="line">         result = new ComposablePointcut(filter);  </span><br><span class="line">  &#125;  </span><br><span class="line">      else &#123;  </span><br><span class="line">         result.union(filter);  </span><br><span class="line">  &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   return result;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protected Advice buildAdvice() &#123;  </span><br><span class="line">   AnnotationAwareRetryOperationsInterceptor interceptor = new AnnotationAwareRetryOperationsInterceptor();  </span><br><span class="line"> if (this.retryContextCache != null) &#123;  </span><br><span class="line">      interceptor.setRetryContextCache(this.retryContextCache);  </span><br><span class="line">  &#125;  </span><br><span class="line">   if (this.retryListeners != null) &#123;  </span><br><span class="line">      interceptor.setListeners(this.retryListeners);  </span><br><span class="line">  &#125;  </span><br><span class="line">   if (this.methodArgumentsKeyGenerator != null) &#123;  </span><br><span class="line">      interceptor.setKeyGenerator(this.methodArgumentsKeyGenerator);  </span><br><span class="line">  &#125;  </span><br><span class="line">   if (this.newMethodArgumentsIdentifier != null) &#123;  </span><br><span class="line">      interceptor.setNewItemIdentifier(this.newMethodArgumentsIdentifier);  </span><br><span class="line">  &#125;  </span><br><span class="line">   if (this.sleeper != null) &#123;  </span><br><span class="line">      interceptor.setSleeper(this.sleeper);  </span><br><span class="line">  &#125;  </span><br><span class="line">   return interceptor;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="AnnotationAwareRetryOperationsInterceptor"><a href="#AnnotationAwareRetryOperationsInterceptor" class="headerlink" title="AnnotationAwareRetryOperationsInterceptor"></a>AnnotationAwareRetryOperationsInterceptor</h3><p>AnnotationAwareRetryOperationsInterceptor实现了IntroductionInterceptor ，IntroductionInterceptor又继承了MethodInterceptor。他会对符合条件的方法做增强。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">@Override  </span><br><span class="line">public Object invoke(MethodInvocation invocation) throws Throwable &#123;  </span><br><span class="line">   MethodInterceptor delegate = getDelegate(invocation.getThis(), invocation.getMethod());  </span><br><span class="line"> if (delegate != null) &#123;  </span><br><span class="line">      return delegate.invoke(invocation);  </span><br><span class="line">  &#125;  </span><br><span class="line">   else &#123;  </span><br><span class="line">      return invocation.proceed();  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private MethodInterceptor getDelegate(Object target, Method method) &#123;  </span><br><span class="line">   ConcurrentMap&lt;Method, MethodInterceptor&gt; cachedMethods = this.delegates.get(target);  </span><br><span class="line"> if (cachedMethods == null) &#123;  </span><br><span class="line">      cachedMethods = new ConcurrentHashMap&lt;Method, MethodInterceptor&gt;();  </span><br><span class="line">  &#125;  </span><br><span class="line">   MethodInterceptor delegate = cachedMethods.get(method);  </span><br><span class="line"> if (delegate == null) &#123;  </span><br><span class="line">      MethodInterceptor interceptor = NULL_INTERCEPTOR;  </span><br><span class="line">  Retryable retryable = AnnotatedElementUtils.findMergedAnnotation(method, Retryable.class);  </span><br><span class="line"> if (retryable == null) &#123;  </span><br><span class="line">         retryable = AnnotatedElementUtils.findMergedAnnotation(method.getDeclaringClass(), Retryable.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      if (retryable == null) &#123;  </span><br><span class="line">         retryable = findAnnotationOnTarget(target, method, Retryable.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      if (retryable != null) &#123;  </span><br><span class="line">//支持自定义MethodInterceptor，而且优先级最高</span><br><span class="line">         if (StringUtils.hasText(retryable.interceptor())) &#123;  </span><br><span class="line">            interceptor = this.beanFactory.getBean(retryable.interceptor(), MethodInterceptor.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">         else if (retryable.stateful()) &#123;  </span><br><span class="line">            interceptor = getStatefulInterceptor(target, method, retryable);  </span><br><span class="line">  &#125;  </span><br><span class="line">         else &#123;  </span><br><span class="line">            interceptor = getStatelessInterceptor(target, method, retryable);  </span><br><span class="line">  &#125;  </span><br><span class="line">      &#125;  </span><br><span class="line">      cachedMethods.putIfAbsent(method, interceptor);  </span><br><span class="line">  delegate = cachedMethods.get(method);  </span><br><span class="line">  &#125;  </span><br><span class="line">   this.delegates.putIfAbsent(target, cachedMethods);  </span><br><span class="line"> return delegate == NULL_INTERCEPTOR ? null : delegate;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>接着看 getStatefulInterceptor方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">private MethodInterceptor getStatefulInterceptor(Object target, Method method, Retryable retryable) &#123;  </span><br><span class="line">   RetryTemplate template = createTemplate(retryable.listeners());  </span><br><span class="line">  template.setRetryContextCache(this.retryContextCache);  </span><br><span class="line">  </span><br><span class="line">  CircuitBreaker circuit = AnnotatedElementUtils.findMergedAnnotation(method, CircuitBreaker.class);  </span><br><span class="line"> if (circuit == null) &#123;  </span><br><span class="line">      circuit = findAnnotationOnTarget(target, method, CircuitBreaker.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">   if (circuit != null) &#123;  </span><br><span class="line">      RetryPolicy policy = getRetryPolicy(circuit);  </span><br><span class="line">  CircuitBreakerRetryPolicy breaker = new CircuitBreakerRetryPolicy(policy);  </span><br><span class="line">  breaker.setOpenTimeout(getOpenTimeout(circuit));  </span><br><span class="line">  breaker.setResetTimeout(getResetTimeout(circuit));  </span><br><span class="line">  template.setRetryPolicy(breaker);  </span><br><span class="line">  template.setBackOffPolicy(new NoBackOffPolicy());  </span><br><span class="line">  String label = circuit.label();  </span><br><span class="line"> if (!StringUtils.hasText(label)) &#123;  </span><br><span class="line">         label = method.toGenericString();  </span><br><span class="line">  &#125;  </span><br><span class="line">      return RetryInterceptorBuilder.circuitBreaker().keyGenerator(new FixedKeyGenerator(&quot;circuit&quot;))  </span><br><span class="line">            .retryOperations(template).recoverer(getRecoverer(target, method)).label(label).build();  </span><br><span class="line">  &#125;  </span><br><span class="line">   RetryPolicy policy = getRetryPolicy(retryable);  </span><br><span class="line">  template.setRetryPolicy(policy);  </span><br><span class="line">  template.setBackOffPolicy(getBackoffPolicy(retryable.backoff()));  </span><br><span class="line">  String label = retryable.label();  </span><br><span class="line"> return RetryInterceptorBuilder.stateful().keyGenerator(this.methodArgumentsKeyGenerator)  </span><br><span class="line">         .newMethodArgumentsIdentifier(this.newMethodArgumentsIdentifier).retryOperations(template).label(label)  </span><br><span class="line">         .recoverer(getRecoverer(target, method)).build();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里出现了一个CircuitBreaker注解，其实就是@Retryable(stateful = true)<br>方法最终返回了一个MethodInterceptor，这里假设stateful = true 那么最后就会返回一个StatefulRetryOperationsInterceptor，这个MethodInterceptor看一下他的invoke方法。</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">@Override  </span><br><span class="line">public Object invoke(final MethodInvocation invocation) throws Throwable &#123;  </span><br><span class="line">  </span><br><span class="line">   if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">      this.logger.debug(&quot;Executing proxied method in stateful retry: &quot; + invocation.getStaticPart() + &quot;(&quot;  </span><br><span class="line">  + ObjectUtils.getIdentityHexString(invocation) + &quot;)&quot;);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">   Object[] args = invocation.getArguments();  </span><br><span class="line">  Object defaultKey = Arrays.asList(args);  </span><br><span class="line"> if (args.length == 1) &#123;  </span><br><span class="line">      defaultKey = args[0];  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">   Object key = createKey(invocation, defaultKey);  </span><br><span class="line">  RetryState retryState = new DefaultRetryState(key,  </span><br><span class="line"> this.newMethodArgumentsIdentifier != null &amp;&amp; this.newMethodArgumentsIdentifier.isNew(args),  </span><br><span class="line"> this.rollbackClassifier);  </span><br><span class="line">  </span><br><span class="line">  Object result = this.retryOperations.execute(new StatefulMethodInvocationRetryCallback(invocation, label),  </span><br><span class="line"> this.recoverer != null ? new ItemRecovererCallback(args, this.recoverer) : null, retryState);  </span><br><span class="line">  </span><br><span class="line"> if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">      this.logger.debug(&quot;Exiting proxied method in stateful retry with result: (&quot; + result + &quot;)&quot;);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">   return result;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最后的结果是retryOperations的excute方法获取的，而这个retryOperations就是上面生成的RetryTemplate。这个excute 方法里就会根据我们设置的不同策略来执行<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line">protected &lt;T, E extends Throwable&gt; T doExecute(RetryCallback&lt;T, E&gt; retryCallback,  </span><br><span class="line">  RecoveryCallback&lt;T&gt; recoveryCallback, RetryState state) throws E, ExhaustedRetryException &#123;  </span><br><span class="line">  </span><br><span class="line">   RetryPolicy retryPolicy = this.retryPolicy;  </span><br><span class="line">  BackOffPolicy backOffPolicy = this.backOffPolicy;  </span><br><span class="line">  </span><br><span class="line">  // Allow the retry policy to initialise itself...  </span><br><span class="line">  RetryContext context = open(retryPolicy, state);  </span><br><span class="line"> if (this.logger.isTraceEnabled()) &#123;  </span><br><span class="line">      this.logger.trace(&quot;RetryContext retrieved: &quot; + context);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">   // Make sure the context is available globally for clients who need  </span><br><span class="line"> // it...  RetrySynchronizationManager.register(context);  </span><br><span class="line">  </span><br><span class="line">  Throwable lastException = null;  </span><br><span class="line">  </span><br><span class="line"> boolean exhausted = false;  </span><br><span class="line"> try &#123;  </span><br><span class="line">  </span><br><span class="line">      // Give clients a chance to enhance the context...  </span><br><span class="line">  boolean running = doOpenInterceptors(retryCallback, context);  </span><br><span class="line">  </span><br><span class="line"> if (!running) &#123;  </span><br><span class="line">         throw new TerminatedRetryException(&quot;Retry terminated abnormally by interceptor before first attempt&quot;);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">      // Get or Start the backoff context...  </span><br><span class="line">  BackOffContext backOffContext = null;  </span><br><span class="line">  Object resource = context.getAttribute(&quot;backOffContext&quot;);  </span><br><span class="line">  </span><br><span class="line"> if (resource instanceof BackOffContext) &#123;  </span><br><span class="line">         backOffContext = (BackOffContext) resource;  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">      if (backOffContext == null) &#123;  </span><br><span class="line">         backOffContext = backOffPolicy.start(context);  </span><br><span class="line"> if (backOffContext != null) &#123;  </span><br><span class="line">            context.setAttribute(&quot;backOffContext&quot;, backOffContext);  </span><br><span class="line">  &#125;  </span><br><span class="line">      &#125;  </span><br><span class="line">  </span><br><span class="line">      /*  </span><br><span class="line"> * We allow the whole loop to be skipped if the policy or context already * forbid the first try. This is used in the case of external retry to allow a * recovery in handleRetryExhausted without the callback processing (which * would throw an exception). */  while (canRetry(retryPolicy, context) &amp;&amp; !context.isExhaustedOnly()) &#123;  </span><br><span class="line">  </span><br><span class="line">         try &#123;  </span><br><span class="line">            if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">               this.logger.debug(&quot;Retry: count=&quot; + context.getRetryCount());  </span><br><span class="line">  &#125;  </span><br><span class="line">            // Reset the last exception, so if we are successful  </span><br><span class="line"> // the close interceptors will not think we failed...  lastException = null;  </span><br><span class="line"> return retryCallback.doWithRetry(context);  </span><br><span class="line">  &#125;  </span><br><span class="line">         catch (Throwable e) &#123;  </span><br><span class="line">  </span><br><span class="line">            lastException = e;  </span><br><span class="line">  </span><br><span class="line"> try &#123;  </span><br><span class="line">               registerThrowable(retryPolicy, state, context, e);  </span><br><span class="line">  &#125;  </span><br><span class="line">            catch (Exception ex) &#123;  </span><br><span class="line">               throw new TerminatedRetryException(&quot;Could not register throwable&quot;, ex);  </span><br><span class="line">  &#125;  </span><br><span class="line">            finally &#123;  </span><br><span class="line">               doOnErrorInterceptors(retryCallback, context, e);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">            if (canRetry(retryPolicy, context) &amp;&amp; !context.isExhaustedOnly()) &#123;  </span><br><span class="line">               try &#123;  </span><br><span class="line">                  backOffPolicy.backOff(backOffContext);  </span><br><span class="line">  &#125;  </span><br><span class="line">               catch (BackOffInterruptedException ex) &#123;  </span><br><span class="line">                  lastException = e;  </span><br><span class="line">  // back off was prevented by another thread - fail the retry  </span><br><span class="line">  if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">                     this.logger.debug(&quot;Abort retry because interrupted: count=&quot; + context.getRetryCount());  </span><br><span class="line">  &#125;  </span><br><span class="line">                  throw ex;  </span><br><span class="line">  &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">  </span><br><span class="line">            if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">               this.logger.debug(&quot;Checking for rethrow: count=&quot; + context.getRetryCount());  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">            if (shouldRethrow(retryPolicy, context, state)) &#123;  </span><br><span class="line">               if (this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">                  this.logger.debug(&quot;Rethrow in retry for policy: count=&quot; + context.getRetryCount());  </span><br><span class="line">  &#125;  </span><br><span class="line">               throw RetryTemplate.&lt;E&gt;wrapIfNecessary(e);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">         &#125;  </span><br><span class="line">  </span><br><span class="line">         /*  </span><br><span class="line"> * A stateful attempt that can retry may rethrow the exception before now, * but if we get this far in a stateful retry there&apos;s a reason for it, * like a circuit breaker or a rollback classifier. */  if (state != null &amp;&amp; context.hasAttribute(GLOBAL_STATE)) &#123;  </span><br><span class="line">            break;  </span><br><span class="line">  &#125;  </span><br><span class="line">      &#125;  </span><br><span class="line">  </span><br><span class="line">      if (state == null &amp;&amp; this.logger.isDebugEnabled()) &#123;  </span><br><span class="line">         this.logger.debug(&quot;Retry failed last attempt: count=&quot; + context.getRetryCount());  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">      exhausted = true;  </span><br><span class="line"> return handleRetryExhausted(recoveryCallback, context, state);  </span><br><span class="line">  </span><br><span class="line">  &#125;  </span><br><span class="line">   catch (Throwable e) &#123;  </span><br><span class="line">      throw RetryTemplate.&lt;E&gt;wrapIfNecessary(e);  </span><br><span class="line">  &#125;  </span><br><span class="line">   finally &#123;  </span><br><span class="line">      close(retryPolicy, context, state, lastException == null || exhausted);  </span><br><span class="line">  doCloseInterceptors(retryCallback, context, lastException);  </span><br><span class="line">  RetrySynchronizationManager.clear();  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="getRetryPolicy-和getBackoffPolicy-策略类获取"><a href="#getRetryPolicy-和getBackoffPolicy-策略类获取" class="headerlink" title="getRetryPolicy 和getBackoffPolicy  策略类获取"></a>getRetryPolicy 和getBackoffPolicy  策略类获取</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">private RetryPolicy getRetryPolicy(Annotation retryable) &#123;  </span><br><span class="line">   Map&lt;String, Object&gt; attrs = AnnotationUtils.getAnnotationAttributes(retryable);  </span><br><span class="line">  @SuppressWarnings(&quot;unchecked&quot;)  </span><br><span class="line">   Class&lt;? extends Throwable&gt;[] includes = (Class&lt;? extends Throwable&gt;[]) attrs.get(&quot;value&quot;);  </span><br><span class="line">  String exceptionExpression = (String) attrs.get(&quot;exceptionExpression&quot;);  </span><br><span class="line"> boolean hasExpression = StringUtils.hasText(exceptionExpression);  </span><br><span class="line"> if (includes.length == 0) &#123;  </span><br><span class="line">      @SuppressWarnings(&quot;unchecked&quot;)  </span><br><span class="line">      Class&lt;? extends Throwable&gt;[] value = (Class&lt;? extends Throwable&gt;[]) attrs.get(&quot;include&quot;);  </span><br><span class="line">  includes = value;  </span><br><span class="line">  &#125;  </span><br><span class="line">   @SuppressWarnings(&quot;unchecked&quot;)  </span><br><span class="line">   Class&lt;? extends Throwable&gt;[] excludes = (Class&lt;? extends Throwable&gt;[]) attrs.get(&quot;exclude&quot;);  </span><br><span class="line">  Integer maxAttempts = (Integer) attrs.get(&quot;maxAttempts&quot;);  </span><br><span class="line">  String maxAttemptsExpression = (String) attrs.get(&quot;maxAttemptsExpression&quot;);  </span><br><span class="line"> if (StringUtils.hasText(maxAttemptsExpression)) &#123;  </span><br><span class="line">      if (ExpressionRetryPolicy.isTemplate(maxAttemptsExpression)) &#123;  </span><br><span class="line">         maxAttempts = PARSER.parseExpression(resolve(maxAttemptsExpression), PARSER_CONTEXT)  </span><br><span class="line">               .getValue(this.evaluationContext, Integer.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      else &#123;  </span><br><span class="line">         maxAttempts = PARSER.parseExpression(resolve(maxAttemptsExpression)).getValue(this.evaluationContext,  </span><br><span class="line">  Integer.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   if (includes.length == 0 &amp;&amp; excludes.length == 0) &#123;  </span><br><span class="line">      SimpleRetryPolicy simple = hasExpression  </span><br><span class="line">            ? new ExpressionRetryPolicy(resolve(exceptionExpression)).withBeanFactory(this.beanFactory)  </span><br><span class="line">            : new SimpleRetryPolicy();  </span><br><span class="line">  simple.setMaxAttempts(maxAttempts);  </span><br><span class="line"> return simple;  </span><br><span class="line">  &#125;  </span><br><span class="line">   Map&lt;Class&lt;? extends Throwable&gt;, Boolean&gt; policyMap = new HashMap&lt;Class&lt;? extends Throwable&gt;, Boolean&gt;();  </span><br><span class="line"> for (Class&lt;? extends Throwable&gt; type : includes) &#123;  </span><br><span class="line">      policyMap.put(type, true);  </span><br><span class="line">  &#125;  </span><br><span class="line">   for (Class&lt;? extends Throwable&gt; type : excludes) &#123;  </span><br><span class="line">      policyMap.put(type, false);  </span><br><span class="line">  &#125;  </span><br><span class="line">   boolean retryNotExcluded = includes.length == 0;  </span><br><span class="line"> if (hasExpression) &#123;  </span><br><span class="line">      return new ExpressionRetryPolicy(maxAttempts, policyMap, true, exceptionExpression, retryNotExcluded)  </span><br><span class="line">            .withBeanFactory(this.beanFactory);  </span><br><span class="line">  &#125;  </span><br><span class="line">   else &#123;  </span><br><span class="line">      return new SimpleRetryPolicy(maxAttempts, policyMap, true, retryNotExcluded);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">private BackOffPolicy getBackoffPolicy(Backoff backoff) &#123;  </span><br><span class="line">   Map&lt;String, Object&gt; attrs = AnnotationUtils.getAnnotationAttributes(backoff);  </span><br><span class="line"> long min = backoff.delay() == 0 ? backoff.value() : backoff.delay();  </span><br><span class="line">  String delayExpression = (String) attrs.get(&quot;delayExpression&quot;);  </span><br><span class="line"> if (StringUtils.hasText(delayExpression)) &#123;  </span><br><span class="line">      if (ExpressionRetryPolicy.isTemplate(delayExpression)) &#123;  </span><br><span class="line">         min = PARSER.parseExpression(resolve(delayExpression), PARSER_CONTEXT).getValue(this.evaluationContext,  </span><br><span class="line">  Long.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      else &#123;  </span><br><span class="line">         min = PARSER.parseExpression(resolve(delayExpression)).getValue(this.evaluationContext, Long.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   long max = backoff.maxDelay();  </span><br><span class="line">  String maxDelayExpression = (String) attrs.get(&quot;maxDelayExpression&quot;);  </span><br><span class="line"> if (StringUtils.hasText(maxDelayExpression)) &#123;  </span><br><span class="line">      if (ExpressionRetryPolicy.isTemplate(maxDelayExpression)) &#123;  </span><br><span class="line">         max = PARSER.parseExpression(resolve(maxDelayExpression), PARSER_CONTEXT)  </span><br><span class="line">               .getValue(this.evaluationContext, Long.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      else &#123;  </span><br><span class="line">         max = PARSER.parseExpression(resolve(maxDelayExpression)).getValue(this.evaluationContext, Long.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   double multiplier = backoff.multiplier();  </span><br><span class="line">  String multiplierExpression = (String) attrs.get(&quot;multiplierExpression&quot;);  </span><br><span class="line"> if (StringUtils.hasText(multiplierExpression)) &#123;  </span><br><span class="line">      if (ExpressionRetryPolicy.isTemplate(multiplierExpression)) &#123;  </span><br><span class="line">         multiplier = PARSER.parseExpression(resolve(multiplierExpression), PARSER_CONTEXT)  </span><br><span class="line">               .getValue(this.evaluationContext, Double.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      else &#123;  </span><br><span class="line">         multiplier = PARSER.parseExpression(resolve(multiplierExpression)).getValue(this.evaluationContext,  </span><br><span class="line">  Double.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   boolean isRandom = false;  </span><br><span class="line"> if (multiplier &gt; 0) &#123;  </span><br><span class="line">      isRandom = backoff.random();  </span><br><span class="line">  String randomExpression = (String) attrs.get(&quot;randomExpression&quot;);  </span><br><span class="line"> if (StringUtils.hasText(randomExpression)) &#123;  </span><br><span class="line">         if (ExpressionRetryPolicy.isTemplate(randomExpression)) &#123;  </span><br><span class="line">            isRandom = PARSER.parseExpression(resolve(randomExpression), PARSER_CONTEXT)  </span><br><span class="line">                  .getValue(this.evaluationContext, Boolean.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">         else &#123;  </span><br><span class="line">            isRandom = PARSER.parseExpression(resolve(randomExpression)).getValue(this.evaluationContext,  </span><br><span class="line">  Boolean.class);  </span><br><span class="line">  &#125;  </span><br><span class="line">      &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">   return BackOffPolicyBuilder.newBuilder().delay(min).maxDelay(max).multiplier(multiplier).random(isRandom)  </span><br><span class="line">         .sleeper(this.sleeper).build();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h4><p>Spring Retry通过AOP机制来实现对业务代码的重试”入侵“，RetryTemplate中包含了核心的重试逻辑，还提供了丰富的重试策略和退避策略。</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><p><a href="http://www.10tiao.com/html/164/201705/2652898434/1.html" target="_blank" rel="noopener">http://www.10tiao.com/html/164/201705/2652898434/1.html</a> <a href="https://www.jianshu.com/p/58e753ca0151" target="_blank" rel="noopener">https://www.jianshu.com/p/58e753ca0151</a><br><a href="https://paper.tuisec.win/detail/90bd660fad9218" target="_blank" rel="noopener">https://paper.tuisec.win/detail/90bd660fad9218</a></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2022-04-27T14:47:53.000Z">2022-04-27</time>
+            <article class="media">
                 
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2022-05-07T12:18:54.000Z">2022-05-07</time>
+                        <a href="/2022/05/07/spring_retry/" class="has-link-black-ter is-size-6">spring_retry</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/categories/spring/">spring</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    几秒 读完 (大约 44 个字)
-                </span>
-                
-                
-            </div>
-        </div>
+            </article>
         
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2022/04/27/docker_cmd/">Dockerfile ENTRYPOINT和CMD</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="Dockerfile中ENTRYPOINT和CMD"><a href="#Dockerfile中ENTRYPOINT和CMD" class="headerlink" title="Dockerfile中ENTRYPOINT和CMD"></a>Dockerfile中ENTRYPOINT和CMD</h3><ul>
-<li>ENTRYPOINT定义容器启动时被调用的可执行程序</li>
-<li>CMD指定传递给ENTRYPOINT的参数</li>
-</ul>
-<h3 id="ENTRYPOINT-的2种形式"><a href="#ENTRYPOINT-的2种形式" class="headerlink" title="ENTRYPOINT 的2种形式"></a>ENTRYPOINT 的2种形式</h3><p><img src="images/docker_cmd.jpg" alt="docker_cmd.jpg"></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2022-04-26T15:21:10.000Z">2022-04-26</time>
+            <article class="media">
                 
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2022-04-27T14:47:53.000Z">2022-04-27</time>
+                        <a href="/2022/04/27/docker_cmd/" class="has-link-black-ter is-size-6">Dockerfile ENTRYPOINT和CMD</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 688 个字)
-                </span>
-                
-                
-            </div>
-        </div>
+            </article>
         
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2022/04/26/k8s-svc1/">k8s_svc笔记</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="K8S-service-对象笔记-1"><a href="#K8S-service-对象笔记-1" class="headerlink" title="K8S service 对象笔记(1)"></a>K8S service 对象笔记(1)</h1><h2 id="1-loadbalance-作用"><a href="#1-loadbalance-作用" class="headerlink" title="1.loadbalance 作用"></a>1.loadbalance 作用</h2><pre><code>loadbalance 对象主要作用是将pod服务暴露出来，并提供负载均衡的作用。loadbalance不像NodePort那样在每个集群的节点上打开一个端口那样访问，他拥有自己独一无二的可公开访问的IP地址，在使用kubectl get svc 的EXTERNAL-IP那一列可以看到，可以通过这些ip访问服务。
-如果k8s在不支持loadbalance环境中运行，则不会调配负责平衡器，但该服务仍将表现得像一个NodePort服务，loadbalance是NodePort服务的扩展。
-</code></pre><h2 id="浏览器会话亲和性"><a href="#浏览器会话亲和性" class="headerlink" title="浏览器会话亲和性"></a>浏览器会话亲和性</h2><pre><code>由于浏览器使用keep-alive连接，当浏览器首次与服务连接时，第一次会随机选择一个集群，然后会将属于该连接的所有请求都会发往第一次建立连接的集群，即使会话亲和性设置成None，用户也会使用相同的pod直到连接关闭。
-</code></pre><h2 id="不必要的网络跳数"><a href="#不必要的网络跳数" class="headerlink" title="不必要的网络跳数"></a>不必要的网络跳数</h2><pre><code>当外部浏览器通过端口连接服务时，随机选择的pod并不一定在接收连接的同一节点上，这就可能需要额外的网路跳。同时这会可能导致对数据包执行源网络地址转换（SNAP）, 数据包的源ip就会发生变化，会影响后端服务获取客户端的ip地址。
-这时候可以在服务的spec中设置externalTrafficPolicy为Local来避免这种情况。
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  externalTrafficPolicy: Local</span><br></pre></td></tr></table></figure>
-
-如果服务使用了该设置，并且通过服务的节点端口打开外部连接时，服务代理会选择本地运行的pod，如果没有本地pod，就将连接挂起(并不会像不使用那样转发到全局随机pod),所以需要确保负载均衡到一个有pod服务的节点。
-同时该设置会导致如果节点上pod的数量不相等，使用Local外部流量策略会导致pod的负载分布不均衡。
-</code></pre><h2 id="ingress工作原理"><a href="#ingress工作原理" class="headerlink" title="ingress工作原理"></a>ingress工作原理</h2><pre><code>客户端先对要访问的域名做DNS查找，DNS服务器返回ingress控制器的ip地址（可以通过kubectl get ingresses 命令的ADDRESS一列中找到对应的ip）。然后客户端向控制器发送请求并在Host头中指定要访问的域名，控制器从该头部中确定访问具体的哪个服务，通过与该服务相关联的Endpoint对象查看ip，然后向其中的一个pod转发。
-</code></pre><p>参考 《Kubernetes in action》</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-09-19T13:28:51.000Z">2021-09-19</time>
+            <article class="media">
                 
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/linux/">linux</a>
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2022-04-26T15:21:10.000Z">2022-04-26</time>
+                        <a href="/2022/04/26/k8s-svc1/" class="has-link-black-ter is-size-6">k8s_svc笔记</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    16 分钟 读完 (大约 2390 个字)
-                </span>
-                
-                
-            </div>
+            </article>
+        
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/09/19/linux-virtual-addr/">虚拟地址转换流程</a>
-            
-        </h1>
-        <div class="content">
-            <p>转载自<a href="https://zhuanlan.zhihu.com/p/65298260?utm_source=wechat_session&amp;utm_medium=social&amp;utm_oi=983771259783606272" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/65298260?utm_source=wechat_session&amp;utm_medium=social&amp;utm_oi=983771259783606272</a></p>
-<p>在Linux，Windows等操作系统中，为什么不直接使用Physical Address（物理地址），而要用Virtual Address（虚拟地址）呢（在intel的手册中也被称为Linear Address，具体原因请参考这篇文章）？<br><a href="https://zhuanlan.zhihu.com/p/67576012" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/67576012</a></p>
-<p>因为使用虚拟地址可以带来诸多好处：</p>
-<p>1.在支持多进程的系统中，如果各个进程的镜像文件都使用物理地址，则在加载到同一物理内存空间的时候，可能发生冲突。<br>2.直接使用物理地址，不便于进行进程地址空间的隔离。<br>3.物理内存是有限的，在物理内存整体吃紧的时候，可以让多个进程通过分时复用的方法共享一个物理页面（某个进程需要保存的内容可以暂时swap到外部的disk/flash），这有点类似于多线程分时复用共享CPU的方式。<br>既然使用虚拟地址，就涉及到将虚拟地址转换为物理地址的过程，这需要MMU（Memory Management Unit）和页表（page table）的共同参与。</p>
-<h2 id="MMU"><a href="#MMU" class="headerlink" title="MMU"></a>MMU</h2><p>MMU是处理器/核（processer）中的一个硬件单元，通常每个核有一个MMU。MMU由两部分组成：TLB(Translation Lookaside Buffer)和table walk unit。</p>
-<p><img src="/images/linux_mmu.jpg" alt="linux_mmu.jpg"></p>
-<h2 id="Page-Table"><a href="#Page-Table" class="headerlink" title="Page Table"></a>Page Table</h2><p>page table是每个进程独有的，是软件实现的，是存储在main memory（比如DDR）中的。</p>
-<h2 id="Address-Translation"><a href="#Address-Translation" class="headerlink" title="Address Translation"></a>Address Translation</h2><p>因为访问内存中的页表相对耗时，尤其是在现在普遍使用多级页表的情况下，需要多次的内存访问，为了加快访问速度，系统设计人员为page table设计了一个硬件缓存 - TLB，CPU会首先在TLB中查找，因为在TLB中找起来很快。TLB之所以快，一是因为它含有的entries的数目较少，二是TLB是集成进CPU的，它几乎可以按照CPU的速度运行。<br><img src="/images/linux_tlb.jpg" alt="linux_tlb.jpg"></p>
-<p>如果在TLB中找到了含有该虚拟地址的entry（TLB hit），则可从该entry【1】中直接获取对应的物理地址，否则就不幸地TLB miss了，就得去查找当前进程的page table（这里其实可能用到paging structure caches）。这个时候，组成MMU的另一个部分table walk unit就被召唤出来了，这里面的table就是page table。</p>
-<p>使用table walk unit硬件单元来查找page table的方式被称为hardware TLB miss handling，通常被CISC架构的处理器（比如IA-32）所采用。它要在page table中查找不到，出现page fault的时候才会交由软件（操作系统）处理。</p>
-<p>与之相对的通常被RISC架构的处理器（比如Alpha）采用的software TLB miss handling，TLB miss后CPU就不再参与了，由操作系统通过软件的方式来查找page table。使用硬件的方式更快，而使用软件的方式灵活性更强。IA-64提供了一种混合模式，可以兼顾两者的优点。</p>
-<p>如果在page table中找到了该虚拟地址对应的entry的p（present）位是1，说明该虚拟地址对应的物理页面当前驻留在内存中，也就是page table hit。找到了还没完，接下来还有两件事要做：</p>
-<p>既然是因为在TLB里找不到才找到这儿来的，自然要更新TLB。<br>进行权限检测，包括可读/可写/可执行权限，user/supervisor模式权限等。如果没有正确的权限，将触发SIGSEGV（Segmantation Fault）。<br>如果该虚拟地址对应的entry的p位是0，就会触发page fault，可能有这几种情况：</p>
-<p>这个虚拟地址被分配后还从来没有被access过（比如malloc之后还没有操作分配到的空间，则不会真正分配物理内存）。触发page fault后分配物理内存，也就是demand paging，有了确定的demand了之后才分，然后将p位置1。<br>对应的这个物理页面的内容被换出到外部的disk/flash了，这个时候page table entry里存的是换出页面在外部swap area里暂存的位置，可以将其换回物理内存，再次建立映射，然后将p位置1。<br>关于在TLB中具体是怎么找的，在page table中又是怎么”walk”的，请看下回分解。</p>
-<p>注【1】：entry有入口的意思，对于TLB和单级页表的一个entry，就是指向对应page的首地址（入口）；对于后文介绍的多级页表的一个entry，就是指向下一级页表的首地址（入口）。</p>
-<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><p>关于在TLB中具体是怎么找的，在page table中又是怎么”walk”的问题，下面通过一个简单的例子说明一下。<br>假设当前CPU支持的虚拟地址是14位，物理地址是12位，page size为64字节（这里要说明一下，通常情况下呢，虚拟地址和物理地址的位数是一样的，但其实并不一定需要一样，因为本来就可以多个虚拟地址指向同一个物理地址嘛）。</p>
-<p>不管是虚拟地址还是物理地址，因为最小管理单位都是page，在转换过程中，代表page内的偏移地址（offset）的低位bits部分是不需要参与的，需要转换的只是代表page唯一性标识的高位bits部分，称作page number。由此产生了4个概念：VPN（virtual page number），PPN（physical page number），VPO（virtual page offset）和PPO（physical page offset）</p>
-<p><img src="images/linux_page_number01.jpg" alt="linux_page_number01.jpg"></p>
-<p>VPO和PPO占的bit位数为 [公式] ，p为page size大小，即64，因而VPO和PPO的值为6。因为所有pages都是同样大小的，所以VPO始终等于PPO。</p>
-<p><img src="images/linux_page_number02.jpg" alt="linux_page_number02.jpg"></p>
-<p>虚拟地址中剩下的bit位就成了VPN，物理地址中剩下的bit位就成了PPN。</p>
-<p><img src="images/linux_page_number03.jpg" alt="linux_page_number03.jpg"></p>
-<p>假设我们的TLB一共有16个entries，是4路组相关（4-way set associative）的，则有16/4=4个sets。TLB本身就是一个hardware cache, 关于cache中way, set, index, tag的基础概念，如果还不熟悉的，可以参考这两篇文章：浅谈Cache Memory和cache之虚虚实实。<br><a href="http://www.wowotech.net/memory_management/458.html" target="_blank" rel="noopener">http://www.wowotech.net/memory_management/458.html</a><br><a href="https://zhuanlan.zhihu.com/p/65024512" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/65024512</a></p>
-<p>TLB Index（以下简称TI）的值为 [公式] =2，剩下的bit位就成了TLB Tag（以下简称TT）。</p>
-<p><img src="images/linux_page_number04.jpg" alt="linux_page_number04.jpg"></p>
-<p>下面，我们准备读取虚拟地址为0x0334处的内容。</p>
-<ol>
-<li><p>将这一地址分割成VPN和VPO<br><img src="images/linux_page_number05.jpg" alt="linux_page_number05.jpg"></p>
-</li>
-<li><p>将VPN分割成TT和TI<br><img src="images/linux_page_number06.jpg" alt="linux_page_number06.jpg"></p>
-</li>
-<li><p>使用TT (0x03) 和TI (0) 在TLB中查找。一个TLB entry的构成如下：<br><img src="images/linux_tlb_struct.jpg" alt="linux_tlb_struct.jpg"></p>
-</li>
-</ol>
-<p>作为cache，TLB index是用来索引的，不会存储在TLB entry中，TLB entry中存的只有tag, 权限位，有效位和内容（对于TLB来说就是PPN）。</p>
-<p>假设现在TLB中的内容是这样的（这里为了简化，省略了permission bits）：<br><img src="images/linux_tlb_temp.jpg" alt="linux_tlb_temp.jpg"></p>
-<p>虽然在set/index为0这一行，找到了tag为03的一个entry，但这个entry中PPN是不存在的，整个entry目前是invalid的，也就是说TLB miss了，需要去page table中找。</p>
-<ol start="4">
-<li>使用VPN (0x0C) 作为index在page table中查找。一个只有one level的page table（单级页表）构成如下：</li>
-</ol>
-<p><img src="images/linux_page_table_one_level.jpg" alt="linux_page_table_one_level.jpg"></p>
-<p>index作为索引，也是不会存储于page table entry中的，PTE存的只有权限位，有效位和内容（对于PTE来说也是PPN）。</p>
-<p>假设现在的page table是这样的（同样为了简化，省略了permission bits）：</p>
-<p><img src="images/linux_page_table_one_level_temp.jpg" alt="linux_page_table_one_level_temp.jpg"></p>
-<p>对应的PTE（page table entry）中的PPN不存在，依然是invalid的，这将触发一个page fault。</p>
-<p>实现的细节展开后，上文中的图也可以展开了（只用关注左半部分）</p>
-<p><img src="images/linux_virtual_addr.jpg" alt="linux_virtual_addr.jpg"></p>
-<p>对比一下，你可能会发现一个TLB entry比一个page table entry多了一个tag，TLB使用的是tag比对【1】，而页表使用的是index索引，在PTE数目很大的情况下这会带来一系列问题，详情请看下回分解。</p>
-<p>注【1】：如果是full associative的TLB，则只有tag没有index；如果是n-way set associative的TLB，则先通过index索引，再进行tag比对。</p>
-<p>说明：本文例子来源于<a href="https://courses.cs.washington.edu/courses/cse351/16wi/sections/8/cse351_16wi_08.pdf" target="_blank" rel="noopener">https://courses.cs.washington.edu/courses/cse351/16wi/sections/8/cse351_16wi_08.pdf</a></p>
-
-        </div>
-        
-        
-        
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-    <div class="card">
     
-    <div class="card-content article ">
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-09-14T13:34:50.000Z">2021-09-14</time>
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="tag is-link">
+        2021
+        </h3>
+        <div class="timeline">
+        
+            <article class="media">
                 
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/dubbo/">dubbo</a>
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2021-09-19T13:28:51.000Z">2021-09-19</time>
+                        <a href="/2021/09/19/linux-virtual-addr/" class="has-link-black-ter is-size-6">虚拟地址转换流程</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/categories/linux/">linux</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </article>
+        
+            <article class="media">
                 
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    15 分钟 读完 (大约 2218 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/09/14/dubbo-net/">研究 Dubbo 网卡地址注册时的一点思考</a>
-            
-        </h1>
-        <div class="content">
-            <p>曾使用k8s部署dubbo服务时使用虚拟ip会导致consumer不能找到对应的provider。</p>
-<p>转自<a href="https://dubbo.apache.org/zh/blog/2019/10/01/%E7%A0%94%E7%A9%B6-dubbo-%E7%BD%91%E5%8D%A1%E5%9C%B0%E5%9D%80%E6%B3%A8%E5%86%8C%E6%97%B6%E7%9A%84%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83/" target="_blank" rel="noopener">https://dubbo.apache.org/zh/blog/2019/10/01/%E7%A0%94%E7%A9%B6-dubbo-%E7%BD%91%E5%8D%A1%E5%9C%B0%E5%9D%80%E6%B3%A8%E5%86%8C%E6%97%B6%E7%9A%84%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83/</a></p>
-<h2 id="问题：dubbo注册自身ip的问题"><a href="#问题：dubbo注册自身ip的问题" class="headerlink" title="问题：dubbo注册自身ip的问题"></a>问题：dubbo注册自身ip的问题</h2><p>原文:可能相当一部分人还不知道我这篇文章到底要讲什么，我说个场景，大家应该就明晰了。在分布式服务调用过程中，以 Dubbo 为例，服务提供者往往需要将自身的 IP 地址上报给注册中心，供消费者去发现。在大多数情况下 Dubbo 都可以正常工作，但如果你留意过 Dubbo 的 github issue，其实有不少人反馈：Dubbo Provider 注册了错误的 IP。如果你能立刻联想到：多网卡、内外网地址共存、VPN、虚拟网卡等关键词，那我建议你一定要继续将本文看下去，因为我也想到了这些，它们都是本文所要探讨的东西！那么“如何选择合适的网卡地址”呢，Dubbo 现有的逻辑到底算不算完备？我们不急着回答它，而是带着这些问题一起进行研究，相信到文末，其中答案，各位看官自有评说。</p>
-<figure class="highlight java hljs"><figcaption><span>NetUtils.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#这里使用的是阿里的2.6.10版本</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> InetAddress <span class="hljs-title">getLocalAddress0</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        InetAddress localAddress = <span class="hljs-keyword">null</span>;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            localAddress = InetAddress.getLocalHost();</span><br><span class="line">            <span class="hljs-keyword">if</span> (isValidAddress(localAddress)) &#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> localAddress;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            logger.warn(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            Enumeration&lt;NetworkInterface&gt; interfaces = NetworkInterface.getNetworkInterfaces();</span><br><span class="line">            <span class="hljs-keyword">if</span> (interfaces != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">                <span class="hljs-keyword">while</span> (interfaces.hasMoreElements()) &#123;</span><br><span class="line">                    <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                        NetworkInterface network = interfaces.nextElement();</span><br><span class="line">                        Enumeration&lt;InetAddress&gt; addresses = network.getInetAddresses();</span><br><span class="line">                        <span class="hljs-keyword">if</span> (addresses != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">                            <span class="hljs-keyword">while</span> (addresses.hasMoreElements()) &#123;</span><br><span class="line">                                <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                                    InetAddress address = addresses.nextElement();</span><br><span class="line">                                    <span class="hljs-keyword">if</span> (isValidAddress(address)) &#123;</span><br><span class="line">                                        <span class="hljs-keyword">return</span> address;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                                    logger.warn(e);</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                        logger.warn(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            logger.warn(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> localAddress;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java hljs"><figcaption><span>NetUtils.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#这里使用的是apache的3.2.0版本</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> InetAddress <span class="hljs-title">getLocalAddress0</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        InetAddress localAddress = <span class="hljs-keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// @since 2.7.6, choose the &#123;@link NetworkInterface&#125; first</span></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            NetworkInterface networkInterface = findNetworkInterface();</span><br><span class="line">            Enumeration&lt;InetAddress&gt; addresses = networkInterface.getInetAddresses();</span><br><span class="line">            <span class="hljs-keyword">while</span> (addresses.hasMoreElements()) &#123;</span><br><span class="line">                Optional&lt;InetAddress&gt; addressOp = toValidAddress(addresses.nextElement());</span><br><span class="line">                <span class="hljs-keyword">if</span> (addressOp.isPresent()) &#123;</span><br><span class="line">                    <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                        <span class="hljs-keyword">if</span> (addressOp.get().isReachable(<span class="hljs-number">100</span>)) &#123;</span><br><span class="line">                            <span class="hljs-keyword">return</span> addressOp.get();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                        <span class="hljs-comment">// ignore</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            logger.warn(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            localAddress = InetAddress.getLocalHost();</span><br><span class="line">            Optional&lt;InetAddress&gt; addressOp = toValidAddress(localAddress);</span><br><span class="line">            <span class="hljs-keyword">if</span> (addressOp.isPresent()) &#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> addressOp.get();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            logger.warn(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">return</span> localAddress;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>Dubbo 这段选取本地地址的逻辑大致分成了两步</p>
-<p>1.先去 /etc/hosts 文件中找 hostname 对应的 IP 地址，找到则返回；找不到则转<br>2.轮询网卡，寻找合适的 IP 地址，找到则返回；找不到返回 null，在 getLocalAddress0 外侧还有一段逻辑，如果返回 null，则注册 127.0.0.1 这个本地回环地址</p>
-<p>这里与原文的区别在于都使用了try catch捕获了异常</p>
-<h2 id="尝试获取-hostname-映射-IP"><a href="#尝试获取-hostname-映射-IP" class="headerlink" title="尝试获取 hostname 映射 IP"></a>尝试获取 hostname 映射 IP</h2><p>Dubbo 首先选取的是 hostname 对应的 IP，在源码中对应的 InetAddress.getLocalHost(); 在 *nix 系统实际部署 Dubbo 应用时，可以首先使用 hostname 命令获取主机名</p>
-<p>原文:<br><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xujingfengdeMacBook-Pro:~ xujingfeng$ hostname</span><br><span class="line">xujingfengdeMacBook-Pro.local</span><br></pre></td></tr></table></figure></p>
-<p>紧接着在 /etc/hosts 配置 IP 映射，为了验证 Dubbo 的机制，我们随意为 hostname 配置一个 IP 地址</p>
-<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1	localhost</span><br><span class="line">1.2.3.4 xujingfengdeMacBook-Pro.local</span><br></pre></td></tr></table></figure>
-<p>接着调用 NetUtils.getLocalAddress0() 进行验证，控制台打印如下：<br><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xujingfengdeMacBook-Pro.local/1.2.3.4</span><br></pre></td></tr></table></figure></p>
-<p>我在本地使用 阿里的版本<br><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">ygdxd_admin$</span><span class="hljs-bash"> hostname</span></span><br><span class="line">localhost</span><br></pre></td></tr></table></figure></p>
-<p>debug时InetAddress.getLocalHost() 会返回localhost/127.0.0.1<br>因为使用不了localhost所以不会返回</p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(NetUtils.getLocalAddress().toString());</span><br></pre></td></tr></table></figure>
-<p>返回的是<br>/192.168.0.102</p>
-<p><img src="/images/dubbo_net_debug.jpg" alt="demo.java"></p>
-<p>使用debug 发现使用的是eh0的网卡地址</p>
-<h2 id="判定有效的-IP-地址"><a href="#判定有效的-IP-地址" class="headerlink" title="判定有效的 IP 地址"></a>判定有效的 IP 地址</h2><figure class="highlight java hljs"><figcaption><span>NetUtils.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Optional&lt;InetAddress&gt; <span class="hljs-title">toValidAddress</span><span class="hljs-params">(InetAddress address)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (address <span class="hljs-keyword">instanceof</span> Inet6Address) &#123;</span><br><span class="line">        Inet6Address v6Address = (Inet6Address) address;</span><br><span class="line">        <span class="hljs-keyword">if</span> (isValidV6Address(v6Address)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> Optional.ofNullable(normalizeV6Address(v6Address));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">if</span> (isValidV4Address(address)) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> Optional.of(address);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> Optional.empty();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>阿里的版本直接去掉了ipv6的验证</p>
-<figure class="highlight java hljs"><figcaption><span>NetUtils.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidAddress</span><span class="hljs-params">(InetAddress address)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (address == <span class="hljs-keyword">null</span> || address.isLoopbackAddress())</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        String name = address.getHostAddress();</span><br><span class="line">        <span class="hljs-keyword">return</span> (name != <span class="hljs-keyword">null</span></span><br><span class="line">                &amp;&amp; !ANYHOST.equals(name)</span><br><span class="line">                &amp;&amp; !LOCALHOST.equals(name)</span><br><span class="line">                &amp;&amp; IP_PATTERN.matcher(name).matches());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>原文：<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValidV6Address</span><span class="hljs-params">(Inet6Address address)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">boolean</span> preferIpv6 = Boolean.getBoolean(<span class="hljs-string">"java.net.preferIPv6Addresses"</span>);</span><br><span class="line">    <span class="hljs-keyword">if</span> (!preferIpv6) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> address.isReachable(<span class="hljs-number">100</span>);</span><br><span class="line">    &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="hljs-comment">// ignore</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最新的apache dubbo 版本<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Optional&lt;InetAddress&gt; <span class="hljs-title">toValidAddress</span><span class="hljs-params">(InetAddress address)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (address <span class="hljs-keyword">instanceof</span> Inet6Address) &#123;</span><br><span class="line">            Inet6Address v6Address = (Inet6Address) address;</span><br><span class="line">            <span class="hljs-keyword">if</span> (isPreferIPV6Address()) &#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> Optional.ofNullable(normalizeV6Address(v6Address));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (isValidV4Address(address)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> Optional.of(address);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> Optional.empty();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>已经取消掉了通过 isReachable 判断网卡的连通性,而在轮训网卡中使用了<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> NetworkInterface <span class="hljs-title">findNetworkInterface</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        List&lt;NetworkInterface&gt; validNetworkInterfaces = emptyList();</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            validNetworkInterfaces = getValidNetworkInterfaces();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            logger.warn(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        NetworkInterface result = <span class="hljs-keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// Try to find the preferred one</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (NetworkInterface networkInterface : validNetworkInterfaces) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (isPreferredNetworkInterface(networkInterface)) &#123;</span><br><span class="line">                result = networkInterface;</span><br><span class="line">                <span class="hljs-keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span> (result == <span class="hljs-keyword">null</span>) &#123; <span class="hljs-comment">// If not found, try to get the first one</span></span><br><span class="line">            <span class="hljs-keyword">for</span> (NetworkInterface networkInterface : validNetworkInterfaces) &#123;</span><br><span class="line">                Enumeration&lt;InetAddress&gt; addresses = networkInterface.getInetAddresses();</span><br><span class="line">                <span class="hljs-keyword">while</span> (addresses.hasMoreElements()) &#123;</span><br><span class="line">                    Optional&lt;InetAddress&gt; addressOp = toValidAddress(addresses.nextElement());</span><br><span class="line">                    <span class="hljs-keyword">if</span> (addressOp.isPresent()) &#123;</span><br><span class="line">                        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                            <span class="hljs-keyword">if</span> (addressOp.get().isReachable(<span class="hljs-number">100</span>)) &#123;</span><br><span class="line">                                result = networkInterface;</span><br><span class="line">                                <span class="hljs-keyword">break</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                            <span class="hljs-comment">// ignore</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span> (result == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            result = first(validNetworkInterfaces);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="轮询网卡"><a href="#轮询网卡" class="headerlink" title="轮询网卡"></a>轮询网卡</h2><p>轮询网卡对应的源码是 NetworkInterface.getNetworkInterfaces().</p>
-<p>这里记录下干扰因素</p>
-<p>1.Docker 网桥<br>2.TUN/TAP 虚拟网络设备<br>3.干扰因素三：多网卡</p>
-<h2 id="记录下网卡工作原理"><a href="#记录下网卡工作原理" class="headerlink" title="记录下网卡工作原理"></a>记录下网卡工作原理</h2><p><img src="/images/dubbo_net_eh0.jpg" alt="eh0"></p>
-<p>上图中的 eth0 表示我们主机已有的真实的网卡接口 (interface)。</p>
-<p>网卡接口 eth0 所代表的真实网卡通过网线(wire)和外部网络相连，该物理网卡收到的数据包会经由接口 eth0 传递给内核的网络协议栈(Network Stack)。然后协议栈对这些数据包进行进一步的处理。</p>
-<p>对于一些错误的数据包,协议栈可以选择丢弃；对于不属于本机的数据包，协议栈可以选择转发；而对于确实是传递给本机的数据包,而且该数据包确实被上层的应用所需要，协议栈会通过 Socket API 告知上层正在等待的应用程序。</p>
-<h2 id="TUN-工作原理"><a href="#TUN-工作原理" class="headerlink" title="TUN 工作原理"></a>TUN 工作原理</h2><p><img src="/images/dubbo_net_tun0.jpg" alt="TUN"></p>
-<p>我们知道，普通的网卡是通过网线来收发数据包的话，而 TUN 设备比较特殊，它通过一个文件收发数据包。</p>
-<p>如上图所示，tunX 和上面的 eth0 在逻辑上面是等价的， tunX 也代表了一个网络接口,虽然这个接口是系统通过软件所模拟出来的.</p>
-<p>网卡接口 tunX 所代表的虚拟网卡通过文件 /dev/tunX 与我们的应用程序(App)相连，应用程序每次使用 write 之类的系统调用将数据写入该文件，这些数据会以网络层数据包的形式，通过该虚拟网卡，经由网络接口 tunX 传递给网络协议栈，同时该应用程序也可以通过 read 之类的系统调用，经由文件 /dev/tunX 读取到协议栈向 tunX 传递的所有数据包。</p>
-<p>此外，协议栈可以像操纵普通网卡一样来操纵 tunX 所代表的虚拟网卡。比如说，给 tunX 设定 IP 地址，设置路由，总之，在协议栈看来，tunX 所代表的网卡和其他普通的网卡区别不大，当然，硬要说区别，那还是有的,那就是 tunX 设备不存在 MAC 地址，这个很好理解，tunX 只模拟到了网络层，要 MAC地址没有任何意义。当然，如果是 tapX 的话，在协议栈的眼中，tapX 和真实网卡没有任何区别。</p>
-<p>是不是有些懵了？我是谁，为什么我要在这篇文章里面学习 TUN！因为我们常用的 VPN 基本就是基于 TUN/TAP 搭建的，如果我们使用 TUN 设备搭建一个基于 UDP 的 VPN ，那么整个处理过程可能是这幅样子：<br><img src="/images/dubbo_net_tun1.jpg" alt="TUN"></p>
-<h2 id="TAP-工作原理"><a href="#TAP-工作原理" class="headerlink" title="TAP 工作原理"></a>TAP 工作原理</h2><p>TAP 设备与 TUN 设备工作方式完全相同，区别在于：</p>
-<p>TUN 设备是一个三层设备，它只模拟到了 IP 层，即网络层 我们可以通过 /dev/tunX 文件收发 IP 层数据包，它无法与物理网卡做 bridge，但是可以通过三层交换（如 ip_forward）与物理网卡连通。可以使用ifconfig之类的命令给该设备设定 IP 地址。<br>TAP 设备是一个二层设备，它比 TUN 更加深入，通过 /dev/tapX 文件可以收发 MAC 层数据包，即数据链路层，拥有 MAC 层功能，可以与物理网卡做 bridge，支持 MAC 层广播。同样的，我们也可以通过ifconfig之类的命令给该设备设定 IP 地址，你如果愿意，我们可以给它设定 MAC 地址。<br>关于文章中出现的二层，三层，我这里说明一下，第一层是物理层，第二层是数据链路层，第三层是网络层，第四层是传输层。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-09-06T12:43:13.000Z">2021-09-06</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 715 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/09/06/serialize-lambda/">SerializeLambda</a>
-            
-        </h1>
-        <div class="content">
-            <p>在mybatis plus 查询中想根据某个字段排序,但是字段是字符串类型,百度了下mysql提供了几种方法。</p>
-<p>比如根据code进行排序<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#1.</span><br><span class="line">ORDER BY</span><br><span class="line">	`code` * 1 ASC</span><br><span class="line">#2.</span><br><span class="line">ORDER BY</span><br><span class="line">	`code` + 0 ASC</span><br><span class="line">#1.</span><br><span class="line">ORDER BY</span><br><span class="line">	CAST(`code` AS DECIMAL) ASC</span><br></pre></td></tr></table></figure></p>
-<p>然而项目中代码使用了LambdaQueryWrapper 里面指定了使用lambda来指定排序的列，并不能根据想要的特殊情况进行排序。</p>
-<p>本来想着entity里加一个数据库不存在的字段 然后设置这个字段的名称为 code+0 但是mybatis plus 不会把@Tablefiled<br>中exist为false的放进去</p>
-<p>AbstractLambdaWrapper 获取不到对应的列信息<br>COLUMN_CACHE_MAP 是根据TableInfo 创建的.在initTableFields时会过滤<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">static</span> TableInfo <span class="hljs-title">initTableInfo</span><span class="hljs-params">(Configuration configuration, String currentNamespace, Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">/* 没有获取到缓存信息,则初始化 */</span></span><br><span class="line">        TableInfo tableInfo = <span class="hljs-keyword">new</span> TableInfo(clazz);</span><br><span class="line">        tableInfo.setCurrentNamespace(currentNamespace);</span><br><span class="line">        tableInfo.setConfiguration(configuration);</span><br><span class="line">        GlobalConfig globalConfig = GlobalConfigUtils.getGlobalConfig(configuration);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 初始化表名相关 */</span></span><br><span class="line">        <span class="hljs-keyword">final</span> String[] excludeProperty = initTableName(clazz, globalConfig, tableInfo);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; excludePropertyList = excludeProperty != <span class="hljs-keyword">null</span> &amp;&amp; excludeProperty.length &gt; <span class="hljs-number">0</span> ? Arrays.asList(excludeProperty) : Collections.emptyList();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 初始化字段相关 */</span></span><br><span class="line">        initTableFields(clazz, globalConfig, tableInfo, excludePropertyList);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 自动构建 resultMap */</span></span><br><span class="line">        tableInfo.initResultMapIfNeed();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 缓存 lambda */</span></span><br><span class="line">        LambdaUtils.installCache(tableInfo);</span><br><span class="line">        <span class="hljs-keyword">return</span> tableInfo;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Field&gt; <span class="hljs-title">getAllFields</span><span class="hljs-params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        List&lt;Field&gt; fieldList = ReflectionKit.getFieldList(ClassUtils.getUserClass(clazz));</span><br><span class="line">        <span class="hljs-keyword">return</span> fieldList.stream()</span><br><span class="line">            .filter(field -&gt; &#123;</span><br><span class="line">                <span class="hljs-comment">/* 过滤注解非表字段属性 */</span></span><br><span class="line">                TableField tableField = field.getAnnotation(TableField.class);</span><br><span class="line">                <span class="hljs-keyword">return</span> (tableField == <span class="hljs-keyword">null</span> || tableField.exist());</span><br><span class="line">            &#125;).collect(toList());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>查看了下如何获取列名的源码</p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">SerializedLambda <span class="hljs-title">resolve</span><span class="hljs-params">(SFunction&lt;T, ?&gt; func)</span> </span>&#123;</span><br><span class="line">Class&lt;?&gt; clazz = func.getClass();</span><br><span class="line">String name = clazz.getName();</span><br><span class="line"><span class="hljs-comment">// 使用WeakReference缓存</span></span><br><span class="line"><span class="hljs-keyword">return</span> Optional.ofNullable(FUNC_CACHE.get(name))</span><br><span class="line">.map(WeakReference::get)</span><br><span class="line">.orElseGet(() -&gt; &#123;</span><br><span class="line">    <span class="hljs-comment">// 这里根据lambda 获取SerializedLambda</span></span><br><span class="line">    SerializedLambda lambda = SerializedLambda.resolve(func);</span><br><span class="line">FUNC_CACHE.put(name, <span class="hljs-keyword">new</span> WeakReference&lt;&gt;(lambda));</span><br><span class="line"><span class="hljs-keyword">return</span> lambda;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">    * 通过反序列化转换 lambda 表达式，该方法只能序列化 lambda 表达式，不能序列化接口实现或者正常非 lambda 写法的对象</span></span><br><span class="line"><span class="hljs-comment">    *</span></span><br><span class="line"><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> lambda lambda对象</span></span><br><span class="line"><span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 返回解析后的 SerializedLambda</span></span><br><span class="line"><span class="hljs-comment">    */</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> SerializedLambda <span class="hljs-title">resolve</span><span class="hljs-params">(SFunction&lt;?, ?&gt; lambda)</span> </span>&#123;</span><br><span class="line">       <span class="hljs-keyword">if</span> (!lambda.getClass().isSynthetic()) &#123;</span><br><span class="line">           <span class="hljs-keyword">throw</span> ExceptionUtils.mpe(<span class="hljs-string">"该方法仅能传入 lambda 表达式产生的合成类"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="hljs-comment">// 使用字节码进行读取</span></span><br><span class="line">       <span class="hljs-keyword">try</span> (ObjectInputStream objIn = <span class="hljs-keyword">new</span> ObjectInputStream(<span class="hljs-keyword">new</span> ByteArrayInputStream(SerializationUtils.serialize(lambda))) &#123;</span><br><span class="line">           <span class="hljs-meta">@Override</span></span><br><span class="line">           <span class="hljs-keyword">protected</span> Class&lt;?&gt; resolveClass(ObjectStreamClass objectStreamClass) <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException &#123;</span><br><span class="line">               Class&lt;?&gt; clazz;</span><br><span class="line">               <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                   clazz = ClassUtils.toClassConfident(objectStreamClass.getName());</span><br><span class="line">               &#125; <span class="hljs-keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                   clazz = <span class="hljs-keyword">super</span>.resolveClass(objectStreamClass);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="hljs-keyword">return</span> clazz == java.lang.invoke.SerializedLambda.class ? SerializedLambda.class : clazz;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;) &#123;</span><br><span class="line">           <span class="hljs-keyword">return</span> (SerializedLambda) objIn.readObject();</span><br><span class="line">       &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException | IOException e) &#123;</span><br><span class="line">           <span class="hljs-keyword">throw</span> ExceptionUtils.mpe(<span class="hljs-string">"This is impossible to happen"</span>, e);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 获取 SerializedLambda 对应的列信息，从 lambda 表达式中推测实体类</span></span><br><span class="line"><span class="hljs-comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="hljs-comment">     * 如果获取不到列信息，那么本次条件组装将会失败</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> lambda     lambda 表达式</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> onlyColumn 如果是，结果: "name", 如果否： "name" as "name"</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 列</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> com.baomidou.mybatisplus.core.exceptions.MybatisPlusException 获取不到列信息时抛出异常</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@see</span> SerializedLambda#getImplClass()</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@see</span> SerializedLambda#getImplMethodName()</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getColumn</span><span class="hljs-params">(SerializedLambda lambda, <span class="hljs-keyword">boolean</span> onlyColumn)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 获取类名</span></span><br><span class="line">        Class&lt;?&gt; aClass = lambda.getInstantiatedType();</span><br><span class="line">        <span class="hljs-comment">// 初始化 主要是缓存一下列信息</span></span><br><span class="line">        tryInitCache(aClass);</span><br><span class="line">        String fieldName = PropertyNamer.methodToProperty(lambda.getImplMethodName());</span><br><span class="line">        ColumnCache columnCache = getColumnCache(fieldName, aClass);</span><br><span class="line">        <span class="hljs-keyword">return</span> onlyColumn ? columnCache.getColumn() : columnCache.getColumnSelect();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h1 id="SerializedLambda"><a href="#SerializedLambda" class="headerlink" title="SerializedLambda"></a>SerializedLambda</h1><p>这里面发现能把lambda表达式进行序列化,然后获取相关lambda的信息.</p>
-<p><img src="/images/serialized_lambda.jpg" alt="SerializedLambda.java"></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-08-25T13:29:44.000Z">2021-08-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java/">java</a>
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2021-09-14T13:34:50.000Z">2021-09-14</time>
+                        <a href="/2021/09/14/dubbo-net/" class="has-link-black-ter is-size-6">研究 Dubbo 网卡地址注册时的一点思考</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/categories/dubbo/">dubbo</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 441 个字)
-                </span>
-                
-                
-            </div>
-        </div>
+            </article>
         
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/08/25/ratelimiter/">java 自定义限流器</a>
-            
-        </h1>
-        <div class="content">
-            <p>Java 自定义限流器</p>
-<h2 id="1-使用AtomicInetger-cas实现"><a href="#1-使用AtomicInetger-cas实现" class="headerlink" title="1.使用AtomicInetger cas实现"></a>1.使用AtomicInetger cas实现</h2><figure class="highlight java hljs"><figcaption><span>Bucket.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bucket</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> AtomicInteger count;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Bucket</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">        count = <span class="hljs-keyword">new</span> AtomicInteger(<span class="hljs-number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> AtomicInteger <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCount</span><span class="hljs-params">(AtomicInteger count)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight java hljs"><figcaption><span>RateLimiterAop.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Aspect</span></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RateLimiterAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(RateLimiterAop.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, Bucket&gt; BUCKETS = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object mux = <span class="hljs-keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> ScheduledExecutorService executorService = <span class="hljs-keyword">new</span> ScheduledThreadPoolExecutor(<span class="hljs-number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">static</span> &#123;</span><br><span class="line">        executorService.scheduleAtFixedRate(() -&gt; &#123;</span><br><span class="line">            BUCKETS.values().stream().forEach(b -&gt; &#123;</span><br><span class="line">                <span class="hljs-keyword">if</span> (b.getCount().get() &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">                    b.getCount().decrementAndGet();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Around</span>(<span class="hljs-string">"execution(* com.ygdxd.ratelimiter.*.*(..))"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">limit</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="hljs-comment">//获取访问目标方法</span></span><br><span class="line">        MethodSignature methodSignature = (MethodSignature)joinPoint.getSignature();</span><br><span class="line">        Method targetMethod = methodSignature.getMethod();</span><br><span class="line">        String apiName = targetMethod.getDeclaringClass().getName() + <span class="hljs-string">"."</span> + targetMethod.getName();</span><br><span class="line">        Bucket bucket = BUCKETS.get(apiName);</span><br><span class="line">        <span class="hljs-keyword">if</span> (bucket == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">synchronized</span> (mux) &#123;</span><br><span class="line">                BUCKETS.putIfAbsent(apiName, <span class="hljs-keyword">new</span> Bucket(apiName));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-comment">// 重试太多次 直接失败 也可以加锁</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (!addCount(bucket, <span class="hljs-number">0</span>)) &#123;</span><br><span class="line"><span class="hljs-comment">//                throw new RuntimeException("超出限制次数");</span></span><br><span class="line">                LOGGER.error(<span class="hljs-string">"失败"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> joinPoint.proceed();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">addCount</span><span class="hljs-params">(Bucket bucket, <span class="hljs-keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">3</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">int</span> count = bucket.getCount().get();</span><br><span class="line">        <span class="hljs-keyword">if</span> (count &lt;= <span class="hljs-number">10</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (!bucket.getCount().compareAndSet(count, count + <span class="hljs-number">1</span>))&#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> addCount(bucket, i + <span class="hljs-number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-使用Semapphore实现-接口只能有几个线程，并不是每秒几个request"><a href="#2-使用Semapphore实现-接口只能有几个线程，并不是每秒几个request" class="headerlink" title="2.使用Semapphore实现(接口只能有几个线程，并不是每秒几个request)"></a>2.使用Semapphore实现(接口只能有几个线程，并不是每秒几个request)</h2><figure class="highlight java hljs"><figcaption><span>SemaphoreRateLimiterAop.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Aspect</span></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SemaphoreRateLimiterAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(SemaphoreRateLimiterAop.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, SemaphoreBucket&gt; BUCKETS = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object mux = <span class="hljs-keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Around</span>(<span class="hljs-string">"execution(* com.ygdxd.ratelimiter.*.*(..))"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">limit</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="hljs-comment">//获取访问目标方法</span></span><br><span class="line">        MethodSignature methodSignature = (MethodSignature)joinPoint.getSignature();</span><br><span class="line">        Method targetMethod = methodSignature.getMethod();</span><br><span class="line">        String apiName = targetMethod.getDeclaringClass().getName() + <span class="hljs-string">"."</span> + targetMethod.getName();</span><br><span class="line">        SemaphoreBucket bucket = BUCKETS.get(apiName);</span><br><span class="line">        <span class="hljs-keyword">if</span> (bucket == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">synchronized</span> (mux) &#123;</span><br><span class="line">                bucket = <span class="hljs-keyword">new</span> SemaphoreBucket(apiName);</span><br><span class="line">                BUCKETS.putIfAbsent(apiName, bucket);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">boolean</span> ack = <span class="hljs-keyword">false</span>;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            ack = bucket.getCount().tryAcquire(<span class="hljs-number">1</span>, TimeUnit.SECONDS);</span><br><span class="line">            <span class="hljs-keyword">if</span> (!ack) &#123;</span><br><span class="line">                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"限流了！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">return</span> joinPoint.proceed();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            LOGGER.error(<span class="hljs-string">"error:"</span>, e);</span><br><span class="line">            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"失败！"</span>);</span><br><span class="line">        &#125;<span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (ack) &#123;</span><br><span class="line">                bucket.getCount().release();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java hljs"><figcaption><span>SemaphoreBucket.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SemaphoreBucket</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> Semaphore count;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SemaphoreBucket</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">        count = <span class="hljs-keyword">new</span> Semaphore(<span class="hljs-number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Semaphore <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCount</span><span class="hljs-params">(Semaphore count)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-08-10T08:15:01.000Z">2021-08-10</time>
+            <article class="media">
                 
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/jdk/">jdk</a>
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2021-09-06T12:43:13.000Z">2021-09-06</time>
+                        <a href="/2021/09/06/serialize-lambda/" class="has-link-black-ter is-size-6">SerializeLambda</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 读完 (大约 562 个字)
-                </span>
-                
-                
-            </div>
-        </div>
+            </article>
         
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/08/10/optional/">Java Optional的用法</a>
-            
-        </h1>
-        <div class="content">
-            <p>关于Optional,平时项目用的不多.笔者觉得Java 引入Optional 主要用于解决参数时传递一些可能为空对象时产生的空指针问题.</p>
-<h2 id="1-使用Optional的一些问题-filter"><a href="#1-使用Optional的一些问题-filter" class="headerlink" title="1.使用Optional的一些问题 filter"></a>1.使用Optional的一些问题 filter</h2><p>bad code:<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getName())).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getStartDate())).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getEndDate())).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br><span class="line">optional.filter(s -&gt; s.getStartDate().compareTo(s.getEndDate()) &lt;= <span class="hljs-number">0</span>).orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br></pre></td></tr></table></figure><br>影响整体代码的阅读和可扩展性,使用if语句判断或者spring validator 来进行参数校验可能会更好.</p>
-<p>good code<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">optional.filter(s -&gt; StrUtil.isNotEmpty(s.getGroupName()))</span><br><span class="line">        .filter(s -&gt; StrUtil.isNotEmpty(s.getStartDate()))</span><br><span class="line">        .filter(s -&gt; StrUtil.isNotEmpty(s.getEndDate()))</span><br><span class="line">        .filter(s -&gt; s.getStartDate().compareTo(s.getEndDate()) &lt;= <span class="hljs-number">0</span>)</span><br><span class="line">        .orElseThrow(() -&gt; <span class="hljs-keyword">new</span> IllegalParamException());</span><br></pre></td></tr></table></figure><br>缺点是不能根据具体的参数返回对应的错误信息.</p>
-<figure class="highlight java hljs"><figcaption><span>Optional.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> Optional&lt;T&gt; <span class="hljs-title">filter</span><span class="hljs-params">(Predicate&lt;? <span class="hljs-keyword">super</span> T&gt; predicate)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(predicate);</span><br><span class="line">        <span class="hljs-keyword">if</span> (!isPresent())</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;</span><br><span class="line">        <span class="hljs-keyword">else</span></span><br><span class="line">            <span class="hljs-keyword">return</span> predicate.test(value) ? <span class="hljs-keyword">this</span> : empty();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>filter 先判断当前Optional是否有值,如果存在就使用predicate判断是否符合条件,如果不通过就返回一个空的Optional.</p>
-<h2 id="2-使用Optional的一些问题-map"><a href="#2-使用Optional的一些问题-map" class="headerlink" title="2.使用Optional的一些问题 map"></a>2.使用Optional的一些问题 map</h2><p>往往在对接第三方服务时会使用多层嵌套结构</p>
-<p>比如 Company -&gt; Department -&gt; Team -&gt; User</p>
-<p>bad code<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> (company != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">   Department dep = company.getDepartment();</span><br><span class="line">   <span class="hljs-keyword">if</span> (dep != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">     ...</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>good code<br><figure class="highlight java hljs"><figcaption><span>Demo.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Optional.ofNullable(Company)</span><br><span class="line">    .map(c -&gt; c.getDepartment())</span><br><span class="line">    .map(d -&gt; d.getTeam())</span><br><span class="line">    .map(t -&gt; t.getUser())</span><br><span class="line">    .orElseThrow(NoSuchElementException::<span class="hljs-keyword">new</span>);</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>map 和 filter 一样,只有当前optional里的值不为空才会去执行对应的函数表达式,原理和if一样但是更简洁.</p>
-<figure class="highlight java hljs"><figcaption><span>Optional.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span>&lt;U&gt; Optional&lt;U&gt; <span class="hljs-title">map</span><span class="hljs-params">(Function&lt;? <span class="hljs-keyword">super</span> T, ? extends U&gt; mapper)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(mapper);</span><br><span class="line">    <span class="hljs-keyword">if</span> (!isPresent())</span><br><span class="line">        <span class="hljs-keyword">return</span> empty();</span><br><span class="line">    <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> Optional.ofNullable(mapper.apply(value));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>   
-<ol start="3">
-<li>orElse 和 orElseGet的区别</li>
-</ol>
-<figure class="highlight java hljs"><figcaption><span>Optional.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">orElse</span><span class="hljs-params">(T other)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> value != <span class="hljs-keyword">null</span> ? value : other;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">orElseGet</span><span class="hljs-params">(Supplier&lt;? extends T&gt; other)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> value != <span class="hljs-keyword">null</span> ? value : other.get();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>2个方法的参数不同,如果传入的参数为固定的值或者对象,那么2个方法的处理和返回没有任何区别.<br>但是当传入的是表达式时,orElse会首先执行表达式获得结果,然后入栈.<br>而 orElseGet 的参数是 Supplier,所以直接入栈,然后在调用 other.get()的时候才会被触发.<br>明显在特殊情况下后者的性能更好.</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-08-10T07:56:44.000Z">2021-08-10</time>
+            <article class="media">
                 
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/docker/">docker</a>
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2021-08-25T13:29:44.000Z">2021-08-25</time>
+                        <a href="/2021/08/25/ratelimiter/" class="has-link-black-ter is-size-6">java 自定义限流器</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/categories/java/">java</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </article>
+        
+            <article class="media">
                 
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 读完 (大约 635 个字)
-                </span>
-                
-                
-            </div>
+                <div class="media-content">
+                    <div class="content">
+                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2021-08-10T08:15:01.000Z">2021-08-10</time>
+                        <a href="/2021/08/10/optional/" class="has-link-black-ter is-size-6">Java Optional的用法</a>
+                        <div class="level article-meta is-mobile">
+                            <div class="level-left">
+                                
+                                <div class="level-item is-size-7 is-uppercase">
+                                <a class="has-link-grey -link" href="/categories/jdk/">jdk</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/08/10/docker-exec/">docker exec 是怎么做到进入容器里的</a>
-            
-        </h1>
-        <div class="content">
-            <p>转自极客时间深入剖析k8s</p>
-<h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h2><p>Linux Namespace 创建的隔离空间虽然看不见摸不着，但一个进程的 Namespace 信息在宿主机上是确确实实存在的，并且是以一个文件的方式存在。<br>我们可以通过docker inspect 命令获取到正在运行的 Docker 容器的进程号（PID）。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect --format <span class="hljs-string">'&#123;&#123; .State.Pid &#125;&#125;'</span> <span class="hljs-variable">$&#123;container id&#125;</span></span><br><span class="line"></span><br><span class="line">$ ls -l /proc/<span class="hljs-variable">$&#123;Pid&#125;</span>/ns</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，一个进程的每种 Linux Namespace，都在它对应的 /proc/[进程号]/ns 下有一个对应的虚拟文件，并且链接到一个真实的 Namespace 文件上。<br>这也就意味着：一个进程，可以选择加入到某个进程已有的 Namespace 当中，从而达到“进入”这个进程所在容器的目的，这正是 docker exec 的实现原理。<br>而这个操作所依赖的，乃是一个名叫 setns() 的 Linux 系统调用。<br><figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> _GNU_SOURCE</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sched.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> errExit(msg) do &#123; perror(msg); exit(EXIT_FAILURE);&#125; while (0)</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> fd;</span><br><span class="line">    </span><br><span class="line">    fd = open(argv[<span class="hljs-number">1</span>], O_RDONLY);</span><br><span class="line">    <span class="hljs-keyword">if</span> (setns(fd, <span class="hljs-number">0</span>) == <span class="hljs-number">-1</span>) &#123;</span><br><span class="line">        errExit(<span class="hljs-string">"setns"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    execvp(argv[<span class="hljs-number">2</span>], &amp;argv[<span class="hljs-number">2</span>]); </span><br><span class="line">    errExit(<span class="hljs-string">"execvp"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这段代码功能非常简单：它一共接收两个参数，第一个参数是 argv[1]，即当前进程要加入的 Namespace 文件的路径，比如 /proc/[进程号]/ns/net；<br>而第二个参数，则是你要在这个 Namespace 里运行的进程，比如 /bin/bash。<br>这段代码的核心操作，则是通过 open() 系统调用打开了指定的 Namespace 文件，并把这个文件的描述符 fd 交给 setns() 使用。<br>在 setns() 执行后，当前进程就加入了这个文件对应的 Linux Namespace 当中了。</p>
-<p>同时，一旦一个进程加入到了另一个 Namespace 当中，在宿主机的 Namespace 文件上，也会有所体现。<br>你可以用 ps 指令找到这个 set_ns 程序执行的 /bin/bash 进程。查看一下这个 程序对应的进程的 Namespace。<br>2个进程指向的Network Namespace 文件完全一样。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ps aux | grep /bin/bash</span><br><span class="line">$ ls -l /proc/[进程1]/ns/net</span><br><span class="line">$ ls -l /proc/[进程2]/ns/net</span><br></pre></td></tr></table></figure></p>
-<p>我们可以在dockers 启动命令行中增加参数–net container:XXX来加入到另外一个容器的Network Namespace 中。</p>
-<h2 id="2-获取root-权限"><a href="#2-获取root-权限" class="headerlink" title="2.获取root 权限"></a>2.获取root 权限</h2><p>在公司执行了set_ns脚本后，竟然发现原有的用户变成了root。<br>执行id命令后<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ id</span><br><span class="line">uid=0(root) gid=0(root) 组=0(root)</span><br></pre></td></tr></table></figure></p>
-
-        </div>
-        
-        
-        
     </div>
 </div>
 
-
-
-
-
-
-
-
-
+    
 
     
 <div class="card card-transparent">
     <nav class="pagination is-centered" role="navigation" aria-label="pagination">
         <div class="pagination-previous is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/page/0/">上一页</a>
+            <a class="is-flex-grow has-text-black-ter" href="/archives/page/0/">上一页</a>
         </div>
         <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/page/2/">下一页</a>
+            <a class="is-flex-grow has-text-black-ter" href="/archives/page/2/">下一页</a>
         </div>
         <ul class="pagination-list is-hidden-mobile">
             
-            <li><a class="pagination-link is-current" href="/">1</a></li>
+            <li><a class="pagination-link is-current" href="/archives/">1</a></li>
             
-            <li><a class="pagination-link has-text-black-ter" href="/page/2/">2</a></li>
+            <li><a class="pagination-link has-text-black-ter" href="/archives/page/2/">2</a></li>
             
-            <li><a class="pagination-link has-text-black-ter" href="/page/3/">3</a></li>
+            <li><a class="pagination-link has-text-black-ter" href="/archives/page/3/">3</a></li>
             
         </ul>
     </nav>
@@ -1002,7 +414,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        24
+                        25
                     </p>
                 </div>
             </div>
@@ -1165,7 +577,7 @@
                 <span class="level-item">k8s</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">2</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/linux/">
@@ -1211,7 +623,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 15px;">k8s</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 16.67px;">k8s</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mysql/" style="font-size: 13.33px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -1225,6 +637,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2022/07/10/k8s-rest-api/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_rest_api">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-10T07:17:20.000Z">2022-07-10</time></div>
+                    <a href="/2022/07/10/k8s-rest-api/" class="has-link-black-ter is-size-6">k8s_rest_api</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1302,25 +733,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/09/19/linux-virtual-addr/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="虚拟地址转换流程">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-19T13:28:51.000Z">2021-09-19</time></div>
-                    <a href="/2021/09/19/linux-virtual-addr/" class="has-link-black-ter is-size-6">虚拟地址转换流程</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/linux/">linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1332,6 +744,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2022/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2022/05/">
@@ -1490,7 +913,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -1568,6 +991,25 @@
         
         <article class="media">
             
+            <a href="/2022/07/10/k8s-rest-api/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_rest_api">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-10T07:17:20.000Z">2022-07-10</time></div>
+                    <a href="/2022/07/10/k8s-rest-api/" class="has-link-black-ter is-size-6">k8s_rest_api</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2022/05/17/k8s_pod/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s pod 属性">
@@ -1642,25 +1084,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/09/19/linux-virtual-addr/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="虚拟地址转换流程">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-19T13:28:51.000Z">2021-09-19</time></div>
-                    <a href="/2021/09/19/linux-virtual-addr/" class="has-link-black-ter is-size-6">虚拟地址转换流程</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/linux/">linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1672,6 +1095,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2022/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2022/05/">
@@ -1830,7 +1264,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 

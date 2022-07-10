@@ -145,6 +145,151 @@
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
 <!-- 原创转载开始 -->
     
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2022-07-10T07:17:20.000Z">2022-07-10</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 275 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2022/07/10/k8s-rest-api/">k8s_rest_api</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="k8s-rest-api"><a href="#k8s-rest-api" class="headerlink" title="k8s rest api"></a>k8s rest api</h1><h6 id="DownwardAPI"><a href="#DownwardAPI" class="headerlink" title="DownwardAPI"></a>DownwardAPI</h6><p>   K8S可以通过DownwardAPI来获取pod自身的ip，命名空间，名称等。<br>   第一种，通过环境变量的方式。</p>
+<pre><code><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  env:</span><br><span class="line">  - name: POD_NAME</span><br><span class="line">    valueFrom:</span><br><span class="line">      fieldRef:</span><br><span class="line">        fieldPath: metadata.name</span><br></pre></td></tr></table></figure>
+</code></pre><p>  pod创建完成后可以通过kubectl exec downward env 查看。<br>  第二种，通过DownwardAPI卷的方式。<br>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line"> containers:</span><br><span class="line">  volumeMounts:</span><br><span class="line">  - name: downward</span><br><span class="line">    mountPath: /etc/downward</span><br><span class="line"> volumes:</span><br><span class="line"> - name: downward</span><br><span class="line">   downwardAPI:</span><br><span class="line">     items:</span><br><span class="line">     - path: &quot;POD_NAME&quot;</span><br><span class="line">       fieldRef:</span><br><span class="line">          fieldPath: metadata.name</span><br></pre></td></tr></table></figure></p>
+<h5 id="在pod内部来连接k8s-api-服务器"><a href="#在pod内部来连接k8s-api-服务器" class="headerlink" title="在pod内部来连接k8s api 服务器"></a>在pod内部来连接k8s api 服务器</h5><p>curl <a href="https://kubenetes" target="_blank" rel="noopener">https://kubenetes</a> 会返回ssl证书错误，可以使用-k选项绕过，但是这样不安全。我们可以使用在创建pod时自动创建的secret。</p>
+<p>在/var/run/secrets/kubernetes.io/serviceaccount目录下会生成对应的secret文件，我们可以使用<br><figure class="highlight plain hljs"><figcaption><span>--cacert</span><a href="/var/run/secrets/kubernetes.io/serviceaccount/ca.crt">https://kubenetes ```命令 这时我们会看到返回Unauthorized.我们可以设置CURL_CA_BUNDLE环境变量来简化操作</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">export CURL_CA_BUNDLE=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt。</span><br></pre></td></tr></table></figure></p>
+<p>要解决Unauthorized，我们需要获得授权。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)</span><br><span class="line">#curl -H &quot;Authorization: Bearer $TOKEN&quot; https://kubenetes</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2022-05-17T13:40:37.000Z">2022-05-17</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 451 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2022/05/17/k8s_pod/">k8s pod 属性</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="k8s-pod-属性"><a href="#k8s-pod-属性" class="headerlink" title="k8s pod 属性"></a>k8s pod 属性</h1><h3 id="健康检查指针"><a href="#健康检查指针" class="headerlink" title="健康检查指针"></a>健康检查指针</h3><ul>
+<li>livenessProbe  探活，当检查失败时，意味着当前应用挂了，kubelet会kill进程并按照restartPolicy来决定是否重启pod。</li>
+<li>readinessProbe 就绪状态检测，当检查失败时，意味着容器进程正在运行，但因为某些原因不能提供服务，pod状态被标记为notReady。并不会去kill。</li>
+<li>startupProbe 在初始化阶段之前（ready之前）进行的健康检查，通常用来避免过于频繁的检测影响应用启动。</li>
+</ul>
+<h3 id="探测方法"><a href="#探测方法" class="headerlink" title="探测方法"></a>探测方法</h3><ul>
+<li>ExecAction:在容器内部运行指定命令，当返回码为0时，结果为成功</li>
+<li>TCPSocketAction:用kubelet发起，通过TCP协议检查ip和端口，当ip和端口可达时，表示成功。</li>
+<li><p>HTTPGetAction:用kubelet发起，发送http get请求，返回状态码200-400之间为成功。    </p>
+<h3 id="startupProbe和initialDelaySecond的区别"><a href="#startupProbe和initialDelaySecond的区别" class="headerlink" title="startupProbe和initialDelaySecond的区别"></a>startupProbe和initialDelaySecond的区别</h3><p>  initialDelaySecond只能是一个固定的数字，不能够根据具体应用的状态来判断pod是否启动成功。startupProbe可以设置initialDelaySecond，并且成功后就不再执行对应的探活操作。</p>
+</li>
+</ul>
+<h3 id="qosclass和priority的区别"><a href="#qosclass和priority的区别" class="headerlink" title="qosclass和priority的区别"></a>qosclass和priority的区别</h3><ul>
+<li>qosclass发生在资源不够用的情况下，而priority发生在pod调度阶段。</li>
+</ul>
+<h3 id="postStart"><a href="#postStart" class="headerlink" title="postStart"></a>postStart</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">    lifecycle:</span><br><span class="line">      postStart:</span><br><span class="line">        exec:</span><br></pre></td></tr></table></figure>
+<p><img src="/images/postStart" alt="postStart"><br>无法保证postStart脚本和容器的Entrypoint哪个先执行<br>postStart 结束之前，容器不会被标记为running状态。</p>
+<h3 id="preStop"><a href="#preStop" class="headerlink" title="preStop"></a>preStop</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  terminationGracePeriodSeconds: 30</span><br></pre></td></tr></table></figure>
+<p><img src="/images/preStop" alt="postStart"><br>    terminationGracePeriodSeconds 当preStop和kill -SIGTERM多少秒之后才执行kill -SIGKILL。<br>    只用当pod被终止时，k8s才会执行preStop脚本，这意味着当pod容器完成或退出时，preStop脚本不会被执行。<br>    sh命令不能相应SIGTERM信号。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
     <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
     
     <!-- 原创转载结束 -->
@@ -792,147 +937,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-08-10T07:56:44.000Z">2021-08-10</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/docker/">docker</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 读完 (大约 635 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/08/10/docker-exec/">docker exec 是怎么做到进入容器里的</a>
-            
-        </h1>
-        <div class="content">
-            <p>转自极客时间深入剖析k8s</p>
-<h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h2><p>Linux Namespace 创建的隔离空间虽然看不见摸不着，但一个进程的 Namespace 信息在宿主机上是确确实实存在的，并且是以一个文件的方式存在。<br>我们可以通过docker inspect 命令获取到正在运行的 Docker 容器的进程号（PID）。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect --format <span class="hljs-string">'&#123;&#123; .State.Pid &#125;&#125;'</span> <span class="hljs-variable">$&#123;container id&#125;</span></span><br><span class="line"></span><br><span class="line">$ ls -l /proc/<span class="hljs-variable">$&#123;Pid&#125;</span>/ns</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，一个进程的每种 Linux Namespace，都在它对应的 /proc/[进程号]/ns 下有一个对应的虚拟文件，并且链接到一个真实的 Namespace 文件上。<br>这也就意味着：一个进程，可以选择加入到某个进程已有的 Namespace 当中，从而达到“进入”这个进程所在容器的目的，这正是 docker exec 的实现原理。<br>而这个操作所依赖的，乃是一个名叫 setns() 的 Linux 系统调用。<br><figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> _GNU_SOURCE</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sched.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> errExit(msg) do &#123; perror(msg); exit(EXIT_FAILURE);&#125; while (0)</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> fd;</span><br><span class="line">    </span><br><span class="line">    fd = open(argv[<span class="hljs-number">1</span>], O_RDONLY);</span><br><span class="line">    <span class="hljs-keyword">if</span> (setns(fd, <span class="hljs-number">0</span>) == <span class="hljs-number">-1</span>) &#123;</span><br><span class="line">        errExit(<span class="hljs-string">"setns"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    execvp(argv[<span class="hljs-number">2</span>], &amp;argv[<span class="hljs-number">2</span>]); </span><br><span class="line">    errExit(<span class="hljs-string">"execvp"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这段代码功能非常简单：它一共接收两个参数，第一个参数是 argv[1]，即当前进程要加入的 Namespace 文件的路径，比如 /proc/[进程号]/ns/net；<br>而第二个参数，则是你要在这个 Namespace 里运行的进程，比如 /bin/bash。<br>这段代码的核心操作，则是通过 open() 系统调用打开了指定的 Namespace 文件，并把这个文件的描述符 fd 交给 setns() 使用。<br>在 setns() 执行后，当前进程就加入了这个文件对应的 Linux Namespace 当中了。</p>
-<p>同时，一旦一个进程加入到了另一个 Namespace 当中，在宿主机的 Namespace 文件上，也会有所体现。<br>你可以用 ps 指令找到这个 set_ns 程序执行的 /bin/bash 进程。查看一下这个 程序对应的进程的 Namespace。<br>2个进程指向的Network Namespace 文件完全一样。<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ps aux | grep /bin/bash</span><br><span class="line">$ ls -l /proc/[进程1]/ns/net</span><br><span class="line">$ ls -l /proc/[进程2]/ns/net</span><br></pre></td></tr></table></figure></p>
-<p>我们可以在dockers 启动命令行中增加参数–net container:XXX来加入到另外一个容器的Network Namespace 中。</p>
-<h2 id="2-获取root-权限"><a href="#2-获取root-权限" class="headerlink" title="2.获取root 权限"></a>2.获取root 权限</h2><p>在公司执行了set_ns脚本后，竟然发现原有的用户变成了root。<br>执行id命令后<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ id</span><br><span class="line">uid=0(root) gid=0(root) 组=0(root)</span><br></pre></td></tr></table></figure></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-08-08T13:42:09.000Z">2021-08-08</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/mysql/">mysql</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 514 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/08/08/sql-group-by/">GROUP BY分组查询与SQL执行顺序</a>
-            
-        </h1>
-        <div class="content">
-            <p>转自：<a href="http://blog.163.com/shexinyang@126/blog/static/1367393122013526113822666/" target="_blank" rel="noopener">http://blog.163.com/shexinyang@126/blog/static/1367393122013526113822666/</a> </p>
-<h2 id="1-SELECT语句使用GROUP-BY的一些规定"><a href="#1-SELECT语句使用GROUP-BY的一些规定" class="headerlink" title="1.SELECT语句使用GROUP BY的一些规定"></a>1.SELECT语句使用GROUP BY的一些规定</h2><ul>
-<li>GROUP BY子句可以包含任意数目的列。也就是说可以在组里再分组，为数据分组提供更细致的控制。</li>
-<li>如果在GROUP BY子句中指定多个分组，数据将在最后指定的分组上汇总。</li>
-<li>GROUP BY子句中列出的每个列都必须是检索列或有效的表达式（但不能是聚集函数）。如果在SELECT中使用了表达式，则必须在GROUP BY子句中指定相同的表达式。不能使用别名。</li>
-<li>除了聚集计算语句外，GROUP BY子句中的每一列都必须在SELECT语句给出。</li>
-<li>如果分组列中有NULL值，则NULL将作为一个分组返回。如果有多行NULL值，它们将分为一组。</li>
-<li>GROUP BY子句必须在WHERE子句之后，ORDER BY之前。</li>
-</ul>
-<h2 id="2-过滤分组"><a href="#2-过滤分组" class="headerlink" title="2.过滤分组"></a>2.过滤分组</h2><p>对分组过于采用HAVING子句。HAVING子句支持所有WHERE的操作。HAVING与WHERE的区别在于WHERE是过滤行的，而HAVING是用来过滤分组。</p>
-<p>另一种理解WHERE与HAVING的区别的方法是，WHERE在分组之前过滤，而HAVING在分组之后以每组为单位过滤。</p>
-<h2 id="3-分组与排序"><a href="#3-分组与排序" class="headerlink" title="3.分组与排序"></a>3.分组与排序</h2><p>一般在使用GROUP BY子句时，也应该使用ORDER BY子句。这是保证数据正确排序的唯一方法。</p>
-<p>SQL SELECT语句的执行顺序：</p>
-<p>from子句组装来自不同数据源的数据(若有join，则先执行on后条件，再连接数据源)；<br>where子句基于指定的条件对记录行进行筛选；<br>group by子句将数据划分为多个分组；<br>使用聚集函数进行计算；<br>使用having子句筛选分组；<br>计算所有的表达式；<br>使用order by对结果集进行排序；<br>select 集合输出。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -997,7 +1001,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        25
                     </p>
                 </div>
             </div>
@@ -1160,7 +1164,7 @@
                 <span class="level-item">k8s</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">1</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/linux/">
@@ -1206,7 +1210,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 10px;">k8s</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 16.67px;">k8s</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mysql/" style="font-size: 13.33px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -1220,6 +1224,44 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2022/07/10/k8s-rest-api/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_rest_api">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-10T07:17:20.000Z">2022-07-10</time></div>
+                    <a href="/2022/07/10/k8s-rest-api/" class="has-link-black-ter is-size-6">k8s_rest_api</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/05/17/k8s_pod/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s pod 属性">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-17T13:40:37.000Z">2022-05-17</time></div>
+                    <a href="/2022/05/17/k8s_pod/" class="has-link-black-ter is-size-6">k8s pod 属性</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1278,44 +1320,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/09/19/linux-virtual-addr/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="虚拟地址转换流程">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-19T13:28:51.000Z">2021-09-19</time></div>
-                    <a href="/2021/09/19/linux-virtual-addr/" class="has-link-black-ter is-size-6">虚拟地址转换流程</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/linux/">linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/09/14/dubbo-net/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="研究 Dubbo 网卡地址注册时的一点思考">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-14T13:34:50.000Z">2021-09-14</time></div>
-                    <a href="/2021/09/14/dubbo-net/" class="has-link-black-ter is-size-6">研究 Dubbo 网卡地址注册时的一点思考</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/dubbo/">dubbo</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1329,12 +1333,23 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2022/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2022/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1485,7 +1500,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -1563,6 +1578,44 @@
         
         <article class="media">
             
+            <a href="/2022/07/10/k8s-rest-api/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_rest_api">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-10T07:17:20.000Z">2022-07-10</time></div>
+                    <a href="/2022/07/10/k8s-rest-api/" class="has-link-black-ter is-size-6">k8s_rest_api</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2022/05/17/k8s_pod/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s pod 属性">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-17T13:40:37.000Z">2022-05-17</time></div>
+                    <a href="/2022/05/17/k8s_pod/" class="has-link-black-ter is-size-6">k8s pod 属性</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2022/05/07/spring_retry/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="spring_retry">
@@ -1618,44 +1671,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2021/09/19/linux-virtual-addr/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="虚拟地址转换流程">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-19T13:28:51.000Z">2021-09-19</time></div>
-                    <a href="/2021/09/19/linux-virtual-addr/" class="has-link-black-ter is-size-6">虚拟地址转换流程</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/linux/">linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/09/14/dubbo-net/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="研究 Dubbo 网卡地址注册时的一点思考">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-09-14T13:34:50.000Z">2021-09-14</time></div>
-                    <a href="/2021/09/14/dubbo-net/" class="has-link-black-ter is-size-6">研究 Dubbo 网卡地址注册时的一点思考</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/dubbo/">dubbo</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1669,12 +1684,23 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2022/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2022</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2022/05/">
                 <span class="level-start">
                     <span class="level-item">五月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1825,7 +1851,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
