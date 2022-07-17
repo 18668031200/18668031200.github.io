@@ -169,6 +169,66 @@
 
            
  <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2022-07-17T06:43:03.000Z">2022-07-17</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 204 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2022/07/17/k8s-deployment-update/">k8s deployment 不更新的例子</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="K8S-deployment-不更新案例"><a href="#K8S-deployment-不更新案例" class="headerlink" title="K8S deployment 不更新案例"></a>K8S deployment 不更新案例</h1><h6 id="patch-命令"><a href="#patch-命令" class="headerlink" title="patch 命令"></a>patch 命令</h6><pre><code>使用patch命令更改deployment的自有属性，并不会导致pod的任何更新，因为pod模板并没有被修改，更改其他deployment的属性，如所需副本数或者部署策略也不会触发滚动升级，现有运行中的pod也不会受影响。
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl pathch deployment deployment_name -p &apos;&#123;&quot;spec&quot;:&#123;&quot;minReadySeconds:10&quot;&#125;&#125;&apos;</span><br></pre></td></tr></table></figure>
+</code></pre><h6 id="config-secret"><a href="#config-secret" class="headerlink" title="config/secret"></a>config/secret</h6><pre><code>如果deployment中的pod模板引用了一个configmap(或secret)，那么修改configmap资源本身并不会触发升级操作，如果真的需要修改程序的配置并触发更新，可以创建一个新的configmap并修改pod模板引用新的configmap。
+</code></pre><h6 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h6><pre><code>ReplicaSet在deployment更新后仍会保留旧的用于回滚，而replicationController不会。
+</code></pre>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2022-07-10T07:17:20.000Z">2022-07-10</time>
                 
                 <div class="level-item">
@@ -405,7 +465,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        25
+                        26
                     </p>
                 </div>
             </div>
@@ -631,6 +691,25 @@
         
         <article class="media">
             
+            <a href="/2022/07/17/k8s-deployment-update/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s deployment 不更新的例子">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-17T06:43:03.000Z">2022-07-17</time></div>
+                    <a href="/2022/07/17/k8s-deployment-update/" class="has-link-black-ter is-size-6">k8s deployment 不更新的例子</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2022/07/10/k8s-rest-api/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_rest_api">
@@ -705,25 +784,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2022/04/26/k8s-svc1/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_svc笔记">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-26T15:21:10.000Z">2022-04-26</time></div>
-                    <a href="/2022/04/26/k8s-svc1/" class="has-link-black-ter is-size-6">k8s_svc笔记</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -742,7 +802,7 @@
                     <span class="level-item">七月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -904,7 +964,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">3</span>
+                        <span class="tag is-grey">4</span>
                     </a>
                 </div>
                 
@@ -982,6 +1042,25 @@
         
         <article class="media">
             
+            <a href="/2022/07/17/k8s-deployment-update/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s deployment 不更新的例子">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-17T06:43:03.000Z">2022-07-17</time></div>
+                    <a href="/2022/07/17/k8s-deployment-update/" class="has-link-black-ter is-size-6">k8s deployment 不更新的例子</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2022/07/10/k8s-rest-api/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_rest_api">
@@ -1056,25 +1135,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2022/04/26/k8s-svc1/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s_svc笔记">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-26T15:21:10.000Z">2022-04-26</time></div>
-                    <a href="/2022/04/26/k8s-svc1/" class="has-link-black-ter is-size-6">k8s_svc笔记</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1093,7 +1153,7 @@
                     <span class="level-item">七月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1255,7 +1315,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">3</span>
+                        <span class="tag is-grey">4</span>
                     </a>
                 </div>
                 
