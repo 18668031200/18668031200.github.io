@@ -169,6 +169,71 @@
 
            
  <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2022-07-21T13:03:58.000Z">2022-07-21</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 289 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2022/07/21/hostPort-nodePort/">pod绑定hostPort和nodePort服务区别</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="pod绑定hostPort和nodePort服务区别"><a href="#pod绑定hostPort和nodePort服务区别" class="headerlink" title="pod绑定hostPort和nodePort服务区别"></a>pod绑定hostPort和nodePort服务区别</h1><pre><code>pod通过配置spec.containers.ports属性来将pod的containerPort和pod所在的宿主节点hostPort节点绑定.
+对于使用了hostPort的节点，到达宿主节点的端口的连接会被直接转发到pod对应的端口上；然而对于绑定了nodePort服务的应用，k8s会随机转发到不同节点的pod。
+另外一个区别，对于使用hostPort的pod，仅有运行了这类pod的节点会绑定对应的端口，而nodePort服务会在所有节点上绑定端口，即使这个节点上没运行对应的pod。
+同时如果pod绑定了宿主机上的一个特定端口，每个节点就只能调度一个这样的pod实例，因为2个进程不能绑定同一个端口，如果3个节点上要调度4个这样的pod，那么会有1个pod永远处于pending状态。
+hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2个副本不会调度到同一节点上。
+</code></pre>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2022-07-17T06:43:03.000Z">2022-07-17</time>
                 
                 
@@ -465,7 +530,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        26
+                        27
                     </p>
                 </div>
             </div>
@@ -628,7 +693,7 @@
                 <span class="level-item">k8s</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/linux/">
@@ -674,7 +739,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 16.67px;">k8s</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mysql/" style="font-size: 13.33px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 20px;">k8s</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -688,6 +753,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2022/07/21/hostPort-nodePort/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="pod绑定hostPort和nodePort服务区别">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-21T13:03:58.000Z">2022-07-21</time></div>
+                    <a href="/2022/07/21/hostPort-nodePort/" class="has-link-black-ter is-size-6">pod绑定hostPort和nodePort服务区别</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -765,25 +849,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2022/04/27/docker_cmd/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Dockerfile ENTRYPOINT和CMD">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-27T14:47:53.000Z">2022-04-27</time></div>
-                    <a href="/2022/04/27/docker_cmd/" class="has-link-black-ter is-size-6">Dockerfile ENTRYPOINT和CMD</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/docker/">docker</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -802,7 +867,7 @@
                     <span class="level-item">七月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -964,7 +1029,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">4</span>
+                        <span class="tag is-grey">5</span>
                     </a>
                 </div>
                 
@@ -1042,6 +1107,25 @@
         
         <article class="media">
             
+            <a href="/2022/07/21/hostPort-nodePort/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="pod绑定hostPort和nodePort服务区别">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-21T13:03:58.000Z">2022-07-21</time></div>
+                    <a href="/2022/07/21/hostPort-nodePort/" class="has-link-black-ter is-size-6">pod绑定hostPort和nodePort服务区别</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2022/07/17/k8s-deployment-update/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="k8s deployment 不更新的例子">
@@ -1116,25 +1200,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2022/04/27/docker_cmd/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Dockerfile ENTRYPOINT和CMD">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-04-27T14:47:53.000Z">2022-04-27</time></div>
-                    <a href="/2022/04/27/docker_cmd/" class="has-link-black-ter is-size-6">Dockerfile ENTRYPOINT和CMD</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/docker/">docker</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1153,7 +1218,7 @@
                     <span class="level-item">七月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -1315,7 +1380,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">4</span>
+                        <span class="tag is-grey">5</span>
                     </a>
                 </div>
                 
