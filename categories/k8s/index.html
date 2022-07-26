@@ -170,6 +170,83 @@
 
            
  <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2022-07-26T15:30:19.000Z">2022-07-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 742 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2022/07/26/pod-delete/">pod删除时的动作</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="Pod删除时的动作"><a href="#Pod删除时的动作" class="headerlink" title="Pod删除时的动作"></a>Pod删除时的动作</h3><pre><code>当API服务器接受到删除pod的请求后，它首先会修改etcd中的状态并且把删除事件通知给观察者，其中2个就是kubelet和端点控制器，2个事件是并行的。
+kubelet。kubelet接收到pod终止的通知时,API服务器会给pod设置一个deletionTimestamp，拥有deletionTimestamp的pod就开始停止了。当kubelet发现这个deletionTimestamp，它会按照pod设置的Termination Grace Period时间段内实现优雅停止。这个值可以用过spec.terminationGracePeriodPeriods来设置。
+我们可以通过命令行设置--grace-period=0 --force来强制API服务器删除pod，但是当用这个命令删除StatefulSet的pod的时候,控制器不会等待被删的pod中的容器完成关闭就会创建一个新的pod，这样就会导致同一时间可能有2个相同的pod在同一时间运行。
+kubelet会按顺序执行以下事件
+1.执行pre-stop的勾子命令，等待它执行完毕
+2.向容器主进程发送sigterm信号（这里要注意如果容器是通过一个shell进程执行，然后在shell进程内部执行应用程序，这个信号会被shell吞掉，所以可以在Dockerfile中使用ENTRYPOINT或CMD的exec方式，即ENTRYPOINT [&quot;/java&quot;] 而不是ENTRYPOINT /java）
+3.等待容器优雅关闭或者等待terminationGracePeriodPeriods时间超时
+4.如果容器主进程没有优雅关闭，使用sigkill信号强制终止进程
+当容器关闭后，连接到应用的客户端会 connection refuse。
+
+端点控制器。端点控制器运行在控制面的controller manager中，当它接受到pod删除的事件的时候，它会把所有pod所在的service中移除这个pod的服务端点，它通过向API服务器发送REST请求修改endpoint API对象，API服务器会通知kube-proxy修改自己节点上的iptables规则，移除iptables规则对已连接的客户端不产生影响，这些客户端还可以通过这些连接发生请求。
+因为这2个事件是同时发生，最有可能的是关闭pod的时间比修改iptables规则所消耗的时间少一点，这会导致pod已经关闭但是还是会有一些请求连接到pod上去，并导致连接拒绝错误。
+我们可以延长pod关闭的时间或者pre-stop勾子让程序睡几秒钟等待iptables规则修改，但这会导致pod关闭会很慢。
+</code></pre><h6 id="关闭有状态的pod"><a href="#关闭有状态的pod" class="headerlink" title="关闭有状态的pod"></a>关闭有状态的pod</h6><pre><code>关闭有状态的pod有时候无法保证一些数据在pod关闭前同步到其他节点上去。解决办法是使用一些cronJob来周期性的处理孤立数据。
+
+
+来源&lt;&lt;kubernetes in action&gt;&gt;
+</code></pre>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2022-07-21T13:03:58.000Z">2022-07-21</time>
                 
                 <div class="level-item">
@@ -471,7 +548,7 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        27
+                        28
                     </p>
                 </div>
             </div>
@@ -634,7 +711,7 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
                 <span class="level-item">k8s</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/linux/">
@@ -680,7 +757,7 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 20px;">k8s</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 20px;">k8s</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mysql/" style="font-size: 13.33px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -694,6 +771,25 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2022/07/26/pod-delete/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="pod删除时的动作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-26T15:30:19.000Z">2022-07-26</time></div>
+                    <a href="/2022/07/26/pod-delete/" class="has-link-black-ter is-size-6">pod删除时的动作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -771,25 +867,6 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2022/05/07/spring_retry/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="spring_retry">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-07T12:18:54.000Z">2022-05-07</time></div>
-                    <a href="/2022/05/07/spring_retry/" class="has-link-black-ter is-size-6">spring_retry</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -808,7 +885,7 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
                     <span class="level-item">七月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -970,7 +1047,7 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">5</span>
+                        <span class="tag is-grey">6</span>
                     </a>
                 </div>
                 
@@ -1048,6 +1125,25 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
         
         <article class="media">
             
+            <a href="/2022/07/26/pod-delete/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="pod删除时的动作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-26T15:30:19.000Z">2022-07-26</time></div>
+                    <a href="/2022/07/26/pod-delete/" class="has-link-black-ter is-size-6">pod删除时的动作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2022/07/21/hostPort-nodePort/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="pod绑定hostPort和nodePort服务区别">
@@ -1122,25 +1218,6 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2022/05/07/spring_retry/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="spring_retry">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-07T12:18:54.000Z">2022-05-07</time></div>
-                    <a href="/2022/05/07/spring_retry/" class="has-link-black-ter is-size-6">spring_retry</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1159,7 +1236,7 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
                     <span class="level-item">七月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -1321,7 +1398,7 @@ hostPort最初使用于DeamonSet部署的系统服务，也用来保障pod的2�
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">5</span>
+                        <span class="tag is-grey">6</span>
                     </a>
                 </div>
                 

@@ -159,6 +159,74 @@
 
            
  <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-09-06T12:43:13.000Z">2021-09-06</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 715 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2021/09/06/serialize-lambda/">SerializeLambda</a>
+            
+        </h1>
+        <div class="content">
+            <p>在mybatis plus 查询中想根据某个字段排序,但是字段是字符串类型,百度了下mysql提供了几种方法。</p>
+<p>比如根据code进行排序<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#1.</span><br><span class="line">ORDER BY</span><br><span class="line">	`code` * 1 ASC</span><br><span class="line">#2.</span><br><span class="line">ORDER BY</span><br><span class="line">	`code` + 0 ASC</span><br><span class="line">#1.</span><br><span class="line">ORDER BY</span><br><span class="line">	CAST(`code` AS DECIMAL) ASC</span><br></pre></td></tr></table></figure></p>
+<p>然而项目中代码使用了LambdaQueryWrapper 里面指定了使用lambda来指定排序的列，并不能根据想要的特殊情况进行排序。</p>
+<p>本来想着entity里加一个数据库不存在的字段 然后设置这个字段的名称为 code+0 但是mybatis plus 不会把@Tablefiled<br>中exist为false的放进去</p>
+<p>AbstractLambdaWrapper 获取不到对应的列信息<br>COLUMN_CACHE_MAP 是根据TableInfo 创建的.在initTableFields时会过滤<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">static</span> TableInfo <span class="hljs-title">initTableInfo</span><span class="hljs-params">(Configuration configuration, String currentNamespace, Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">/* 没有获取到缓存信息,则初始化 */</span></span><br><span class="line">        TableInfo tableInfo = <span class="hljs-keyword">new</span> TableInfo(clazz);</span><br><span class="line">        tableInfo.setCurrentNamespace(currentNamespace);</span><br><span class="line">        tableInfo.setConfiguration(configuration);</span><br><span class="line">        GlobalConfig globalConfig = GlobalConfigUtils.getGlobalConfig(configuration);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 初始化表名相关 */</span></span><br><span class="line">        <span class="hljs-keyword">final</span> String[] excludeProperty = initTableName(clazz, globalConfig, tableInfo);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; excludePropertyList = excludeProperty != <span class="hljs-keyword">null</span> &amp;&amp; excludeProperty.length &gt; <span class="hljs-number">0</span> ? Arrays.asList(excludeProperty) : Collections.emptyList();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 初始化字段相关 */</span></span><br><span class="line">        initTableFields(clazz, globalConfig, tableInfo, excludePropertyList);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 自动构建 resultMap */</span></span><br><span class="line">        tableInfo.initResultMapIfNeed();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 缓存 lambda */</span></span><br><span class="line">        LambdaUtils.installCache(tableInfo);</span><br><span class="line">        <span class="hljs-keyword">return</span> tableInfo;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Field&gt; <span class="hljs-title">getAllFields</span><span class="hljs-params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        List&lt;Field&gt; fieldList = ReflectionKit.getFieldList(ClassUtils.getUserClass(clazz));</span><br><span class="line">        <span class="hljs-keyword">return</span> fieldList.stream()</span><br><span class="line">            .filter(field -&gt; &#123;</span><br><span class="line">                <span class="hljs-comment">/* 过滤注解非表字段属性 */</span></span><br><span class="line">                TableField tableField = field.getAnnotation(TableField.class);</span><br><span class="line">                <span class="hljs-keyword">return</span> (tableField == <span class="hljs-keyword">null</span> || tableField.exist());</span><br><span class="line">            &#125;).collect(toList());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>查看了下如何获取列名的源码</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">SerializedLambda <span class="hljs-title">resolve</span><span class="hljs-params">(SFunction&lt;T, ?&gt; func)</span> </span>&#123;</span><br><span class="line">Class&lt;?&gt; clazz = func.getClass();</span><br><span class="line">String name = clazz.getName();</span><br><span class="line"><span class="hljs-comment">// 使用WeakReference缓存</span></span><br><span class="line"><span class="hljs-keyword">return</span> Optional.ofNullable(FUNC_CACHE.get(name))</span><br><span class="line">.map(WeakReference::get)</span><br><span class="line">.orElseGet(() -&gt; &#123;</span><br><span class="line">    <span class="hljs-comment">// 这里根据lambda 获取SerializedLambda</span></span><br><span class="line">    SerializedLambda lambda = SerializedLambda.resolve(func);</span><br><span class="line">FUNC_CACHE.put(name, <span class="hljs-keyword">new</span> WeakReference&lt;&gt;(lambda));</span><br><span class="line"><span class="hljs-keyword">return</span> lambda;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">    * 通过反序列化转换 lambda 表达式，该方法只能序列化 lambda 表达式，不能序列化接口实现或者正常非 lambda 写法的对象</span></span><br><span class="line"><span class="hljs-comment">    *</span></span><br><span class="line"><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> lambda lambda对象</span></span><br><span class="line"><span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 返回解析后的 SerializedLambda</span></span><br><span class="line"><span class="hljs-comment">    */</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> SerializedLambda <span class="hljs-title">resolve</span><span class="hljs-params">(SFunction&lt;?, ?&gt; lambda)</span> </span>&#123;</span><br><span class="line">       <span class="hljs-keyword">if</span> (!lambda.getClass().isSynthetic()) &#123;</span><br><span class="line">           <span class="hljs-keyword">throw</span> ExceptionUtils.mpe(<span class="hljs-string">"该方法仅能传入 lambda 表达式产生的合成类"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="hljs-comment">// 使用字节码进行读取</span></span><br><span class="line">       <span class="hljs-keyword">try</span> (ObjectInputStream objIn = <span class="hljs-keyword">new</span> ObjectInputStream(<span class="hljs-keyword">new</span> ByteArrayInputStream(SerializationUtils.serialize(lambda))) &#123;</span><br><span class="line">           <span class="hljs-meta">@Override</span></span><br><span class="line">           <span class="hljs-keyword">protected</span> Class&lt;?&gt; resolveClass(ObjectStreamClass objectStreamClass) <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException &#123;</span><br><span class="line">               Class&lt;?&gt; clazz;</span><br><span class="line">               <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                   clazz = ClassUtils.toClassConfident(objectStreamClass.getName());</span><br><span class="line">               &#125; <span class="hljs-keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                   clazz = <span class="hljs-keyword">super</span>.resolveClass(objectStreamClass);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="hljs-keyword">return</span> clazz == java.lang.invoke.SerializedLambda.class ? SerializedLambda.class : clazz;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;) &#123;</span><br><span class="line">           <span class="hljs-keyword">return</span> (SerializedLambda) objIn.readObject();</span><br><span class="line">       &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException | IOException e) &#123;</span><br><span class="line">           <span class="hljs-keyword">throw</span> ExceptionUtils.mpe(<span class="hljs-string">"This is impossible to happen"</span>, e);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 获取 SerializedLambda 对应的列信息，从 lambda 表达式中推测实体类</span></span><br><span class="line"><span class="hljs-comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="hljs-comment">     * 如果获取不到列信息，那么本次条件组装将会失败</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> lambda     lambda 表达式</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> onlyColumn 如果是，结果: "name", 如果否： "name" as "name"</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 列</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> com.baomidou.mybatisplus.core.exceptions.MybatisPlusException 获取不到列信息时抛出异常</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@see</span> SerializedLambda#getImplClass()</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@see</span> SerializedLambda#getImplMethodName()</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getColumn</span><span class="hljs-params">(SerializedLambda lambda, <span class="hljs-keyword">boolean</span> onlyColumn)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 获取类名</span></span><br><span class="line">        Class&lt;?&gt; aClass = lambda.getInstantiatedType();</span><br><span class="line">        <span class="hljs-comment">// 初始化 主要是缓存一下列信息</span></span><br><span class="line">        tryInitCache(aClass);</span><br><span class="line">        String fieldName = PropertyNamer.methodToProperty(lambda.getImplMethodName());</span><br><span class="line">        ColumnCache columnCache = getColumnCache(fieldName, aClass);</span><br><span class="line">        <span class="hljs-keyword">return</span> onlyColumn ? columnCache.getColumn() : columnCache.getColumnSelect();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="SerializedLambda"><a href="#SerializedLambda" class="headerlink" title="SerializedLambda"></a>SerializedLambda</h1><p>这里面发现能把lambda表达式进行序列化,然后获取相关lambda的信息.</p>
+<p><img src="/images/serialized_lambda.jpg" alt="SerializedLambda.java"></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+<!-- 原创转载开始 -->
+    
+    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
+    
+    <!-- 原创转载结束 -->
+    
+    <!-- 作者信息开始 -->
+    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
+        <i class="fa fa-user"></i> ygdxd
+    </span>
+    <!-- 作者信息结束 -->
+    
+    
+
+           
+ <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2021-08-25T13:29:44.000Z">2021-08-25</time>
                 
                 <div class="level-item">
@@ -832,73 +900,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #f0ad4e;line-height:1;color:#fff;font-size: 12px;margin-top:5px">转载</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-05-14T15:43:57.000Z">2021-05-14</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 473 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/05/14/ContextStartedEvent/">monotonous</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Spring-Event-关于ContextStartedEvent-使用"><a href="#Spring-Event-关于ContextStartedEvent-使用" class="headerlink" title="Spring Event 关于ContextStartedEvent 使用"></a>Spring Event 关于ContextStartedEvent 使用</h1><h2 id="问题"><a href="#问题" class="headerlink" title=" 问题"></a> 问题</h2><p> 在spring boot 中定义event listener 实现ContextStartedEventListener<contextstartedevent> 监听上下文启动实现.发现项目启动后项目并不会打印出我们所需要的日志</contextstartedevent></p>
-<figure class="highlight java hljs"><figcaption><span>ContextStartedEventListener.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ContextStartedEventListener</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ApplicationListener</span>&lt;<span class="hljs-title">ContextStartedEvent</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger log = LoggerFactory.getLogger(ContextStartedEventListener.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onApplicationEvent</span><span class="hljs-params">(ContextStartedEvent event)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="hljs-string">"ContextStartedEventListener : 项目启动"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p> 打开spring 源码发现在AbstractApplicationContext#start() 方法中调用了此方法。<br> ContextStoppedEvent同理也是stop方法。</p>
- <figure class="highlight java hljs"><figcaption><span>AbstractApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().start();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStartedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stop</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().stop();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStoppedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<pre><code>定位到调用该方法的地方为DefaultLifecycleProcessor#start(). 很明显是在生命周期的处理器中调用。再次定位调用这个start方法的来源。
-</code></pre> <figure class="highlight java hljs"><figcaption><span>AbstractApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> </span><br><span class="line"> <span class="hljs-meta">@Override</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">	getLifecycleProcessor().start();</span><br><span class="line">	publishEvent(<span class="hljs-keyword">new</span> ContextStartedEvent(<span class="hljs-keyword">this</span>));</span><br><span class="line">&#125;	 </span><br><span class="line">	</span><br></pre></td></tr></table></figure>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我们一般启动spring boot 是使用AbstractApplicationContext#refresh方法而不是start()方法，所以这里只能使用abstractApplicationContext 的start方法启动上下文是才会产生这个事件。</p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>在DefaultLifecycleProcessor中使用spring boot 启动使用的是</p>
-<figure class="highlight java hljs"><figcaption><span>DefaultLifecycleProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Override</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onRefresh</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">		startBeans(<span class="hljs-keyword">true</span>);</span><br><span class="line">		<span class="hljs-keyword">this</span>.running = <span class="hljs-keyword">true</span>;</span><br><span class="line">	&#125; 	</span><br></pre></td></tr></table></figure>
-<p>他和刚刚的abstrctApplicationContext调用地start方法只有一个参数autoStartupOnly的区别。<br>这个参数为false时即我们abstrctApplicationContext.start时可以在我们的lifecycle bean 上使用注解@Phase 定义生命周期的阶段，从而自定义lifecycle bean 的start顺序。</p>
-<p>这个注解还和timeoutPerShutdownPhase这个产数有关，timeoutPerShutdownPhase定义了lifecycle bean stop的超时时间<br><figure class="highlight java hljs"><figcaption><span>DefaultLifecycleProcessor.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stop</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">			<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.members.isEmpty()) &#123;</span><br><span class="line">				<span class="hljs-keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">this</span>.members.sort(Collections.reverseOrder());</span><br><span class="line">			CountDownLatch latch = <span class="hljs-keyword">new</span> CountDownLatch(<span class="hljs-keyword">this</span>.smartMemberCount);</span><br><span class="line">			Set&lt;String&gt; countDownBeanNames = Collections.synchronizedSet(<span class="hljs-keyword">new</span> LinkedHashSet&lt;&gt;());</span><br><span class="line">			Set&lt;String&gt; lifecycleBeanNames = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(<span class="hljs-keyword">this</span>.lifecycleBeans.keySet());</span><br><span class="line">			<span class="hljs-keyword">for</span> (LifecycleGroupMember member : <span class="hljs-keyword">this</span>.members) &#123;</span><br><span class="line">				<span class="hljs-keyword">if</span> (lifecycleBeanNames.contains(member.name)) &#123;</span><br><span class="line">					doStop(<span class="hljs-keyword">this</span>.lifecycleBeans, member.name, latch, countDownBeanNames);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (member.bean <span class="hljs-keyword">instanceof</span> SmartLifecycle) &#123;</span><br><span class="line">					<span class="hljs-comment">// Already removed: must have been a dependent bean from another phase</span></span><br><span class="line">					latch.countDown();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">try</span> &#123;</span><br><span class="line">				latch.await(<span class="hljs-keyword">this</span>.timeout, TimeUnit.MILLISECONDS);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">				Thread.currentThread().interrupt();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">   」</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -963,7 +964,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        27
+                        28
                     </p>
                 </div>
             </div>
@@ -1126,7 +1127,7 @@
                 <span class="level-item">k8s</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/linux/">
@@ -1172,7 +1173,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 20px;">k8s</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+        <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/fastdfs/" style="font-size: 10px;">fastdfs</a> <a href="/tags/icarus/" style="font-size: 10px;">icarus</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/k8s/" style="font-size: 20px;">k8s</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mysql/" style="font-size: 13.33px;">mysql</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/rocketmq/" style="font-size: 10px;">rocketmq</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring security</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
 </div>
 
@@ -1186,6 +1187,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2022/07/26/pod-delete/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="pod删除时的动作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-26T15:30:19.000Z">2022-07-26</time></div>
+                    <a href="/2022/07/26/pod-delete/" class="has-link-black-ter is-size-6">pod删除时的动作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1263,25 +1283,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2022/05/07/spring_retry/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="spring_retry">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-07T12:18:54.000Z">2022-05-07</time></div>
-                    <a href="/2022/05/07/spring_retry/" class="has-link-black-ter is-size-6">spring_retry</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1300,7 +1301,7 @@
                     <span class="level-item">七月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -1462,7 +1463,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">5</span>
+                        <span class="tag is-grey">6</span>
                     </a>
                 </div>
                 
@@ -1540,6 +1541,25 @@
         
         <article class="media">
             
+            <a href="/2022/07/26/pod-delete/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="pod删除时的动作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-07-26T15:30:19.000Z">2022-07-26</time></div>
+                    <a href="/2022/07/26/pod-delete/" class="has-link-black-ter is-size-6">pod删除时的动作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2022/07/21/hostPort-nodePort/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="pod绑定hostPort和nodePort服务区别">
@@ -1614,25 +1634,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2022/05/07/spring_retry/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="spring_retry">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2022-05-07T12:18:54.000Z">2022-05-07</time></div>
-                    <a href="/2022/05/07/spring_retry/" class="has-link-black-ter is-size-6">spring_retry</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/spring/">spring</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1651,7 +1652,7 @@
                     <span class="level-item">七月 2022</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -1813,7 +1814,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/k8s/">
                         <span class="tag">k8s</span>
-                        <span class="tag is-grey">5</span>
+                        <span class="tag is-grey">6</span>
                     </a>
                 </div>
                 

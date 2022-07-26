@@ -2,22 +2,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>标签: java - ygdxd blog!</title>
+<title>pod删除时的动作 - ygdxd blog!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="java and go">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ygdxd blog!">
-<meta property="og:url" content="http://github.com/18668031200.github.io/tags/java/index.html">
+    <meta name="description" content="Pod删除时的动作当API服务器接受到删除pod的请求后，它首先会修改etcd中的状态并且把删除事件通知给观察者，其中2个就是kubelet和端点控制器，2个事件是并行的。 kubelet。kubelet接收到pod终止的通知时,API服务器会给pod设置一个deletionTimestamp，拥有deletionTimestamp的pod就开始停止了。当kubelet发现这个deletionTi">
+<meta name="keywords" content="k8s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pod删除时的动作">
+<meta property="og:url" content="http://github.com/18668031200.github.io/2022/07/26/pod-delete/index.html">
 <meta property="og:site_name" content="ygdxd blog!">
-<meta property="og:description" content="java and go">
+<meta property="og:description" content="Pod删除时的动作当API服务器接受到删除pod的请求后，它首先会修改etcd中的状态并且把删除事件通知给观察者，其中2个就是kubelet和端点控制器，2个事件是并行的。 kubelet。kubelet接收到pod终止的通知时,API服务器会给pod设置一个deletionTimestamp，拥有deletionTimestamp的pod就开始停止了。当kubelet发现这个deletionTi">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://github.com/images/og_image.png">
+<meta property="og:updated_time" content="2022-07-26T15:31:11.638Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ygdxd blog!">
-<meta name="twitter:description" content="java and go">
+<meta name="twitter:title" content="pod删除时的动作">
+<meta name="twitter:description" content="Pod删除时的动作当API服务器接受到删除pod的请求后，它首先会修改etcd中的状态并且把删除事件通知给观察者，其中2个就是kubelet和端点控制器，2个事件是并行的。 kubelet。kubelet接收到pod终止的通知时,API服务器会给pod设置一个deletionTimestamp，拥有deletionTimestamp的pod就开始停止了。当kubelet发现这个deletionTi">
 <meta name="twitter:image" content="http://github.com/images/og_image.png">
 
 
@@ -92,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                <img src="/images/logo.svg" alt="pod删除时的动作" height="28">
             
             </a>
         </div>
@@ -138,17 +140,6 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">java</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-content article ">
         
@@ -166,88 +157,22 @@
     <!-- 作者信息结束 -->
     
     
+        <i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv">*</span>次
+                        
 
            
  <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-09-06T12:43:13.000Z">2021-09-06</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 715 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2021/09/06/serialize-lambda/">SerializeLambda</a>
-            
-        </h1>
-        <div class="content">
-            <p>在mybatis plus 查询中想根据某个字段排序,但是字段是字符串类型,百度了下mysql提供了几种方法。</p>
-<p>比如根据code进行排序<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#1.</span><br><span class="line">ORDER BY</span><br><span class="line">	`code` * 1 ASC</span><br><span class="line">#2.</span><br><span class="line">ORDER BY</span><br><span class="line">	`code` + 0 ASC</span><br><span class="line">#1.</span><br><span class="line">ORDER BY</span><br><span class="line">	CAST(`code` AS DECIMAL) ASC</span><br></pre></td></tr></table></figure></p>
-<p>然而项目中代码使用了LambdaQueryWrapper 里面指定了使用lambda来指定排序的列，并不能根据想要的特殊情况进行排序。</p>
-<p>本来想着entity里加一个数据库不存在的字段 然后设置这个字段的名称为 code+0 但是mybatis plus 不会把@Tablefiled<br>中exist为false的放进去</p>
-<p>AbstractLambdaWrapper 获取不到对应的列信息<br>COLUMN_CACHE_MAP 是根据TableInfo 创建的.在initTableFields时会过滤<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">static</span> TableInfo <span class="hljs-title">initTableInfo</span><span class="hljs-params">(Configuration configuration, String currentNamespace, Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">/* 没有获取到缓存信息,则初始化 */</span></span><br><span class="line">        TableInfo tableInfo = <span class="hljs-keyword">new</span> TableInfo(clazz);</span><br><span class="line">        tableInfo.setCurrentNamespace(currentNamespace);</span><br><span class="line">        tableInfo.setConfiguration(configuration);</span><br><span class="line">        GlobalConfig globalConfig = GlobalConfigUtils.getGlobalConfig(configuration);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 初始化表名相关 */</span></span><br><span class="line">        <span class="hljs-keyword">final</span> String[] excludeProperty = initTableName(clazz, globalConfig, tableInfo);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; excludePropertyList = excludeProperty != <span class="hljs-keyword">null</span> &amp;&amp; excludeProperty.length &gt; <span class="hljs-number">0</span> ? Arrays.asList(excludeProperty) : Collections.emptyList();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 初始化字段相关 */</span></span><br><span class="line">        initTableFields(clazz, globalConfig, tableInfo, excludePropertyList);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 自动构建 resultMap */</span></span><br><span class="line">        tableInfo.initResultMapIfNeed();</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">/* 缓存 lambda */</span></span><br><span class="line">        LambdaUtils.installCache(tableInfo);</span><br><span class="line">        <span class="hljs-keyword">return</span> tableInfo;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Field&gt; <span class="hljs-title">getAllFields</span><span class="hljs-params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        List&lt;Field&gt; fieldList = ReflectionKit.getFieldList(ClassUtils.getUserClass(clazz));</span><br><span class="line">        <span class="hljs-keyword">return</span> fieldList.stream()</span><br><span class="line">            .filter(field -&gt; &#123;</span><br><span class="line">                <span class="hljs-comment">/* 过滤注解非表字段属性 */</span></span><br><span class="line">                TableField tableField = field.getAnnotation(TableField.class);</span><br><span class="line">                <span class="hljs-keyword">return</span> (tableField == <span class="hljs-keyword">null</span> || tableField.exist());</span><br><span class="line">            &#125;).collect(toList());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>查看了下如何获取列名的源码</p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">SerializedLambda <span class="hljs-title">resolve</span><span class="hljs-params">(SFunction&lt;T, ?&gt; func)</span> </span>&#123;</span><br><span class="line">Class&lt;?&gt; clazz = func.getClass();</span><br><span class="line">String name = clazz.getName();</span><br><span class="line"><span class="hljs-comment">// 使用WeakReference缓存</span></span><br><span class="line"><span class="hljs-keyword">return</span> Optional.ofNullable(FUNC_CACHE.get(name))</span><br><span class="line">.map(WeakReference::get)</span><br><span class="line">.orElseGet(() -&gt; &#123;</span><br><span class="line">    <span class="hljs-comment">// 这里根据lambda 获取SerializedLambda</span></span><br><span class="line">    SerializedLambda lambda = SerializedLambda.resolve(func);</span><br><span class="line">FUNC_CACHE.put(name, <span class="hljs-keyword">new</span> WeakReference&lt;&gt;(lambda));</span><br><span class="line"><span class="hljs-keyword">return</span> lambda;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">    * 通过反序列化转换 lambda 表达式，该方法只能序列化 lambda 表达式，不能序列化接口实现或者正常非 lambda 写法的对象</span></span><br><span class="line"><span class="hljs-comment">    *</span></span><br><span class="line"><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> lambda lambda对象</span></span><br><span class="line"><span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 返回解析后的 SerializedLambda</span></span><br><span class="line"><span class="hljs-comment">    */</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> SerializedLambda <span class="hljs-title">resolve</span><span class="hljs-params">(SFunction&lt;?, ?&gt; lambda)</span> </span>&#123;</span><br><span class="line">       <span class="hljs-keyword">if</span> (!lambda.getClass().isSynthetic()) &#123;</span><br><span class="line">           <span class="hljs-keyword">throw</span> ExceptionUtils.mpe(<span class="hljs-string">"该方法仅能传入 lambda 表达式产生的合成类"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="hljs-comment">// 使用字节码进行读取</span></span><br><span class="line">       <span class="hljs-keyword">try</span> (ObjectInputStream objIn = <span class="hljs-keyword">new</span> ObjectInputStream(<span class="hljs-keyword">new</span> ByteArrayInputStream(SerializationUtils.serialize(lambda))) &#123;</span><br><span class="line">           <span class="hljs-meta">@Override</span></span><br><span class="line">           <span class="hljs-keyword">protected</span> Class&lt;?&gt; resolveClass(ObjectStreamClass objectStreamClass) <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException &#123;</span><br><span class="line">               Class&lt;?&gt; clazz;</span><br><span class="line">               <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">                   clazz = ClassUtils.toClassConfident(objectStreamClass.getName());</span><br><span class="line">               &#125; <span class="hljs-keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                   clazz = <span class="hljs-keyword">super</span>.resolveClass(objectStreamClass);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="hljs-keyword">return</span> clazz == java.lang.invoke.SerializedLambda.class ? SerializedLambda.class : clazz;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;) &#123;</span><br><span class="line">           <span class="hljs-keyword">return</span> (SerializedLambda) objIn.readObject();</span><br><span class="line">       &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException | IOException e) &#123;</span><br><span class="line">           <span class="hljs-keyword">throw</span> ExceptionUtils.mpe(<span class="hljs-string">"This is impossible to happen"</span>, e);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 获取 SerializedLambda 对应的列信息，从 lambda 表达式中推测实体类</span></span><br><span class="line"><span class="hljs-comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="hljs-comment">     * 如果获取不到列信息，那么本次条件组装将会失败</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> lambda     lambda 表达式</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> onlyColumn 如果是，结果: "name", 如果否： "name" as "name"</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 列</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> com.baomidou.mybatisplus.core.exceptions.MybatisPlusException 获取不到列信息时抛出异常</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@see</span> SerializedLambda#getImplClass()</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@see</span> SerializedLambda#getImplMethodName()</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getColumn</span><span class="hljs-params">(SerializedLambda lambda, <span class="hljs-keyword">boolean</span> onlyColumn)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 获取类名</span></span><br><span class="line">        Class&lt;?&gt; aClass = lambda.getInstantiatedType();</span><br><span class="line">        <span class="hljs-comment">// 初始化 主要是缓存一下列信息</span></span><br><span class="line">        tryInitCache(aClass);</span><br><span class="line">        String fieldName = PropertyNamer.methodToProperty(lambda.getImplMethodName());</span><br><span class="line">        ColumnCache columnCache = getColumnCache(fieldName, aClass);</span><br><span class="line">        <span class="hljs-keyword">return</span> onlyColumn ? columnCache.getColumn() : columnCache.getColumnSelect();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h1 id="SerializedLambda"><a href="#SerializedLambda" class="headerlink" title="SerializedLambda"></a>SerializedLambda</h1><p>这里面发现能把lambda表达式进行序列化,然后获取相关lambda的信息.</p>
-<p><img src="/images/serialized_lambda.jpg" alt="SerializedLambda.java"></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-<!-- 原创转载开始 -->
-    
-    <span style="float: left;padding: 3px 5px 3px 5px;margin-right: 15px;border-radius: .25em;background-color: #5cb85c;line-height:1;color:#fff;font-size: 12px;margin-top:5px">原创</span>
-    
-    <!-- 原创转载结束 -->
-    
-    <!-- 作者信息开始 -->
-    <span padding:3px 5px 3px 5px;margin-right:15px;line-height:1;color:#fff;font-size: 12px;margin-top:5px>
-        <i class="fa fa-user"></i> ygdxd
-    </span>
-    <!-- 作者信息结束 -->
-    
-    
-
-           
- <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-08-25T13:29:44.000Z">2021-08-25</time>
+                <time class="level-item has-text-grey" datetime="2022-07-26T15:30:19.000Z">2022-07-26</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java/">java</a>
+                <a class="has-link-grey -link" href="/categories/k8s/">k8s</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 441 个字)
+                    5 分钟 读完 (大约 742 个字)
                 </span>
                 
                 
@@ -256,16 +181,37 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2021/08/25/ratelimiter/">java 自定义限流器</a>
+                pod删除时的动作
             
         </h1>
         <div class="content">
-            <p>Java 自定义限流器</p>
-<h2 id="1-使用AtomicInetger-cas实现"><a href="#1-使用AtomicInetger-cas实现" class="headerlink" title="1.使用AtomicInetger cas实现"></a>1.使用AtomicInetger cas实现</h2><figure class="highlight java hljs"><figcaption><span>Bucket.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bucket</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> AtomicInteger count;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Bucket</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">        count = <span class="hljs-keyword">new</span> AtomicInteger(<span class="hljs-number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> AtomicInteger <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCount</span><span class="hljs-params">(AtomicInteger count)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight java hljs"><figcaption><span>RateLimiterAop.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Aspect</span></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RateLimiterAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(RateLimiterAop.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, Bucket&gt; BUCKETS = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object mux = <span class="hljs-keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> ScheduledExecutorService executorService = <span class="hljs-keyword">new</span> ScheduledThreadPoolExecutor(<span class="hljs-number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">static</span> &#123;</span><br><span class="line">        executorService.scheduleAtFixedRate(() -&gt; &#123;</span><br><span class="line">            BUCKETS.values().stream().forEach(b -&gt; &#123;</span><br><span class="line">                <span class="hljs-keyword">if</span> (b.getCount().get() &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">                    b.getCount().decrementAndGet();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Around</span>(<span class="hljs-string">"execution(* com.ygdxd.ratelimiter.*.*(..))"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">limit</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="hljs-comment">//获取访问目标方法</span></span><br><span class="line">        MethodSignature methodSignature = (MethodSignature)joinPoint.getSignature();</span><br><span class="line">        Method targetMethod = methodSignature.getMethod();</span><br><span class="line">        String apiName = targetMethod.getDeclaringClass().getName() + <span class="hljs-string">"."</span> + targetMethod.getName();</span><br><span class="line">        Bucket bucket = BUCKETS.get(apiName);</span><br><span class="line">        <span class="hljs-keyword">if</span> (bucket == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">synchronized</span> (mux) &#123;</span><br><span class="line">                BUCKETS.putIfAbsent(apiName, <span class="hljs-keyword">new</span> Bucket(apiName));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-comment">// 重试太多次 直接失败 也可以加锁</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (!addCount(bucket, <span class="hljs-number">0</span>)) &#123;</span><br><span class="line"><span class="hljs-comment">//                throw new RuntimeException("超出限制次数");</span></span><br><span class="line">                LOGGER.error(<span class="hljs-string">"失败"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> joinPoint.proceed();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">addCount</span><span class="hljs-params">(Bucket bucket, <span class="hljs-keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">3</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">int</span> count = bucket.getCount().get();</span><br><span class="line">        <span class="hljs-keyword">if</span> (count &lt;= <span class="hljs-number">10</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (!bucket.getCount().compareAndSet(count, count + <span class="hljs-number">1</span>))&#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> addCount(bucket, i + <span class="hljs-number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-使用Semapphore实现-接口只能有几个线程，并不是每秒几个request"><a href="#2-使用Semapphore实现-接口只能有几个线程，并不是每秒几个request" class="headerlink" title="2.使用Semapphore实现(接口只能有几个线程，并不是每秒几个request)"></a>2.使用Semapphore实现(接口只能有几个线程，并不是每秒几个request)</h2><figure class="highlight java hljs"><figcaption><span>SemaphoreRateLimiterAop.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@Aspect</span></span><br><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SemaphoreRateLimiterAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(SemaphoreRateLimiterAop.class);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;String, SemaphoreBucket&gt; BUCKETS = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object mux = <span class="hljs-keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Around</span>(<span class="hljs-string">"execution(* com.ygdxd.ratelimiter.*.*(..))"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">limit</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="hljs-comment">//获取访问目标方法</span></span><br><span class="line">        MethodSignature methodSignature = (MethodSignature)joinPoint.getSignature();</span><br><span class="line">        Method targetMethod = methodSignature.getMethod();</span><br><span class="line">        String apiName = targetMethod.getDeclaringClass().getName() + <span class="hljs-string">"."</span> + targetMethod.getName();</span><br><span class="line">        SemaphoreBucket bucket = BUCKETS.get(apiName);</span><br><span class="line">        <span class="hljs-keyword">if</span> (bucket == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">synchronized</span> (mux) &#123;</span><br><span class="line">                bucket = <span class="hljs-keyword">new</span> SemaphoreBucket(apiName);</span><br><span class="line">                BUCKETS.putIfAbsent(apiName, bucket);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">boolean</span> ack = <span class="hljs-keyword">false</span>;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            ack = bucket.getCount().tryAcquire(<span class="hljs-number">1</span>, TimeUnit.SECONDS);</span><br><span class="line">            <span class="hljs-keyword">if</span> (!ack) &#123;</span><br><span class="line">                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"限流了！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">return</span> joinPoint.proceed();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            LOGGER.error(<span class="hljs-string">"error:"</span>, e);</span><br><span class="line">            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">"失败！"</span>);</span><br><span class="line">        &#125;<span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (ack) &#123;</span><br><span class="line">                bucket.getCount().release();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java hljs"><figcaption><span>SemaphoreBucket.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SemaphoreBucket</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> Semaphore count;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SemaphoreBucket</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">        count = <span class="hljs-keyword">new</span> Semaphore(<span class="hljs-number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Semaphore <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCount</span><span class="hljs-params">(Semaphore count)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h3 id="Pod删除时的动作"><a href="#Pod删除时的动作" class="headerlink" title="Pod删除时的动作"></a>Pod删除时的动作</h3><pre><code>当API服务器接受到删除pod的请求后，它首先会修改etcd中的状态并且把删除事件通知给观察者，其中2个就是kubelet和端点控制器，2个事件是并行的。
+kubelet。kubelet接收到pod终止的通知时,API服务器会给pod设置一个deletionTimestamp，拥有deletionTimestamp的pod就开始停止了。当kubelet发现这个deletionTimestamp，它会按照pod设置的Termination Grace Period时间段内实现优雅停止。这个值可以用过spec.terminationGracePeriodPeriods来设置。
+我们可以通过命令行设置--grace-period=0 --force来强制API服务器删除pod，但是当用这个命令删除StatefulSet的pod的时候,控制器不会等待被删的pod中的容器完成关闭就会创建一个新的pod，这样就会导致同一时间可能有2个相同的pod在同一时间运行。
+kubelet会按顺序执行以下事件
+1.执行pre-stop的勾子命令，等待它执行完毕
+2.向容器主进程发送sigterm信号（这里要注意如果容器是通过一个shell进程执行，然后在shell进程内部执行应用程序，这个信号会被shell吞掉，所以可以在Dockerfile中使用ENTRYPOINT或CMD的exec方式，即ENTRYPOINT [&quot;/java&quot;] 而不是ENTRYPOINT /java）
+3.等待容器优雅关闭或者等待terminationGracePeriodPeriods时间超时
+4.如果容器主进程没有优雅关闭，使用sigkill信号强制终止进程
+当容器关闭后，连接到应用的客户端会 connection refuse。
 
+端点控制器。端点控制器运行在控制面的controller manager中，当它接受到pod删除的事件的时候，它会把所有pod所在的service中移除这个pod的服务端点，它通过向API服务器发送REST请求修改endpoint API对象，API服务器会通知kube-proxy修改自己节点上的iptables规则，移除iptables规则对已连接的客户端不产生影响，这些客户端还可以通过这些连接发生请求。
+因为这2个事件是同时发生，最有可能的是关闭pod的时间比修改iptables规则所消耗的时间少一点，这会导致pod已经关闭但是还是会有一些请求连接到pod上去，并导致连接拒绝错误。
+我们可以延长pod关闭的时间或者pre-stop勾子让程序睡几秒钟等待iptables规则修改，但这会导致pod关闭会很慢。
+</code></pre><h6 id="关闭有状态的pod"><a href="#关闭有状态的pod" class="headerlink" title="关闭有状态的pod"></a>关闭有状态的pod</h6><pre><code>关闭有状态的pod有时候无法保证一些数据在pod关闭前同步到其他节点上去。解决办法是使用一些cronJob来周期性的处理孤立数据。
+
+
+来源&lt;&lt;kubernetes in action&gt;&gt;
+</code></pre>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/k8s/">k8s</a>
+                </div>
+            </div>
         </div>
         
         
@@ -275,9 +221,55 @@
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2022/07/21/hostPort-nodePort/">
+                <span class="level-item">pod绑定hostPort和nodePort服务区别</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 
@@ -1244,7 +1236,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="ygdxd blog!" height="28">
+                    <img src="/images/logo.svg" alt="pod删除时的动作" height="28">
                 
                 </a>
                 <p class="is-size-7">
